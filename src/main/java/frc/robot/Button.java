@@ -22,8 +22,10 @@ public final class Button {
     public static Trigger setDrivePercentOutput = new JoystickButton(leftJoystick, 3); //Left Top 3
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Y Button
 
+    //Outtake Command Buttons
+    public static Trigger outPutsConeOrCube = new JoystickButton(leftJoystick, 1); //Left Top 1
+
     //Unassigned Left Joystick Buttons
-    public static Trigger leftButton1 = new JoystickButton(leftJoystick, 1); //Left Top 1
     public static Trigger leftButton2 = new JoystickButton(leftJoystick, 2); //Left Top 2
     public static Trigger leftButton4 = new JoystickButton(leftJoystick, 4); //Left Top 4
     public static Trigger leftButton5 = new JoystickButton(leftJoystick, 5); //Left Top 5

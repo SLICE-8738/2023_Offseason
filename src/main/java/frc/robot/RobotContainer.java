@@ -9,8 +9,10 @@ import frc.robot.commands.Drivetrain.*;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,6 +39,10 @@ public class RobotContainer {
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
 
+  public final Intake m_Intake = new Intake();
+  public final IntakeCommand m_IntakeCommand = new IntakeCommand();
+  public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -59,6 +65,8 @@ public class RobotContainer {
     Button.setDrivePercentOutput.whileTrue(m_setDrivePercentOutput);
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
 
+    //
+    Button.outPutsConeOrCube.whileTrue(m_OutTakeCommand);
   }
 
   /**
