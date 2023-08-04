@@ -60,13 +60,14 @@ public class Intake extends SubsystemBase {
     
   }
 
-  
+  /* This method will make sure the arm does not hit the elevator by preventing it from going past a certain position */
   public void armCheck(){
-  
+    //This method has yet to be implemented
   }
 
+  /* This method will make sure the wrist does not extend backwards farther than it should by preventing it from going past a certain position */
   public void wristCheck(){
-
+    //This method has yet to be implemented
   }
 
 
