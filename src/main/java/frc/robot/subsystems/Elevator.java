@@ -23,6 +23,7 @@ public class Elevator extends SubsystemBase {
   private DigitalInput limitySwitchy1, limitySwitchy2;
   private SparkMaxPIDController PIDLeft, PIDRight;
   private RelativeEncoder encoderLeft, encoderRight;
+  private boolean lock = true;
   public Elevator() {
     motorLeft = new CANSparkMax(1, MotorType.kBrushless);
     motorRight = new CANSparkMax(2, MotorType.kBrushless);
@@ -45,9 +46,11 @@ public class Elevator extends SubsystemBase {
   public void setPIDController(double positionsetament) {
     motorLeft.set(1);                                                            // Reset speed to zoomy mode
     motorRight.set(1);
+    lock = true;
 
     if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                            // If either limit switch is active
       if (positionsetament>(encoderLeft.getPosition()*encoderRight.getPosition())) {   // If desired set position is greater than average current position, then move
+        lock = false;
         PIDLeft.setReference(positionsetament, ControlType.kPosition);
         PIDRight.setReference(-positionsetament, ControlType.kPosition);
       } 
@@ -62,8 +65,10 @@ public class Elevator extends SubsystemBase {
     limitySwitchy1.get();
     limitySwitchy2.get();
     if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active
-      motorLeft.set(0);
-      motorRight.set(0);
+      if (lock = true) {
+        motorLeft.set(0);
+        motorRight.set(0);}
+      
     }
   }
 }
