@@ -5,6 +5,7 @@
 package frc.robot.commands.Drivetrain.sequences;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -54,6 +55,28 @@ public class Field2dTrajectoryFollowerSequence extends SequentialCommandGroup {
       swerveControllerCommand,
       stopDriveCommand);
       
+  }
+
+  /** Creates a new Field2dTrajectoryFollowerSequence to be used with either a generated double substation or node alignment trajectory. */
+  public Field2dTrajectoryFollowerSequence(Drivetrain drive, Trajectory trajectory) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    //SetVisionImplementationCommand preventVisionImplementation = new SetVisionImplementationCommand(drive, true);
+    SetField2dCommand setField2dCommand = new SetField2dCommand(trajectory, drive);
+    PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, trajectory);
+    SwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generateSwerveControllerCommand(drive, trajectory);
+    InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
+    //SetVisionImplementationCommand allowVisionImplementation = new SetVisionImplementationCommand(drive, false);
+
+    addCommands(
+      //preventVisionImplementation,
+      setField2dCommand,
+      prepareAutoRotationsCommand,
+      swerveControllerCommand,
+      stopDriveCommand/*,
+      allowVisionImplementation*/
+    );
+
   }
 
 }

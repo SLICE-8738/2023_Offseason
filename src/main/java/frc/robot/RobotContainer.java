@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.auto.AutoSelector;
+import frc.robot.commands.LambdaCommand;
 import frc.robot.commands.Drivetrain.*;
 import frc.robot.subsystems.*;
 
@@ -29,13 +30,16 @@ public class RobotContainer {
   public final Drivetrain m_drivetrain = new Drivetrain();
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
-  
+  public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain);
+
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
 
   public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true);
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
+
+  public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
