@@ -57,6 +57,9 @@ public class Elevator extends SubsystemBase {
     PIDLeft.setReference(positionsetament, ControlType.kPosition);                    // If limit switches aren't active, then move
     PIDRight.setReference(-positionsetament, ControlType.kPosition);
   }
+  public double getElevatorHeight() {
+    return (encoderLeft.getPosition()*encoderRight.getPosition());
+  }
 
   @Override
   public void periodic() {
