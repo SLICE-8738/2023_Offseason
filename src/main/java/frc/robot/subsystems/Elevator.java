@@ -45,11 +45,11 @@ public class Elevator extends SubsystemBase {
   public void setPIDController(double positionsetament) {
     motorLeft.set(1);                                                            // Reset speed to zoomy mode
     motorRight.set(1);
-    lock = true;
+    lock = true;                                                                       // Enable limit switch locking
 
     if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                            // If either limit switch is active
       if (positionsetament>(encoderLeft.getPosition()*encoderRight.getPosition())) {   // If desired set position is greater than average current position, then move
-        lock = false;
+        lock = false;                                                                  // Disable locking 
         PIDLeft.setReference(positionsetament, ControlType.kPosition);
         PIDRight.setReference(-positionsetament, ControlType.kPosition);
       } 
@@ -63,8 +63,8 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     limitySwitchy1.get();
     limitySwitchy2.get();
-    if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active
-      if (lock = true) {
+    if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active and locking is set to true
+      if (lock = true) {                      
         motorLeft.set(0);
         motorRight.set(0);}
       
