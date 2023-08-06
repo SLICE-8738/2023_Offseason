@@ -10,13 +10,14 @@ import frc.robot.auto.AutoSelector.StartingPosition;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -28,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
   //private final SparkMaxSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
   private final BaseNEOSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
 
-  private final SwerveDriveOdometry m_swerveDrivetrainOdometry;
+  private final SwerveDrivePoseEstimator m_swerveOdometry;
 
   private final AHRS navXGyro;
 
@@ -67,7 +68,7 @@ public class Drivetrain extends SubsystemBase {
     // Creates and pushes Field2d to SmartDashboard.
     SmartDashboard.putData(m_field2d);
 
-    m_swerveDrivetrainOdometry = new SwerveDriveOdometry(
+    m_swerveOdometry = new SwerveDrivePoseEstimator(
       Constants.kDrivetrain.kSwerveKinematics, 
       getRotation2d(), 
       getPositions(),
@@ -288,7 +289,23 @@ public class Drivetrain extends SubsystemBase {
    */
   public Pose2d updateOdometry() {
 
-    return m_swerveDrivetrainOdometry.update(getRotation2d(), getPositions());
+    m_swerveOdometry.update(getRotation2d(), getPositions());
+
+    /*Pose2d botPose = Limelight.getCurrentBotPoseBlue();
+    Translation2d botTranslationTargetSpace = Limelight.getLastBotTranslationTargetSpace();
+
+      if(
+        (botPose != null && 
+        botTranslationTargetSpace != null &&
+        (Math.abs(botPose.getX() - getPose().getX()) <= 0.5 && Math.abs(botPose.getY() - getPose().getY()) <= 0.5) && 
+        (Math.abs(botTranslationTargetSpace.getX()) < 1 && Math.abs(botTranslationTargetSpace.getY()) < 1)) || 
+        DriverStation.isDisabled()) {
+
+        m_swerveOdometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
+  
+      }*/
+
+    return m_swerveOdometry.getEstimatedPosition();
 
   }
 
@@ -299,7 +316,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current estimated pose of the robot.
    */
   public Pose2d getPose() {
-    return m_swerveDrivetrainOdometry.getPoseMeters();
+    return m_swerveOdometry.getEstimatedPosition();
   }
 
   /**
@@ -394,7 +411,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetOdometry(Pose2d position) {
 
-    m_swerveDrivetrainOdometry.resetPosition(getRotation2d(), getPositions(), position);
+    m_swerveOdometry.resetPosition(getRotation2d(), getPositions(), position);
 
   }
 
