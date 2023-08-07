@@ -31,13 +31,17 @@ public class RobotContainer {
   private static GenericHID driverController = Button.driverController;
 
   // The robot's subsystems and commands are defined here...
-  public final Drivetrain m_drivetrain = new Drivetrain();
 
+  //Subsystems
+  public final Drivetrain m_drivetrain = new Drivetrain();
+  public final Limelight m_limelight = new Limelight();
+
+  //Other Instantiated Classes
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain);
-
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
 
+  //Commands
   public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true);
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);

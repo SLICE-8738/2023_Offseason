@@ -10,7 +10,7 @@ import frc.robot.auto.AutoSelector.StartingPosition;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -291,19 +291,19 @@ public class Drivetrain extends SubsystemBase {
 
     m_swerveOdometry.update(getRotation2d(), getPositions());
 
-    /*Pose2d botPose = Limelight.getCurrentBotPoseBlue();
-    Translation2d botTranslationTargetSpace = Limelight.getLastBotTranslationTargetSpace();
+    Pose2d botPose = Limelight.getCurrentBotPoseBlue();
+    Pose2d botPoseTargetSpace = Limelight.getBotPoseTargetSpace();
 
       if(
-        (botPose != null && 
-        botTranslationTargetSpace != null &&
-        (Math.abs(botPose.getX() - getPose().getX()) <= 0.5 && Math.abs(botPose.getY() - getPose().getY()) <= 0.5) && 
-        (Math.abs(botTranslationTargetSpace.getX()) < 1 && Math.abs(botTranslationTargetSpace.getY()) < 1)) || 
+        botPose != null && 
+        (botPoseTargetSpace != null &&
+        (Math.abs(botPose.getX() - getPose().getX()) <= 0.5 && Math.abs(botPose.getY() - getPose().getY()) <= 0.5) &&
+        (Math.abs(botPoseTargetSpace.getX()) < 1 && Math.abs(botPoseTargetSpace.getY()) < 1)) || 
         DriverStation.isDisabled()) {
 
         m_swerveOdometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
   
-      }*/
+      }
 
     return m_swerveOdometry.getEstimatedPosition();
 
