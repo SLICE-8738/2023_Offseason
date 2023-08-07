@@ -7,9 +7,13 @@ package frc.robot;
 import frc.robot.auto.AutoSelector;
 import frc.robot.commands.LambdaCommand;
 import frc.robot.commands.Drivetrain.*;
+import frc.robot.commands.Drivetrain.sequences.TestTrajectoryFollowerSequence;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
 
@@ -38,6 +42,8 @@ public class RobotContainer {
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
+  public final LambdaCommand m_linearControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(-3, 2), new Rotation2d())));
+  public final LambdaCommand m_thetaControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(0, 0), Rotation2d.fromDegrees(270))));
 
   public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
 
