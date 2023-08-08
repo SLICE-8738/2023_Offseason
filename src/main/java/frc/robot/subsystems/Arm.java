@@ -13,51 +13,58 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase {
+public class Arm extends SubsystemBase {
 
   //initiating CANSparkMax motors
-  private CANSparkMax lowerArmMotor;
-  private CANSparkMax higherArmMotor;
+  private CANSparkMax armMotor;
+  private CANSparkMax wristMotor;
 
   //initiating relative encoders for the CANSparkMaxs Encoders and PIDControllers
-  private RelativeEncoder lowerMotorEncoder, higherMotorEncoder;
+  private RelativeEncoder armMotorEncoder, wristMotorEncoder;
 
-  private SparkMaxPIDController lowerMotorController, higherMotorController;
+  private SparkMaxPIDController armMotorController, wristMotorController;
 
 
-  /** Creates a new Intake. */
-  public Intake() {
+  /** Creates a new Arm Subsytem. */
+  public Arm() {
     
     //defining CANSparkMax Motors
-    lowerArmMotor = new CANSparkMax(Constants.kArm.LOWER_MOTOR_ID, MotorType.kBrushless);
-    higherArmMotor = new CANSparkMax(Constants.kArm.UPPER_MOTOR_ID, MotorType.kBrushless);
+    armMotor = new CANSparkMax(Constants.kArm.ARM_MOTOR_ID, MotorType.kBrushless);
+    wristMotor = new CANSparkMax(Constants.kArm.WRIST_MOTOR_ID, MotorType.kBrushless);
 
     //defining motor encoders
-    lowerMotorEncoder = lowerArmMotor.getEncoder();
-    higherMotorEncoder = higherArmMotor.getEncoder();
+    armMotorEncoder = armMotor.getEncoder();
+    wristMotorEncoder = wristMotor.getEncoder();
 
     //defining PID motor Controllers
-    lowerMotorController = lowerArmMotor.getPIDController();
-    higherMotorController = higherArmMotor.getPIDController();
+    armMotorController = armMotor.getPIDController();
+    wristMotorController = wristMotor.getPIDController();
 
     //Setting the P, I(not), and D Gain for the lower motor
-    lowerMotorController.setP(0);
-    lowerMotorController.setD(0);
+    armMotorController.setP(0);
+    armMotorController.setI(0);
+    armMotorController.setD(0);
     //Setting the P, I(not), and D Gain for the higher motor
-    higherMotorController.setP(0);
-    higherMotorController.setD(0);
-
+    wristMotorController.setP(0);
+    wristMotorController.setI(0);
+    wristMotorController.setD(0);
 
   }
 
   /**
-   * This method sets the reference for the motors PID Controller
+   * This method sets the reference for arm's CanSparkMax PID Controller
    * @param value
    */
   public void setArmController(double value){
-    lowerMotorController.setReference(value, ControlType.kPosition);
-    higherMotorController.setReference(value, ControlType.kPosition);
-    
+    armMotorController.setReference(value, ControlType.kPosition);
+  }
+
+  /**
+   * This method sets the reference for the wrist's CanSparkMax PID Controller 
+   * @param value
+   */
+  public void setWristController(double value){
+    wristMotorController.setReference(value, ControlType.kPosition);
   }
 
   /* This method will make sure the arm does not hit the elevator by preventing it from going past a certain position */
@@ -75,7 +82,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    lowerMotorEncoder.getPosition();
-    higherMotorEncoder.getPosition();
+    armMotorEncoder.getPosition();
+    wristMotorEncoder.getPosition();
   }
 }

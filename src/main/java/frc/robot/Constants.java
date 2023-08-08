@@ -187,8 +187,8 @@ public final class Constants {
       }
 
       public static final class kArm {
-        public static final int LOWER_MOTOR_ID = 3;
-        public static final int UPPER_MOTOR_ID = 4;
+        public static final int ARM_MOTOR_ID = 3;
+        public static final int WRIST_MOTOR_ID = 4;
       }
 
 }
