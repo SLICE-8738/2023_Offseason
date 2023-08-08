@@ -27,8 +27,17 @@ import frc.robot.subsystems.Drivetrain;
  * drive autonomously.
  * 
  */
-@SuppressWarnings("resource")
 public class TrajectoryCommands {
+
+    public static final PIDController xController = new PIDController(Constants.kAutonomous.kPXController, 0, 0);
+    public static final PIDController yController = new PIDController(Constants.kAutonomous.kPYController, 0, 0);
+
+    public static final ProfiledPIDController thetaProfiledController = new ProfiledPIDController(
+        Constants.kAutonomous.kPThetaController,
+        0,
+        0,
+        Constants.kAutonomous.kThetaControllerConstraints);
+    public static final PIDController thetaController = new PIDController(Constants.kAutonomous.kPThetaController, 0, 0);
 
     public static SwerveControllerCommand generateSwerveControllerCommand(Drivetrain drive, Trajectory trajectory, boolean useTrajectoryRotations) {
 
@@ -38,13 +47,9 @@ public class TrajectoryCommands {
                 trajectory,
                 drive::getPose,
                 Constants.kDrivetrain.kSwerveKinematics,
-                    new PIDController(Constants.kAutonomous.kPXController, 0, 0),
-                    new PIDController(Constants.kAutonomous.kPYController, 0, 0),
-                    new ProfiledPIDController(
-                        Constants.kAutonomous.kPThetaController,
-                        0,
-                        0,
-                        Constants.kAutonomous.kThetaControllerConstraints),
+                xController,
+                yController,
+                thetaProfiledController,
                 drive::getAutoTrajectoryRotation,
                 //SwerveControllerCommand passes output module states to the callback
                 drive::setModuleStates,
@@ -56,13 +61,9 @@ public class TrajectoryCommands {
                 trajectory,
                 drive::getPose,
                 Constants.kDrivetrain.kSwerveKinematics,
-                    new PIDController(Constants.kAutonomous.kPXController, 0, 0),
-                    new PIDController(Constants.kAutonomous.kPYController, 0, 0),
-                    new ProfiledPIDController(
-                        Constants.kAutonomous.kPThetaController,
-                        0,
-                        0,
-                        Constants.kAutonomous.kThetaControllerConstraints),
+                xController,
+                yController,
+                thetaProfiledController,
                 //SwerveControllerCommand passes output module states to the callback
                 drive::setModuleStates,
                 drive);
@@ -77,9 +78,9 @@ public class TrajectoryCommands {
             trajectory,
             drive::getPose,
             Constants.kDrivetrain.kSwerveKinematics,
-                new PIDController(Constants.kAutonomous.kPXController, 0, 0),
-                new PIDController(Constants.kAutonomous.kPYController, 0, 0),
-                new PIDController(Constants.kAutonomous.kPThetaController, 0, 0),
+                xController,
+                yController,
+                thetaController,
             //SwerveControllerCommand passes output module states to the callback
             drive::setModuleStates,
             drive);

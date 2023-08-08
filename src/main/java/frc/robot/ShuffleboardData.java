@@ -29,6 +29,9 @@ public class ShuffleboardData {
         new DrivetrainData(drivetrain);
         new AutoData(autoSelector);
 
+        new ShuffleboardPIDWidget(TrajectoryCommands.xController);
+        //new ShuffleboardPIDWidget(TrajectoryCommands.thetaProfiledController);
+
     }
 
     public class DrivetrainData {
@@ -116,7 +119,11 @@ public class ShuffleboardData {
             /*driverTab.add(CameraServer.startAutomaticCapture()).
             withWidget(BuiltInWidgets.kCameraStream).
             withPosition(1, 0).
-            withSize(3, 3);*/
+            withSize(3, 2);*/
+
+            /*driverTab.addCamera("Limelight", "limelight-slice-1", "http://10.87.38.73:5800").
+            withPosition(5, 0).
+            withSize(3, 2);*/
 
         }
 

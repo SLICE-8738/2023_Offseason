@@ -86,11 +86,6 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
-    SmartDashboard.putNumber("Front Left Integrated Speed", leftModuleFront.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Front Right Integrated Speed", rightModuleFront.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Back Left Integrated Speed", leftModuleBack.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Back Right Integrated Speed", rightModuleBack.getState().speedMetersPerSecond);
-
   }
 
   @Override
