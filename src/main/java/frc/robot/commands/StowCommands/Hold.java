@@ -2,14 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Drivetrain;
+package frc.robot.commands.StowCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Arm.StowState;
+import frc.robot.subsystems.Intake;
 
-public class GoToPosition extends CommandBase {
-  /** Creates a new GoToPosition. */
-  public GoToPosition() {
+
+public class Hold extends CommandBase {
+  private Arm arm;
+  private Intake intake;
+  /** Creates a new Hold. */
+  public Hold() {
     // Use addRequirements() here to declare subsystem dependencies.
+    arm = new Arm();
+    intake = new Intake();
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +26,15 @@ public class GoToPosition extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (Arm.stowState == StowState.Nothing) {
+
+    } else if (Arm.stowState == StowState.Cube) {
+        arm.spinArm(0.2);
+    } else if (Arm.stowState == StowState.Cone) {
+        intake.IntakeSpinHoldUp();
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -30,6 +46,3 @@ public class GoToPosition extends CommandBase {
     return false;
   }
 }
-
-// 1) Xe>-10^e  The arm angle can not go pass -10 degrees 
-// 2)uCos(Xe)+wCos(Xg)<l+aSin(Xe)+wSin(Xe+Xw)
