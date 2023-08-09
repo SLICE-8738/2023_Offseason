@@ -64,6 +64,9 @@ public class Arm extends SubsystemBase {
     armMotorController.setReference(value, ControlType.kPosition);
   }
 
+  public void spinArmMotor(double value){
+    armMotor.set(0.3);
+  }
   /**
    * This method sets the reference for the wrist's CanSparkMax PID Controller 
    * @param value
@@ -71,6 +74,8 @@ public class Arm extends SubsystemBase {
   public void setWristController(double value){
     wristMotorController.setReference(value, ControlType.kPosition);
   }
+
+  
 
   /* This method will make sure the arm does not hit the elevator by preventing it from going past a certain position */
   public void armCheck(){
