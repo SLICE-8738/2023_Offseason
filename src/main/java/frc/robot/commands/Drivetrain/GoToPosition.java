@@ -30,3 +30,6 @@ public class GoToPosition extends CommandBase {
     return false;
   }
 }
+
+// 1) Xe>-10^e  The arm angle can not go pass -10 degrees 
+// 2)uCos(Xe)+wCos(Xg)<l+aSin(Xe)+wSin(Xe+Xw)
