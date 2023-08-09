@@ -77,12 +77,16 @@ public class Arm extends SubsystemBase {
     //This method has yet to be implemented
   }
 
+  public double armReturn(){
+    return armMotorEncoder.getPosition();
+  }
 
+  public double wristReturn(){
+    return wristMotorEncoder.getPosition();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    armMotorEncoder.getPosition();
-    wristMotorEncoder.getPosition();
   }
 }
