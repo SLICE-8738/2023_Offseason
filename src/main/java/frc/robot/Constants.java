@@ -186,4 +186,9 @@ public final class Constants {
                 kMaxAngularVelocityRadiansPerSecond, kMaxAngularAccelerationRadiansPerSecondSquared);
       }
 
+      public static final class kArm {
+        public static final int ARM_MOTOR_ID = 3;
+        public static final int WRIST_MOTOR_ID = 4;
+      }
+
 }

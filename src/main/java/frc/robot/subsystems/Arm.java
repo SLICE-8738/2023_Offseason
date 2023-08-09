@@ -69,7 +69,7 @@ public class Arm extends SubsystemBase {
 
   /* This method will make sure the arm does not hit the elevator by preventing it from going past a certain position */
   public void armCheck(){
-    // TODO: This method has yet to be implemented
+    //This method has yet to be implemented
   }
 
   /* This method will make sure the wrist does not extend backwards farther than it should by preventing it from going past a certain position */
@@ -77,12 +77,24 @@ public class Arm extends SubsystemBase {
     //This method has yet to be implemented
   }
 
+  /**
+   * 
+   * @return the position of the arm motor in rotations
+   */
+  public double armReturn(){
+    return armMotorEncoder.getPosition();
+  }
 
+  /**
+   * 
+   * @return the position of the wrist motor in rotations
+   */
+  public double wristReturn(){
+    return wristMotorEncoder.getPosition();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    armMotorEncoder.getPosition();
-    wristMotorEncoder.getPosition();
   }
 }
