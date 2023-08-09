@@ -231,7 +231,7 @@ public class Limelight extends SubsystemBase {
           (initialPosition.getX() + finalPosition.getX()) / 2, 
           (initialPosition.getY() + finalPosition.getY()) / 2)),
         finalPosition, 
-        new TrajectoryConfig(0.5, 0.2).setKinematics(Constants.Drivetrain.kDriveKinematics));
+        new TrajectoryConfig(0.5, 0.2).setKinematics(Constants.kDrivetrain.kSwerveKinematics));
   
     }
     else {
