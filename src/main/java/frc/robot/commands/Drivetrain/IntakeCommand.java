@@ -5,14 +5,17 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends CommandBase {
   private Intake Intake; 
+  private Arm Arm;
   /** Creates a new IntakeCommand. */
-  public IntakeCommand() {
+  public IntakeCommand(Intake intake, Arm arm) {
     // Use addRequirements() here to declare subsystem dependencies.
-    Intake = new Intake();
+    Intake = intake;
+    Arm = arm;
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +31,7 @@ public class IntakeCommand extends CommandBase {
     //"cube" is a place holder
     if (cube == true){
       Intake.IntakeSpinUp(); 
+      Arm.wristSecureCube();
     }
     //"cone" is a place holder 
     else if (cone == true){
