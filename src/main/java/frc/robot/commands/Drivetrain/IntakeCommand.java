@@ -7,6 +7,7 @@ package frc.robot.commands.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm.StowState;
 
 public class IntakeCommand extends CommandBase {
   private Intake Intake; 
@@ -28,13 +29,13 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void execute() {
     //Checks to see if it's a cone or cube being picked up and spins in the appropriate direction. 
-    //"cube" is a place holder
-    if (cube == true){
+
+    if (Arm.stowState == StowState.Cube){
       Intake.IntakeSpinUp(); 
       Arm.wristSecureCube();
     }
-    //"cone" is a place holder 
-    else if (cone == true){
+
+    else if (Arm.stowState == StowState.Cone){
       Intake.IntakeSpinOut();
     }
   }

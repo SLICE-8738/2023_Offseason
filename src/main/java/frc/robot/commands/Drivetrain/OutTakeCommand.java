@@ -5,7 +5,9 @@
 package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm.StowState;
 
 public class OutTakeCommand extends CommandBase {
   /** Creates a new OutTakeCommand. */
@@ -27,11 +29,11 @@ public class OutTakeCommand extends CommandBase {
   public void execute() {
     //Checks to see if it's a cone or cube being spit out and spins in the appropriate direction. 
     //"cube" is a place holder
-    if (cube == true){
+    if (Arm.stowState == StowState.Cube){
       Intake.IntakeSpinOut(); 
     }
     //"cone" is a place holder 
-    else if (cone == true){
+    else if (Arm.stowState == StowState.Cone){
       Intake.IntakeSpinUp();
     }
   }
