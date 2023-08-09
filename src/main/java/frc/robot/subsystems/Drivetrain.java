@@ -10,7 +10,7 @@ import frc.robot.auto.AutoSelector.StartingPosition;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DriverStation;
+//import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -286,7 +286,7 @@ public class Drivetrain extends SubsystemBase {
 
     m_swerveOdometry.update(getRotation2d(), getPositions());
 
-    Pose2d botPose = Limelight.getCurrentBotPoseBlue();
+    /*Pose2d botPose = Limelight.getCurrentBotPoseBlue();
     Pose2d botPoseTargetSpace = Limelight.getBotPoseTargetSpace();
 
       if(
@@ -298,7 +298,7 @@ public class Drivetrain extends SubsystemBase {
 
         m_swerveOdometry.addVisionMeasurement(botPose, Timer.getFPGATimestamp());
   
-      }
+      }*/
 
     return m_swerveOdometry.getEstimatedPosition();
 

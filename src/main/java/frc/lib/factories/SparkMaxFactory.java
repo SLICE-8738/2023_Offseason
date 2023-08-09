@@ -66,7 +66,7 @@ public class SparkMaxFactory {
         0.0,
         0.0,
         80,
-        1000,
+        750,
         1000);
 
     private static final Configuration kDefaultAngleConfiguration = new Configuration(

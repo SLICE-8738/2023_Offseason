@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public final class Button {
@@ -19,12 +20,14 @@ public final class Button {
     public static GenericHID driverController = new GenericHID(Constants.kController.DRIVER_CONTROLLER_PORT);
 
     //Drivetrain Command Buttons
-    public static Trigger setDrivePercentOutput = new JoystickButton(leftJoystick, 3); //Left Top 3
+    public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 8); //Driver Right Trigger
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Y Button
+    public static Trigger setInitialPosition = new POVButton(driverController, 0); //Driver D-Pad Up 
 
     //Unassigned Left Joystick Buttons
     public static Trigger leftButton1 = new JoystickButton(leftJoystick, 1); //Left Top 1
     public static Trigger leftButton2 = new JoystickButton(leftJoystick, 2); //Left Top 2
+    public static Trigger leftButton3 = new JoystickButton(leftJoystick, 3); //Left Top 3
     public static Trigger leftButton4 = new JoystickButton(leftJoystick, 4); //Left Top 4
     public static Trigger leftButton5 = new JoystickButton(leftJoystick, 5); //Left Top 5
     public static Trigger leftButton6 = new JoystickButton(leftJoystick, 6); //Left Top 6
@@ -56,10 +59,18 @@ public final class Button {
     public static Trigger driverButton5 = new JoystickButton(driverController, 5); //Driver Left Bumper
     public static Trigger driverButton6 = new JoystickButton(driverController, 6); //Driver Right Bumper
     public static Trigger driverButton7 = new JoystickButton(driverController, 7); //Driver Left Trigger
-    public static Trigger driverButton8 = new JoystickButton(driverController, 8); //Driver Right Trigger
     public static Trigger driverButton9 = new JoystickButton(driverController, 9); //Driver Back Button
     public static Trigger driverButton10 = new JoystickButton(driverController, 10); //Driver Start Button
     public static Trigger driverButton11 = new JoystickButton(driverController, 11); //Driver Left Stick Push
     public static Trigger driverButton12 = new JoystickButton(driverController, 12); //Driver Right Stick Push
+
+    //Unassigned Driver Controller POV Buttons
+    public static Trigger driverPOVButtonUpRight = new POVButton(driverController, 45); //Driver D-Pad Up Right
+    public static Trigger driverPOVButtonRight = new POVButton(driverController, 90); //Driver D-Pad Right
+    public static Trigger driverPOVButtonDownRight = new POVButton(driverController, 135); //Driver D-Pad Down Right
+    public static Trigger driverPOVButtonDown = new POVButton(driverController, 180); //Driver D-Pad Down
+    public static Trigger driverPOVButtonDownLeft = new POVButton(driverController, 225); //Driver D-Pad Down Left
+    public static Trigger driverPOVButtonLeft = new POVButton(driverController, 270); //Driver D-Pad Left
+    public static Trigger driverPOVButtonUpLeft = new POVButton(driverController, 315); //Driver D-Pad Up Left
 
 }
