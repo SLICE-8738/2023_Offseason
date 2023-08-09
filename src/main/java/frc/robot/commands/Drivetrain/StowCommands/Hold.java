@@ -30,10 +30,9 @@ public class Hold extends CommandBase {
     if (Arm.stowState == StowState.Nothing) {
 
     } else if (Arm.stowState == StowState.Cube) {
-      
+        arm.spinArm(0.2);
     } else if (Arm.stowState == StowState.Cone) {
-        intake.IntakeSpinUp();
-      
+        intake.IntakeSpinHoldUp();
     }
   }
 

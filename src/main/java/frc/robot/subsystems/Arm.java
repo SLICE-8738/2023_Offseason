@@ -64,7 +64,11 @@ public class Arm extends SubsystemBase {
     armMotorController.setReference(value, ControlType.kPosition);
   }
 
-  public void spinArmMotor(double value){
+  /**
+   * 
+   * @param value Speed to spin arm motor
+   */
+  public void spinArm(double value){
     armMotor.set(0.3);
   }
   /**

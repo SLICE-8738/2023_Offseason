@@ -30,6 +30,11 @@ public class Intake extends SubsystemBase {
     IntakeMotor.set(-0.4);
   }
 
+  /** Makes motor spin at a slower rate for holding in place */
+  public void IntakeSpinHoldUp() {
+    IntakeMotor.set(0.2);
+  }
+
   /** Makes motor stop spinning */
   private void IntakeStopSpinning(){
     IntakeMotor.set(0.0);
