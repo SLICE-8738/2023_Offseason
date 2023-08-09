@@ -192,7 +192,7 @@ public final class Constants {
 
 
         public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
-        public static final double ARM_SPROCKET_RATIO = 1.0 / 1.0; // TODO: Find this value
+        public static final double ARM_SPROCKET_RATIO = 18.0 / 60.0;
         public static final double ARM_POSITIONAL_CONVERSION_FACTOR = ARM_GEAR_RATIO * ARM_SPROCKET_RATIO * 360.0;
         public static final double ARM_VELOCITY_CONVERSION_FACTOR = ARM_POSITIONAL_CONVERSION_FACTOR / 60.0;
 
