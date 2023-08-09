@@ -54,6 +54,12 @@ public class Arm extends SubsystemBase {
     wristMotorController.setI(0);
     wristMotorController.setD(0);
 
+    armMotorEncoder.setPositionConversionFactor(Constants.kArm.ARM_POSITIONAL_CONVERSION_FACTOR);
+    armMotorEncoder.setVelocityConversionFactor(Constants.kArm.ARM_VELOCITY_CONVERSION_FACTOR);
+
+    wristMotorEncoder.setPositionConversionFactor(Constants.kArm.WRIST_POSITIONAL_CONVERSION_FACTOR);
+    wristMotorEncoder.setVelocityConversionFactor(Constants.kArm.WRIST_VELOCITY_CONVERSION_FACTOR);
+
   }
 
   /**
