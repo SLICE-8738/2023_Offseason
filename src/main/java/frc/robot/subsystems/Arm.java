@@ -15,6 +15,10 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
 
+  public enum StowState {
+    Cone, Cube, Nothing
+  };
+
   //initiating CANSparkMax motors
   private CANSparkMax armMotor;
   private CANSparkMax wristMotor;
@@ -23,11 +27,12 @@ public class Arm extends SubsystemBase {
   private RelativeEncoder armMotorEncoder, wristMotorEncoder;
 
   private SparkMaxPIDController armMotorController, wristMotorController;
+  public static StowState stowState;
 
 
   /** Creates a new Arm Subsytem. */
   public Arm() {
-    
+    stowState = StowState.Nothing;
     //defining CANSparkMax Motors
     armMotor = new CANSparkMax(Constants.kArm.ARM_MOTOR_ID, MotorType.kBrushless);
     wristMotor = new CANSparkMax(Constants.kArm.WRIST_MOTOR_ID, MotorType.kBrushless);
@@ -83,6 +88,14 @@ public class Arm extends SubsystemBase {
    */
   public double armReturn(){
     return armMotorEncoder.getPosition();
+  }
+
+  public double getWristOutput() {
+    return wristMotor.getOutputCurrent();
+  }
+
+  public double getArmOutput() {
+    return armMotor.getOutputCurrent();
   }
 
   /**
