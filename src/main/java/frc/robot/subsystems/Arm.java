@@ -77,10 +77,18 @@ public class Arm extends SubsystemBase {
     //This method has yet to be implemented
   }
 
+  /**
+   * 
+   * @return the position of the arm motor in rotations
+   */
   public double armReturn(){
     return armMotorEncoder.getPosition();
   }
 
+  /**
+   * 
+   * @return the position of the wrist motor in rotations
+   */
   public double wristReturn(){
     return wristMotorEncoder.getPosition();
   }
