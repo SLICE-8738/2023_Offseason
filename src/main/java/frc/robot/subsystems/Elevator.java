@@ -4,15 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -41,7 +38,11 @@ public class Elevator extends SubsystemBase {
     PIDLeft.setD(0);
     PIDRight.setD(0);
   }
-    
+  
+  /**
+   * 
+   * @param positionsetament Position to set the elevator to.
+   */
   public void setPIDController(double positionsetament) {
     motorLeft.set(1);                                                            // Reset speed to zoomy mode
     motorRight.set(1);
@@ -57,8 +58,13 @@ public class Elevator extends SubsystemBase {
     PIDLeft.setReference(positionsetament, ControlType.kPosition);                    // If limit switches aren't active, then move
     PIDRight.setReference(-positionsetament, ControlType.kPosition);
   }
+
+  /**
+   * 
+   * @return Gives height in rotations
+   */
   public double getElevatorHeight() {
-    return (encoderLeft.getPosition()*encoderRight.getPosition());
+    return (encoderLeft.getPosition());
   }
 
   @Override
@@ -67,7 +73,7 @@ public class Elevator extends SubsystemBase {
     limitySwitchy1.get();
     limitySwitchy2.get();
     if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active and locking is set to true
-      if (lock = true) {                      
+      if (lock == true) {                      
         motorLeft.set(0);
         motorRight.set(0);}
       
