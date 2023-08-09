@@ -194,18 +194,18 @@ public final class Constants {
         public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
         public static final double ARM_SPROCKET_RATIO = 1.0 / 1.0; // TODO: Find this value
         public static final double ARM_POSITIONAL_CONVERSION_FACTOR = ARM_GEAR_RATIO * ARM_SPROCKET_RATIO * 360.0;
-        public static final double ARM_VELOCITY_CONVERSION_FACTOR = ARM_POSITIONAL_CONVERSION_FACTOR * 60.0;
+        public static final double ARM_VELOCITY_CONVERSION_FACTOR = ARM_POSITIONAL_CONVERSION_FACTOR / 60.0;
 
         public static final double WRIST_GEAR_RATIO = 1.0 / 5.0;
         public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
         public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_GEAR_RATIO * WRIST_SPROCKET_RATIO * 360.0;
-        public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR * 60.0;
+        public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
       }
 
       public static final class kElevator {
         public static final double ELEVATOR_GEAR_RATIO = 1.0 / 25.0;
         public static final double ELEVATOR_SPROCKET_PITCH_DIAMETER = 0.00462;
         public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 2;
-        public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR * 60.0;
+        public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
       }
 }
