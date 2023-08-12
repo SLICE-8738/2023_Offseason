@@ -43,11 +43,11 @@ public class SparkMaxFactory {
             IDLE_MODE = idleMode;
             INVERTED = inverted;
 
-            OPEN_LOOP_RAMP_RATE = openLoopRampRate;
-            CLOSED_LOOP_RAMP_RATE = closedLoopRampRate;
-
             ENABLE_VOLTAGE_COMPENSATION = enableVoltageCompensation;
             NOMINAL_VOLTAGE = nominalVoltage;
+
+            OPEN_LOOP_RAMP_RATE = openLoopRampRate;
+            CLOSED_LOOP_RAMP_RATE = closedLoopRampRate;
 
             CURRENT_LIMIT = currentLimit;
 
@@ -65,7 +65,7 @@ public class SparkMaxFactory {
         12,
         0.0,
         0.0,
-        80,
+        50,
         750,
         1000);
 

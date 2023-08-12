@@ -61,6 +61,8 @@ public class NodeSelector {
 
     private static SequentialCommandGroup selectedSequence;
 
+    private static Pose2d nodePosition;
+
     private final Drivetrain m_drivetrain;
     //private final Elevator m_elevator;
     //private final Wrist m_wrist;
@@ -208,6 +210,8 @@ public class NodeSelector {
             finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.95:0.5, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         }
 
+        nodePosition = finalPosition;
+
         if(
             selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 16 || selectedNodeIndex == 17 ||
@@ -237,6 +241,12 @@ public class NodeSelector {
     public SequentialCommandGroup getNodeSequence() {
 
         return selectedSequence;
+
+    }
+
+    public static Pose2d getNodePosition() {
+
+        return nodePosition;
 
     }
 

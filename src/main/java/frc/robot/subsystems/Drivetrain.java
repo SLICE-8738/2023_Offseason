@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.*;
-import frc.robot.auto.AutoSelector;
-import frc.robot.auto.AutoSelector.StartingPosition;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -412,36 +410,11 @@ public class Drivetrain extends SubsystemBase {
 
   /**
    * Resets the position of the odometry object to the robot's initial position based
-   * on the selected starting position on Shuffleboard.
+   * on the selected node on the Shuffleboard node selector.
    */
   public void setInitialPosition() {
 
-    StartingPosition startingPosition = AutoSelector.getStoredStartingPosition();
-
-    switch(startingPosition) {
-
-      case BLUE_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(1.83, 4.39, Rotation2d.fromDegrees(180)));
-        break;
-      case BLUE_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(1.83, 2.71, Rotation2d.fromDegrees(180)));
-        break;
-      case BLUE_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(1.83, 1.07, Rotation2d.fromDegrees(180)));
-        break;
-      case RED_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(14.69, 1.07, Rotation2d.fromDegrees(0)));
-        break;
-      case RED_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(14.69, 2.71, Rotation2d.fromDegrees(0)));
-        break;
-      case RED_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(14.69, 4.39, Rotation2d.fromDegrees(0)));
-        break;
-      default:
-        break;
-
-    }
+    resetOdometry(NodeSelector.getNodePosition());
 
   }
 
@@ -450,8 +423,7 @@ public class Drivetrain extends SubsystemBase {
    * @return
    */
   public void resetFieldOrientedHeading() {
-    double error = getHeading() - 180;
-    fieldOrientedOffset = Rotation2d.fromDegrees(error);
+    fieldOrientedOffset = getRotation2d();
   }
 
   /**
@@ -466,13 +438,22 @@ public class Drivetrain extends SubsystemBase {
   }
   
   /**
-   * Obtains and returns the current heading of the robot going positive counter-clockwise from 0 to 360 degrees from the gyro object.
+   * Obtains and returns the current heading of the robot from 0 to 360 degrees from the gyro object.
    *
-   * @return The current heading of the robot going counter-clockwise positive from 0 to 360 degrees.
+   * @return The current heading of the robot going from 0 to 360 degrees.
    */
   public double getHeading() {
 
-    return Constants.kDrivetrain.INVERT_GYRO? -navXGyro.getYaw() + 180 : navXGyro.getYaw() + 180;
+    if(Constants.kDrivetrain.INVERT_GYRO) {
+
+      return navXGyro.getYaw() <= 0? navXGyro.getYaw() * -1 : 360 - navXGyro.getYaw();
+
+    }
+    else {
+
+      return navXGyro.getYaw() < 0? 360 + navXGyro.getYaw() : navXGyro.getYaw();
+
+    }
 
   }
 
