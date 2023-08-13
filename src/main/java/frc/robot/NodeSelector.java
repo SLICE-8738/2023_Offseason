@@ -120,6 +120,35 @@ public class NodeSelector {
 
     }
 
+    public void updateNodePosition() {
+ 
+        for(int i = 0; i < 27; i ++) {
+
+            GenericEntry currentButton = nodeButtons.get(i);
+
+            if(currentButton.getBoolean(false)) {
+
+                if(currentButton != storedSelectedButton) {
+
+                    System.out.println("Node selection changed, updating position");
+
+                    if(storedSelectedButton != null) {
+
+                        storedSelectedButton.setBoolean(false);
+
+                    }
+
+                    storedSelectedButton = currentButton;
+                    nodePosition = getPositionForIndex(i);
+
+                }
+
+            }
+
+        }
+
+    }
+
     public void updateSequenceCreator() {
 
         for(int i = 0; i < 27; i ++) {
@@ -131,7 +160,7 @@ public class NodeSelector {
 
                 if(currentButton != storedSelectedButton) {
 
-                    System.out.println("Node selection changed, updating selector");
+                    System.out.println("Node selection changed, updating sequence");
 
                     if(storedSelectedButton != null) {
 
@@ -140,6 +169,7 @@ public class NodeSelector {
                     }
 
                     storedSelectedButton = currentButton;
+                    nodePosition = getPositionForIndex(i);
                     selectedSequence = getSequenceForIndex(i);
 
                 }
@@ -147,13 +177,50 @@ public class NodeSelector {
             }
             if(selectedAlliance != storedSelectedAlliance) {
 
-                System.out.println("Alliance selection changed, updating selector");
+                System.out.println("Alliance selection changed, updating sequence");
                 selectedSequence = getSequenceForIndex(nodeButtons.indexOf(storedSelectedButton));
 
             }
 
             storedSelectedAlliance = selectedAlliance;
 
+        }
+
+    }
+
+    public Pose2d getPositionForIndex(int selectedNodeIndex) {
+
+        boolean onBlueAlliance;
+
+        if(allianceSelector.getSelected() == Alliance.BLUE) {
+
+            onBlueAlliance = true;
+
+        }
+        else {
+
+            onBlueAlliance = false;
+
+        }
+
+        if(selectedNodeIndex == 0 || selectedNodeIndex == 9 || selectedNodeIndex == 18) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 0.5:4.95, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 1 || selectedNodeIndex == 10 || selectedNodeIndex == 19) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.06:4.42, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 2 || selectedNodeIndex == 11 || selectedNodeIndex == 20) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.63:3.85, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 3 || selectedNodeIndex == 12 || selectedNodeIndex == 21) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 2.18:3.3, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 4 || selectedNodeIndex == 13 || selectedNodeIndex == 22) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, 2.74, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 5 || selectedNodeIndex == 14 || selectedNodeIndex == 23) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.3:2.18, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 6 || selectedNodeIndex == 15 || selectedNodeIndex == 24) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.85:1.63, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else if(selectedNodeIndex == 7 || selectedNodeIndex == 16 || selectedNodeIndex == 25) {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.42:1.06, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+        } else {
+            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.95:0.5, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         }
 
     }
@@ -190,27 +257,7 @@ public class NodeSelector {
             positionSequence = new GoToStateCommand(m_elevator, m_wrist, Constants.States.LOW_ROW_GROUND_STATE);
         }*/
 
-        if(selectedNodeIndex == 0 || selectedNodeIndex == 9 || selectedNodeIndex == 18) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 0.5:4.95, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 1 || selectedNodeIndex == 10 || selectedNodeIndex == 19) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.06:4.42, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 2 || selectedNodeIndex == 11 || selectedNodeIndex == 20) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.63:3.85, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 3 || selectedNodeIndex == 12 || selectedNodeIndex == 21) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 2.18:3.3, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 4 || selectedNodeIndex == 13 || selectedNodeIndex == 22) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, 2.74, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 5 || selectedNodeIndex == 14 || selectedNodeIndex == 23) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.3:2.18, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 6 || selectedNodeIndex == 15 || selectedNodeIndex == 24) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.85:1.63, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else if(selectedNodeIndex == 7 || selectedNodeIndex == 16 || selectedNodeIndex == 25) {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.42:1.06, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        } else {
-            finalPosition = new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.95:0.5, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
-        }
-
-        nodePosition = finalPosition;
+        finalPosition = nodePosition;
 
         if(
             selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||

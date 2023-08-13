@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
 
     m_robotContainer.m_autoSelector.updateAutoSelector();
+    m_robotContainer.m_nodeSelector.updateNodePosition();
 
   }
 

@@ -193,8 +193,8 @@ public class Drivetrain extends SubsystemBase {
    * and the Y component should be the sideways velocity.
    * 
    * @param transform A Transform2d object representing either the desired field-relative velocities in meters/second for the 
-   *                  robot to move at along the X and Y axes of the field(forwards/backwards from driver POV), or the desired robot-relative forward 
-   *                  and sideways velocities in meters/second for the robot to move at, as well as the desired velocity in radians/second for the 
+   *                  robot to move at along the X and Y axes of the field(forwards/backwards and left/right from driver POV), or the desired robot-relative
+   *                  forward and sideways velocities in meters/second for the robot to move at, as well as the desired velocity in radians/second for the 
    *                  robot to rotate at.
    * 
    * @param isOpenLoop Whether the accordingly generated states for the given velocities should be set using open loop control for the drive motors
@@ -419,8 +419,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * 
-   * @return
+   * Sets the current rotation of the robot as an offset to the rotation used to drive
+   * the robot in field-relative mode.
    */
   public void resetFieldOrientedHeading() {
     fieldOrientedOffset = getRotation2d();
@@ -440,18 +440,20 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Obtains and returns the current heading of the robot from 0 to 360 degrees from the gyro object.
    *
-   * @return The current heading of the robot going from 0 to 360 degrees.
+   * @return The current heading of the robot from 0 to 360 degrees.
    */
   public double getHeading() {
 
+    double yaw = navXGyro.getYaw();
+
     if(Constants.kDrivetrain.INVERT_GYRO) {
 
-      return navXGyro.getYaw() <= 0? navXGyro.getYaw() * -1 : 360 - navXGyro.getYaw();
+      return yaw <= 0? yaw * -1 : 360 - yaw;
 
     }
     else {
 
-      return navXGyro.getYaw() < 0? 360 + navXGyro.getYaw() : navXGyro.getYaw();
+      return yaw < 0? 360 + yaw : yaw;
 
     }
 

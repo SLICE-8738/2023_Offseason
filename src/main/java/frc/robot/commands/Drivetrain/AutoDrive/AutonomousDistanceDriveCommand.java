@@ -6,7 +6,6 @@ package frc.robot.commands.Drivetrain.AutoDrive;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.*;
-import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * drive the robot at given x and y speeds over given x and y distances.
  * 
  * <p> Instances of this command should be used along with a {@link SetInitialPositionCommand} in sequences if 
- * there is no other command resetting the odometry elsewhere in the sequence.
+ * the drivetrain odometry is not being properly reset by a command elsewhere in the sequence or the Limelight.
  */
 public class AutonomousDistanceDriveCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
