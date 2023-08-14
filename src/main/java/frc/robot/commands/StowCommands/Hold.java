@@ -5,6 +5,7 @@
 package frc.robot.commands.StowCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Arm.StowState;
 import frc.robot.subsystems.Intake;
@@ -14,10 +15,11 @@ public class Hold extends CommandBase {
   private Arm arm;
   private Intake intake;
   /** Creates a new Hold. */
-  public Hold() {
+  public Hold(Arm armSubsystem, Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    arm = new Arm();
-    intake = new Intake();
+    arm = armSubsystem;
+    intake = intakeSubsystem;
+    addRequirements(armSubsystem, intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.

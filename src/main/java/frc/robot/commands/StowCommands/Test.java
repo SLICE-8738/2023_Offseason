@@ -18,11 +18,13 @@ public class Test extends CommandBase {
   private Timer timer;
   private boolean tested = false;                                     // Keeps track of if execute has checked stowState
   
-  public Test() {
+  public Test(Arm armSubsystem, Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     timer = new Timer();
-    arm = new Arm();
-    intake = new Intake();
+    
+    arm = armSubsystem;
+    intake = intakeSubsystem;
+    addRequirements(armSubsystem, intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -35,14 +37,13 @@ public class Test extends CommandBase {
   @Override
   public void execute() {
 
-    arm.wristSecureCube();                                           // Runs the motors to test
-    intake.IntakeSpinHoldUp();
-
     if (Arm.stowState == StowState.Cube) {                           // Checks the current stowState's motor, and ends the command if output is greater than the threshold
+    arm.wristSecureCube();    
       if (arm.getArmOutput()>Constants.kArm.CUBE_THRESHOLD) {
         tested = true;
       }
     } else if (Arm.stowState == StowState.Cone) {
+    intake.IntakeSpinHoldUp();
       if (arm.getWristOutput()>Constants.kIntake.CONE_THRESHOLD) {
         tested = true;
       } 
@@ -57,6 +58,8 @@ public class Test extends CommandBase {
     if (timer.get()>1) {
       Arm.stowState = StowState.Nothing;
     }
+    arm.wristReleaseCube();                                         // Stops run motors
+    intake.IntakeStopSpinning();
   }
 
   // Returns true when the command should end.
