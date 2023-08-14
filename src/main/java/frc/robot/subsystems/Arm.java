@@ -74,9 +74,6 @@ public class Arm extends SubsystemBase {
    * 
    * @param value Speed to spin arm motor
    */
-  public void spinArm(double value){
-    armMotor.set(0.3);
-  }
   /**
    * This method sets the reference for the wrist's CanSparkMax PID Controller 
    * @param value

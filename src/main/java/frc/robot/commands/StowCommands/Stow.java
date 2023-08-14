@@ -14,6 +14,7 @@ public class Stow extends SequentialCommandGroup {
   public Stow() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(new Test(), new Hold());
+    // TODO: Add GoToPosition command
   }
 }
