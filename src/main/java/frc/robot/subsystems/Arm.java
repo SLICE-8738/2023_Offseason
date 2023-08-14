@@ -103,10 +103,18 @@ public class Arm extends SubsystemBase {
     return armMotorEncoder.getPosition();
   }
 
+  /**
+   * 
+   * @return Returns output current from wrist motor.
+   */
   public double getWristOutput() {
     return wristMotor.getOutputCurrent();
   }
 
+  /**
+   * 
+   * @return Returns output current from arm motor.
+   */
   public double getArmOutput() {
     return armMotor.getOutputCurrent();
   }

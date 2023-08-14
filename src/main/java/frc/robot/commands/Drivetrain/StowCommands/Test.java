@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Drivetrain.StowCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
@@ -12,15 +13,19 @@ import frc.robot.subsystems.Arm.StowState;
 public class Test extends CommandBase {
   /** Creates a new Test. */
   private Arm arm;
+  Timer timer;
   
   public Test() {
     // Use addRequirements() here to declare subsystem dependencies.
+    timer = new Timer();
     arm = new Arm();
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.restart();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -41,6 +46,6 @@ public class Test extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (timer.get()>1);
   }
 }
