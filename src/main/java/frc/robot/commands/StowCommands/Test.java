@@ -13,7 +13,8 @@ import frc.robot.subsystems.Arm.StowState;
 public class Test extends CommandBase {
   /** Creates a new Test. */
   private Arm arm;
-  Timer timer;
+  private Timer timer;
+  private boolean tested = false;                 // Keeps track of if execute has determined a stow type
   
   public Test() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,13 +31,14 @@ public class Test extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (arm.getWristOutput()>Constants.kIntake.CONE_THRESHOLD) {
-        Arm.stowState = StowState.Cone;
+    if (arm.getWristOutput()>=0) {
+        Arm.stowState = StowState.Nothing;
     } else if (arm.getArmOutput()>Constants.kArm.CUBE_THRESHOLD) {
         Arm.stowState = StowState.Cube;
-    } else {
-        Arm.stowState = StowState.Nothing;
+    } else if (arm.getWristOutput()>Constants.kIntake.CONE_THRESHOLD){
+        Arm.stowState = StowState.Cone;
     }
+    tested = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +47,11 @@ public class Test extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    return (timer.get()>1);
+  public boolean isFinished() {                 // End if execute has determined a stow type, or if 1 second(s) has passed
+    if (tested) {
+      return true;
+    } else {
+      return (timer.get()>1);
+    }
   }
 }
