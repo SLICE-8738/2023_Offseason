@@ -12,44 +12,30 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public final class Button {
 
     //Joysticks
-    public static Joystick leftJoystick = new Joystick(Constants.kJoysticks.LEFT_JOYSTICK_PORT);
-    public static Joystick rightJoystick = new Joystick(Constants.kJoysticks.RIGHT_JOYSTICK_PORT);
+    public static Joystick operatorJoystick = new Joystick(Constants.kJoysticks.JOYSTICK_PORT);
 
     //Controllers
     public static GenericHID driverController = new GenericHID(Constants.kController.DRIVER_CONTROLLER_PORT);
+    public static GenericHID operatorController = new GenericHID(Constants.kController.OPERATOR_CONTROLLER_PORT);
 
     //Drivetrain Command Buttons
-    public static Trigger setDrivePercentOutput = new JoystickButton(leftJoystick, 3); //Left Top 3
+    public static Trigger setDrivePercentOutput = new JoystickButton(operatorJoystick, 3); //Left Top 3
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Y Button
 
     //Outtake Command Buttons
-    public static Trigger outPutsConeOrCube = new JoystickButton(leftJoystick, 1); //Left Top 1
+    public static Trigger outPutsConeOrCube = new JoystickButton(operatorJoystick, 1); //Left Top 1
 
     //Unassigned Left Joystick Buttons
-    public static Trigger leftButton2 = new JoystickButton(leftJoystick, 2); //Left Top 2
-    public static Trigger leftButton4 = new JoystickButton(leftJoystick, 4); //Left Top 4
-    public static Trigger leftButton5 = new JoystickButton(leftJoystick, 5); //Left Top 5
-    public static Trigger leftButton6 = new JoystickButton(leftJoystick, 6); //Left Top 6
-    public static Trigger leftButton7 = new JoystickButton(leftJoystick, 7); //Left Bottom 7
-    public static Trigger leftButton8 = new JoystickButton(leftJoystick, 8); //Left Bottom 8
-    public static Trigger leftButton9 = new JoystickButton(leftJoystick, 9); //Left Bottom 9
-    public static Trigger leftButton10 = new JoystickButton(leftJoystick, 10); //Left Bottom 10
-    public static Trigger leftButton11 = new JoystickButton(leftJoystick, 11); //Left Bottom 11
-    public static Trigger leftButton12 = new JoystickButton(leftJoystick, 12); //Left Bottom 12
-
-    //Unassigned Right Joystick Buttons
-    public static Trigger rightButton1 = new JoystickButton(rightJoystick, 1); //Right Top 1
-    public static Trigger rightButton2 = new JoystickButton(rightJoystick, 2); //Right Top 2
-    public static Trigger rightButton3 = new JoystickButton(rightJoystick, 3); //Right Top 3
-    public static Trigger rightButton4 = new JoystickButton(rightJoystick, 4); //Right Top 4
-    public static Trigger rightButton5 = new JoystickButton(rightJoystick, 5); //Right Top 5
-    public static Trigger rightButton6 = new JoystickButton(rightJoystick, 6); //Right Top 6
-    public static Trigger rightButton7 = new JoystickButton(rightJoystick, 7); //Right Bottom 7
-    public static Trigger rightButton8 = new JoystickButton(rightJoystick, 8); //Right Bottom 8
-    public static Trigger rightButton9 = new JoystickButton(rightJoystick, 9); //Right Bottom 9
-    public static Trigger rightButton10 = new JoystickButton(rightJoystick, 10); //Right Bottom 10
-    public static Trigger rightButton11 = new JoystickButton(rightJoystick, 11); //Right Bottom 11
-    public static Trigger rightButton12 = new JoystickButton(rightJoystick, 12); //Right Bottom 12   
+    public static Trigger oepratorJoystickButton2 = new JoystickButton(operatorJoystick, 2); //Left Top 2
+    public static Trigger oepratorJoystickButton4 = new JoystickButton(operatorJoystick, 4); //Left Top 4
+    public static Trigger oepratorJoystickButton5 = new JoystickButton(operatorJoystick, 5); //Left Top 5
+    public static Trigger oepratorJoystickButton6 = new JoystickButton(operatorJoystick, 6); //Left Top 6
+    public static Trigger oepratorJoystickButton7 = new JoystickButton(operatorJoystick, 7); //Left Bottom 7
+    public static Trigger oepratorJoystickButton8 = new JoystickButton(operatorJoystick, 8); //Left Bottom 8
+    public static Trigger oepratorJoystickButton9 = new JoystickButton(operatorJoystick, 9); //Left Bottom 9
+    public static Trigger oepratorJoystickButton10 = new JoystickButton(operatorJoystick, 10); //Left Bottom 10
+    public static Trigger oepratorJoystickButton11 = new JoystickButton(operatorJoystick, 11); //Left Bottom 11
+    public static Trigger oepratorJoystickButton12 = new JoystickButton(operatorJoystick, 12); //Left Bottom 12
     
     //Unassigned Driver Controller Buttons
     public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver X Button
@@ -63,5 +49,19 @@ public final class Button {
     public static Trigger driverButton10 = new JoystickButton(driverController, 10); //Driver Start Button
     public static Trigger driverButton11 = new JoystickButton(driverController, 11); //Driver Left Stick Push
     public static Trigger driverButton12 = new JoystickButton(driverController, 12); //Driver Right Stick Push
+
+        //Unassigned Driver Controller Buttons
+        public static Trigger operatorControllerButton1 = new JoystickButton(operatorController, 1); //Driver X Button
+        public static Trigger operatorControllerButton2 = new JoystickButton(operatorController, 2); //Driver A Button
+        public static Trigger operatorControllerButton3 = new JoystickButton(operatorController, 3); //Driver B Button
+        public static Trigger operatorControllerButton4 = new JoystickButton(operatorController, 4); //Driver Y Button
+        public static Trigger operatorControllerButton5 = new JoystickButton(operatorController, 5); //Driver Left Bumper
+        public static Trigger operatorControllerButton6 = new JoystickButton(operatorController, 6); //Driver Right Bumper
+        public static Trigger operatorControllerButton7 = new JoystickButton(operatorController, 7); //Driver Left Trigger
+        public static Trigger operatorControllerButton8 = new JoystickButton(operatorController, 8); //Driver Right Trigger
+        public static Trigger operatorControllerButton9 = new JoystickButton(operatorController, 9); //Driver Back Button
+        public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); //Driver Start Button
+        public static Trigger operatorControllerButton11 = new JoystickButton(operatorController, 11); //Driver Left Stick Push
+        public static Trigger operatorControllerButton12 = new JoystickButton(operatorController, 12); //Driver Right Stick Push
 
 }
