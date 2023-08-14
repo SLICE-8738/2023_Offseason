@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -15,12 +16,12 @@ public final class Button {
     public static Joystick operatorJoystick = new Joystick(Constants.kJoysticks.JOYSTICK_PORT);
 
     //Controllers
-    public static GenericHID driverController = new GenericHID(Constants.kController.DRIVER_CONTROLLER_PORT);
+    public static PS4Controller driverController = new PS4Controller(Constants.kController.DRIVER_CONTROLLER_PORT);
     public static GenericHID operatorController = new GenericHID(Constants.kController.OPERATOR_CONTROLLER_PORT);
 
     //Drivetrain Command Buttons
     public static Trigger setDrivePercentOutput = new JoystickButton(operatorJoystick, 3); //Left Top 3
-    public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Y Button
+    public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Triangle Button
 
     //Outtake Command Buttons
     public static Trigger outPutsConeOrCube = new JoystickButton(operatorJoystick, 1); //Left Top 1
@@ -38,17 +39,19 @@ public final class Button {
     public static Trigger oepratorJoystickButton12 = new JoystickButton(operatorJoystick, 12); //Left Bottom 12
     
     //Unassigned Driver Controller Buttons
-    public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver X Button
-    public static Trigger driverButton2 = new JoystickButton(driverController, 2); //Driver A Button
-    public static Trigger driverButton3 = new JoystickButton(driverController, 3); //Driver B Button
-    public static Trigger driverButton5 = new JoystickButton(driverController, 5); //Driver Left Bumper
-    public static Trigger driverButton6 = new JoystickButton(driverController, 6); //Driver Right Bumper
-    public static Trigger driverButton7 = new JoystickButton(driverController, 7); //Driver Left Trigger
-    public static Trigger driverButton8 = new JoystickButton(driverController, 8); //Driver Right Trigger
-    public static Trigger driverButton9 = new JoystickButton(driverController, 9); //Driver Back Button
-    public static Trigger driverButton10 = new JoystickButton(driverController, 10); //Driver Start Button
-    public static Trigger driverButton11 = new JoystickButton(driverController, 11); //Driver Left Stick Push
-    public static Trigger driverButton12 = new JoystickButton(driverController, 12); //Driver Right Stick Push
+    public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver Square Button
+    public static Trigger driverButton2 = new JoystickButton(driverController, 2); //Driver Cross Button
+    public static Trigger driverButton3 = new JoystickButton(driverController, 3); //Driver Circle Button
+    public static Trigger driverButton5 = new JoystickButton(driverController, 5); //Driver L1 Button
+    public static Trigger driverButton6 = new JoystickButton(driverController, 6); //Driver R1 Button
+    public static Trigger driverButton7 = new JoystickButton(driverController, 7); //Driver L2 Button
+    public static Trigger driverButton8 = new JoystickButton(driverController, 8); //Driver R2 Button
+    public static Trigger driverButton9 = new JoystickButton(driverController, 9); //Driver Share Button
+    public static Trigger driverButton10 = new JoystickButton(driverController, 10); //Driver Options Button
+    public static Trigger driverButton11 = new JoystickButton(driverController, 11); //Driver L3 Button
+    public static Trigger driverButton12 = new JoystickButton(driverController, 12); //Driver R3 Button
+    public static Trigger driverButton13 = new JoystickButton(driverController, 13); //Driver PS Button
+    public static Trigger driverButton14 = new JoystickButton(driverController, 14); //Driver Touchpad Button
 
         //Unassigned Driver Controller Buttons
         public static Trigger operatorControllerButton1 = new JoystickButton(operatorController, 1); //Driver X Button
