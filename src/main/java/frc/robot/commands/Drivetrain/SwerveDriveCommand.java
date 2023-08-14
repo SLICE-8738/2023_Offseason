@@ -35,9 +35,9 @@ public class SwerveDriveCommand extends CommandBase {
     m_isOpenLoop = isOpenLoop;
     m_isFieldRelative = isFieldRelative;
 
-    translationXFilter = new JoystickFilter(0.07, 0.9);
-    translationYFilter = new JoystickFilter(0.07, 0.9);
-    rotationFilter = new JoystickFilter(0.07, 0.3);
+    translationXFilter = new JoystickFilter(0.05, 0.85);
+    translationYFilter = new JoystickFilter(0.05, 0.85);
+    rotationFilter = new JoystickFilter(0.05, 0.25);
     
   }
 
@@ -49,8 +49,8 @@ public class SwerveDriveCommand extends CommandBase {
   @Override
   public void execute() {
     
-    double translationX = translationXFilter.filter(m_driverController.getRawAxis(1)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
-    double translationY = -translationYFilter.filter(m_driverController.getRawAxis(0)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
+    double translationX = -translationXFilter.filter(m_driverController.getRawAxis(1)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
+    double translationY = translationYFilter.filter(m_driverController.getRawAxis(0)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
     double rotation = rotationFilter.filter(m_driverController.getRawAxis(2)) * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY;
 
     m_drivetrain.swerveDrive(

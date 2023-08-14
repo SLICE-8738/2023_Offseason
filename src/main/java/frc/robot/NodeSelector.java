@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
 import frc.robot.subsystems.Drivetrain;
 //import frc.robot.subsystems.Elevator;
@@ -273,15 +273,15 @@ public class NodeSelector {
         SmartDashboard.putNumber("Interior Waypoint X", interiorWaypoint.getX());
         SmartDashboard.putNumber("Final Position X", finalPosition.getX());
 
-        return new SequentialCommandGroup(
-                    new Field2dTrajectoryFollowerSequence(
-                        m_drivetrain, 
-                        TrajectoryGenerator.generateTrajectory(
-                            initialPosition, 
-                            List.of(interiorWaypoint), 
-                            finalPosition, 
-                            new TrajectoryConfig(4, 2).setKinematics(Constants.kDrivetrain.kSwerveKinematics))));
-                    //positionSequence));
+            return new SequentialCommandGroup(
+                        new Field2dTrajectoryFollowerSequence(
+                            m_drivetrain, 
+                            TrajectoryGenerator.generateTrajectory(
+                                initialPosition, 
+                                List.of(interiorWaypoint), 
+                                finalPosition, 
+                                new TrajectoryConfig(4, 2).setKinematics(Constants.kDrivetrain.kSwerveKinematics))));
+                        //positionSequence));
 
     }
 
