@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.auto.AutoSelector;
 import frc.robot.commands.Drivetrain.*;
+import frc.robot.commands.Intake.IntakeCommand;
+import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.Command;

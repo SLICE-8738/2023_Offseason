@@ -2,45 +2,43 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Drivetrain;
+package frc.robot.commands.StowCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Arm.StowState;
 import frc.robot.subsystems.Intake;
 
-public class OutTakeCommand extends CommandBase {
-  /** Creates a new OutTakeCommand. */
-  private Intake Intake; 
 
-  public OutTakeCommand() {
+public class Hold extends CommandBase {
+  private Arm arm;
+  private Intake intake;
+  /** Creates a new Hold. */
+  public Hold() {
     // Use addRequirements() here to declare subsystem dependencies.
-    Intake = new Intake();
+    arm = new Arm();
+    intake = new Intake();
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    //Will initialize when a button is pressed 
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Checks to see if it's a cone or cube being spit out and spins in the appropriate direction. 
-    //"cube" is a place holder
-    if (cube == true){
-      Intake.IntakeSpinOut(); 
-    }
-    //"cone" is a place holder 
-    else if (cone == true){
-      Intake.IntakeSpinUp();
+    if (Arm.stowState == StowState.Nothing) {
+
+    } else if (Arm.stowState == StowState.Cube) {
+        arm.spinArm(0.2);
+    } else if (Arm.stowState == StowState.Cone) {
+        intake.IntakeSpinHoldUp();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    //When button is stoppedPressed
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
