@@ -25,7 +25,7 @@ public final class Constants {
 
     public final class kJoysticks {
 
-        public static final int LEFT_JOYSTICK_PORT = 0, RIGHT_JOYSTICK_PORT = 1;
+        public static final int JOYSTICK_PORT = 1;
 
         public static final double driveExponent = 3;
         public static final double driveExponentPercent = 0.7;
@@ -38,6 +38,7 @@ public final class Constants {
     public final class kController {
 
         public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int OPERATOR_CONTROLLER_PORT = 2;
 
     }
 
