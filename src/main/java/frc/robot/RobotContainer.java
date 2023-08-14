@@ -51,7 +51,7 @@ public class RobotContainer {
   public final LambdaCommand m_yControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(0, 2.5), new Rotation2d())));
   public final LambdaCommand m_thetaControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(0, 0), Rotation2d.fromDegrees(270))));
 
-  public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
+  public final Command m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence).until(Button.nodeAlignAndPositionCancel);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -73,10 +73,18 @@ public class RobotContainer {
 
     //Sets drivetrain drive motors at a fixed percent output while pressed
     Button.setDrivePercentOutput.whileTrue(m_setDrivePercentOutput);
-    //Sets the current angle of the robot as an offset to field-oriented driving
+    //Sets the current angle of the robot as an offset to field-oriented driving once pressed
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
-    //Resets the robot's odometry to the starting position selected on Shuffleboard
+    //Resets the robot's odometry to the starting position selected on Shuffleboard once pressed
     Button.setInitialPosition.onTrue(m_setInitialPosition);
+    //Runs the robot along a straight trajecotry parallel to the X axis while pressed
+    Button.xControllerTest.whileTrue(m_xControllerTestSequence);
+    //Runs the robot along a straight trajectory parallel to the Y axis while pressed
+    Button.yControllerTest.whileTrue(m_yControllerTestSequence);
+    //Runs the robot along a trajectory rotating the robot 270 degrees while pressed
+    Button.thetaControllerTest.whileTrue(m_thetaControllerTestSequence);
+    //Aligns the robot with the node selected on Shuffleboard once pressed
+    Button.nodeAlignAndPosition.onTrue(m_nodeAlignAndPosition);
 
   }
 
