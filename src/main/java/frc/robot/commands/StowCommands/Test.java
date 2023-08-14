@@ -16,7 +16,7 @@ public class Test extends CommandBase {
   private Arm arm;
   private Intake intake;
   private Timer timer;
-  private boolean tested = false;                 // Keeps track of if execute has determined a stow type
+  private boolean tested = false;                                     // Keeps track of if execute has checked stowState
   
   public Test() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,17 +28,17 @@ public class Test extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.restart();
+    timer.restart();                                               
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    arm.wristSecureCube();
+    arm.wristSecureCube();                                           // Runs the motors to test
     intake.IntakeSpinHoldUp();
 
-    if (Arm.stowState == StowState.Cube) {
+    if (Arm.stowState == StowState.Cube) {                           // Checks the current stowState's motor, and ends the command if output is greater than the threshold
       if (arm.getArmOutput()>Constants.kArm.CUBE_THRESHOLD) {
         tested = true;
       }
@@ -46,14 +46,14 @@ public class Test extends CommandBase {
       if (arm.getWristOutput()>Constants.kIntake.CONE_THRESHOLD) {
         tested = true;
       } 
-    } else {
+    } else {                                                        // Ends the command if the current stowState is Nothing.
       tested = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(boolean interrupted) {                            // Sets the stowState to Nothing, if the command ends via timer.
     if (timer.get()>1) {
       Arm.stowState = StowState.Nothing;
     }
@@ -61,7 +61,7 @@ public class Test extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {                                     // End if execute has determined a stow type, or if 1 second(s) has passed
+  public boolean isFinished() {                                     // End if execute checked the stowState, or if 1 second(s) has passed
     if (tested) {
       return true;
     } else {

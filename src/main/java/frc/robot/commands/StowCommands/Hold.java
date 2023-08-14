@@ -27,7 +27,7 @@ public class Hold extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Arm.stowState == StowState.Nothing) {
+    if (Arm.stowState == StowState.Nothing) {                       // Runs the motor for given stowState to hold in place
 
     } else if (Arm.stowState == StowState.Cube) {
         arm.wristSecureCube();
