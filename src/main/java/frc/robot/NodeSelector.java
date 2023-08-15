@@ -22,12 +22,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DoNothingCommand;
+
+//import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
 import frc.robot.subsystems.Drivetrain;
 //import frc.robot.subsystems.Elevator;
 //import frc.robot.subsystems.Intake;
-//import frc.robot.subsystems.Limelight;
 //import frc.robot.subsystems.Wrist;
 //import frc.robot.commands.GoToStateCommand;
 //import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
@@ -260,12 +260,13 @@ public class NodeSelector {
         finalPosition = nodePosition;
 
         if(
-            selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
+            (selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 16 || selectedNodeIndex == 17 ||
-            selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 25 || selectedNodeIndex == 26
+            selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 25 || selectedNodeIndex == 26) ||
+            (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81)
             ) {
             interiorWaypoint = new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2);
-        } else {
+        } else  {
             interiorWaypoint = new Translation2d(onBlueAlliance? 2.65:13.91 , initialPosition.getY());
         }
 
@@ -273,15 +274,16 @@ public class NodeSelector {
         SmartDashboard.putNumber("Interior Waypoint X", interiorWaypoint.getX());
         SmartDashboard.putNumber("Final Position X", finalPosition.getX());
 
-            return new SequentialCommandGroup(
+        return new SequentialCommandGroup(
                         new Field2dTrajectoryFollowerSequence(
                             m_drivetrain, 
                             TrajectoryGenerator.generateTrajectory(
                                 initialPosition, 
                                 List.of(interiorWaypoint), 
                                 finalPosition, 
-                                new TrajectoryConfig(4, 2).setKinematics(Constants.kDrivetrain.kSwerveKinematics))));
-                        //positionSequence));
+                                new TrajectoryConfig(4, 2).setKinematics(Constants.kDrivetrain.kSwerveKinematics)))
+                        /*positionSequence*/);
+
 
     }
 
