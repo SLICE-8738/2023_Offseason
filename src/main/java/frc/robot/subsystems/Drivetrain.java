@@ -61,10 +61,6 @@ public class Drivetrain extends SubsystemBase {
     resetModulesToAbsolute();
     resetHeading();
 
-    // Set PID Values
-    setDrivePIDF(Constants.kDrivetrain.DRIVE_KP, Constants.kDrivetrain.DRIVE_KI, Constants.kDrivetrain.DRIVE_KD, Constants.kDrivetrain.DRIVE_KFF);
-    setAnglePIDF(Constants.kDrivetrain.ANGLE_KP, Constants.kDrivetrain.ANGLE_KI, Constants.kDrivetrain.ANGLE_KD, Constants.kDrivetrain.ANGLE_KFF);
-
     m_field2d = new Field2d();
 
     autoTrajectoryTimer = new Timer();
