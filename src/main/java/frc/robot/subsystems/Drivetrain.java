@@ -29,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
   //private final SparkMaxSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
   private final BaseNEOSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
 
-  private final SwerveDriveOdometry m_swerveDrivetrainOdometry;
+  private final SwerveDriveOdometry m_swerveOdometry;
 
   private final AHRS navXGyro;
 
@@ -68,7 +68,7 @@ public class Drivetrain extends SubsystemBase {
     // Creates and pushes Field2d to SmartDashboard.
     SmartDashboard.putData(m_field2d);
 
-    m_swerveDrivetrainOdometry = new SwerveDriveOdometry(
+    m_swerveOdometry = new SwerveDriveOdometry(
       Constants.kDrivetrain.kSwerveKinematics, 
       getRotation2d(), 
       getPositions(),
@@ -85,11 +85,6 @@ public class Drivetrain extends SubsystemBase {
     updateOdometry();
 
     m_field2d.setRobotPose(getPose());
-
-    SmartDashboard.putNumber("Front Left Integrated Speed", leftModuleFront.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Front Right Integrated Speed", rightModuleFront.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Back Left Integrated Speed", leftModuleBack.getState().speedMetersPerSecond);
-    SmartDashboard.putNumber("Back Right Integrated Speed", rightModuleBack.getState().speedMetersPerSecond);
 
   }
 
@@ -289,7 +284,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public Pose2d updateOdometry() {
 
-    return m_swerveDrivetrainOdometry.update(getRotation2d(), getPositions());
+    return m_swerveOdometry.update(getRotation2d(), getPositions());
 
   }
 
@@ -300,7 +295,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current estimated pose of the robot.
    */
   public Pose2d getPose() {
-    return m_swerveDrivetrainOdometry.getPoseMeters();
+    return m_swerveOdometry.getPoseMeters();
   }
 
   /**
@@ -395,7 +390,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetOdometry(Pose2d position) {
 
-    m_swerveDrivetrainOdometry.resetPosition(getRotation2d(), getPositions(), position);
+    m_swerveOdometry.resetPosition(getRotation2d(), getPositions(), position);
 
   }
 
@@ -435,12 +430,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * 
-   * @return
+   * Sets the current rotation of the robot as an offset to the rotation used to drive
+   * the robot in field-relative mode.
    */
   public void resetFieldOrientedHeading() {
-    double error = getHeading() - 180;
-    fieldOrientedOffset = Rotation2d.fromDegrees(error);
+    fieldOrientedOffset = getRotation2d();
   }
 
   /**
@@ -455,13 +449,24 @@ public class Drivetrain extends SubsystemBase {
   }
   
   /**
-   * Obtains and returns the current heading of the robot going positive counter-clockwise from 0 to 360 degrees from the gyro object.
+   * Obtains and returns the current heading of the robot from 0 to 360 degrees from the gyro object.
    *
-   * @return The current heading of the robot going counter-clockwise positive from 0 to 360 degrees.
+   * @return The current heading of the robot from 0 to 360 degrees.
    */
   public double getHeading() {
 
-    return Constants.kDrivetrain.INVERT_GYRO? -navXGyro.getYaw() + 180 : navXGyro.getYaw() + 180;
+    double yaw = navXGyro.getYaw();
+
+    if(Constants.kDrivetrain.INVERT_GYRO) {
+
+      return yaw <= 0? yaw * -1 : 360 - yaw;
+
+    }
+    else {
+
+      return yaw < 0? 360 + yaw : yaw;
+
+    }
 
   }
 
