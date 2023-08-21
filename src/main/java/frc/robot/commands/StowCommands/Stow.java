@@ -5,16 +5,18 @@
 package frc.robot.commands.StowCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Stow extends SequentialCommandGroup {
   /** Creates a new Stow. */
-  public Stow() {
+  public Stow(Arm armSubsystem, Intake intakeSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Test(), new Hold());
+    addCommands(new Test(armSubsystem, intakeSubsystem), new Hold(armSubsystem, intakeSubsystem));
     // TODO: Add GoToPosition command
   }
 }

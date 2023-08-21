@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   }
 
   /** Makes motor stop spinning */
-  private void IntakeStopSpinning(){
+  public void IntakeStopSpinning(){
     IntakeMotor.set(0.0);
   }
 
