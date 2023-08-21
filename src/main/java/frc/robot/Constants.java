@@ -42,6 +42,26 @@ public final class Constants {
 
     }
 
+    public static final class kRobotStates {
+      //TODO: Fill in these values
+      public static final RobotState stow = new RobotState(0, 0, 0);
+
+      public static final RobotState highScore = new RobotState(0, 0, 0);
+      public static final RobotState midScore = new RobotState(0, 0, 0);
+      public static final RobotState lowScore = new RobotState(0, 0, 0);
+
+      public static final RobotState cubeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState cubeGround = new RobotState(0, 0, 0);
+
+      public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState tippedConeGround = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeGround = new RobotState(0, 0, 0);
+      public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
+    
+    }
+
     /**
      * ALL CONSTANTS IN THIS CLASS ARE PLACEHOLDERS FOR NOW
      */
