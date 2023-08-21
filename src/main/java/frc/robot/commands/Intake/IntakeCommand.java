@@ -10,13 +10,13 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Arm.StowState;
 
 public class IntakeCommand extends CommandBase {
-  private Intake Intake; 
-  private Arm Arm;
+  private Intake intake; 
+  private Arm arm;
   /** Creates a new IntakeCommand. */
   public IntakeCommand(Intake intake, Arm arm) {
     // Use addRequirements() here to declare subsystem dependencies.
-    Intake = intake;
-    Arm = arm;
+    this.intake = intake;
+    this.arm = arm;
   }
 
   // Called when the command is initially scheduled.
@@ -31,12 +31,12 @@ public class IntakeCommand extends CommandBase {
     //Checks to see if it's a cone or cube being picked up and spins in the appropriate direction. 
 
     if (Arm.stowState == StowState.Cube){
-      Intake.IntakeSpinUp(); 
-      Arm.wristSecureCube();
+      intake.IntakeSpinUp(); 
+      arm.wristSecureCube();
     }
 
     else if (Arm.stowState == StowState.Cone){
-      Intake.IntakeSpinOut();
+      intake.IntakeSpinOut();
     }
   }
 
