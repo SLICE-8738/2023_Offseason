@@ -16,10 +16,10 @@ public class LEDs extends SubsystemBase {
   
   /** Creates a new LEDs. */
   public LEDs() {
-    leds = new AddressableLED(Constants.kLEDs.port);
-    buffer = new AddressableLEDBuffer(Constants.LEDs.count);
+    leds = new AddressableLED(Constants.kLEDs.LED_PWM_PORT);
+    buffer = new AddressableLEDBuffer(Constants.kLEDs.LED_LENGTH);
 
-    leds.setLength(Constants.kLEDs.count);
+    leds.setLength(Constants.kLEDs.LED_PWM_PORT);
     leds.start();
   }
 
@@ -29,7 +29,7 @@ public class LEDs extends SubsystemBase {
    */
   public void setAll(Color color) {
     Color newColor = new Color(color.red, color.blue, color.green);
-    for (int i = 0; i < Constants.LEDs.count; i++) {
+    for (int i = 0; i < Constants.kLEDs.LED_LENGTH; i++) {
       buffer.setLED(i, newColor);
     }
     leds.setData(buffer);
@@ -42,14 +42,14 @@ public class LEDs extends SubsystemBase {
    * @param b blue part of the color the leds will display
    */
   public void setAll(int r, int g, int b) {
-    for (int i = 0; i < Constants.LEDs.count; i++) {
+    for (int i = 0; i < Constants.kLEDs.LED_LENGTH; i++) {
       buffer.setRGB(i, r, g, b);
     }
     leds.setData(buffer);
   }
 
   public void setAllHSV(int h, int s, int v) {
-    for (int i = 0; i < Constants.LEDs.count; i++) {
+    for (int i = 0; i < Constants.kLEDs.LED_LENGTH; i++) {
       buffer.setHSV(i, h, s, v);
     }
     leds.setData(buffer);
