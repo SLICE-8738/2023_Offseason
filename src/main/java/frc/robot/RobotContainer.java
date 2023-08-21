@@ -5,7 +5,9 @@
 package frc.robot;
 
 import frc.robot.auto.AutoSelector;
+import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
+import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.subsystems.*;
@@ -28,6 +30,7 @@ public class RobotContainer {
   //private static Joystick rightJoystick = Button.rightJoystick;
 
   private static GenericHID driverController = Button.driverController;
+  private static GenericHID operatorController = Button.operatorController;
 
   // The robot's subsystems and commands are defined here...
   public final Drivetrain m_drivetrain = new Drivetrain();
@@ -48,6 +51,9 @@ public class RobotContainer {
   public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake, m_arm);
   public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand(m_intake);
 
+  public final ManualElevator m_manualElevator = new ManualElevator(m_elevator, operatorController);
+  public final ManualArm m_manualArm = new ManualArm(m_arm, operatorController);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -55,6 +61,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_drivetrain.setDefaultCommand(m_swerveDriveClosedLoop);
+
+    m_elevator.setDefaultCommand(m_manualElevator);
+    m_arm.setDefaultCommand(m_manualArm);
     
   }
 
