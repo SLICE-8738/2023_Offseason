@@ -29,6 +29,8 @@ public class Arm extends SubsystemBase {
   private SparkMaxPIDController armMotorController, wristMotorController;
   public static StowState stowState;
 
+  private double targetElbowPosition, targetWristPosition;
+
 
   /** Creates a new Arm Subsytem. */
   public Arm() {
@@ -60,6 +62,9 @@ public class Arm extends SubsystemBase {
     wristMotorEncoder.setPositionConversionFactor(Constants.kArm.WRIST_POSITIONAL_CONVERSION_FACTOR);
     wristMotorEncoder.setVelocityConversionFactor(Constants.kArm.WRIST_VELOCITY_CONVERSION_FACTOR);
 
+    targetElbowPosition = getElbowPosition();
+    targetWristPosition = getWristPosition();
+
   }
 
   /**
@@ -68,6 +73,7 @@ public class Arm extends SubsystemBase {
    */
   public void setArmController(double value){
     armMotorController.setReference(value, ControlType.kPosition);
+    targetElbowPosition = value;
   }
 
   /**
@@ -76,18 +82,7 @@ public class Arm extends SubsystemBase {
    */
   public void setWristController(double value){
     wristMotorController.setReference(value, ControlType.kPosition);
-  }
-
-  
-
-  /* This method will make sure the arm does not hit the elevator by preventing it from going past a certain position */
-  public void armCheck(){
-    //TODO: This method has yet to be implemented
-  }
-
-  /* This method will make sure the wrist does not extend backwards farther than it should by preventing it from going past a certain position */
-  public void wristCheck(){
-    //TODO: This method has yet to be implemented
+    targetWristPosition = value;
   }
 
   public void wristSecureCube(){
@@ -102,7 +97,7 @@ public class Arm extends SubsystemBase {
    * 
    * @return the position of the arm motor in rotations
    */
-  public double armReturn(){
+  public double getElbowPosition(){
     return armMotorEncoder.getPosition();
   }
 
@@ -126,8 +121,16 @@ public class Arm extends SubsystemBase {
    * 
    * @return the position of the wrist motor in rotations
    */
-  public double wristReturn(){
+  public double getWristPosition(){
     return wristMotorEncoder.getPosition();
+  }
+
+  public boolean isElbowAtTarget(){
+    return Math.abs(getElbowPosition() - targetElbowPosition) < Constants.kArm.ELBOW_POSITION_ERROR_TOLERANCE;
+  }
+
+  public boolean isWristAtTarget(){
+    return Math.abs(getWristPosition() - targetWristPosition) < Constants.kArm.WRIST_POSITION_ERROR_TOLERANCE;
   }
 
   @Override

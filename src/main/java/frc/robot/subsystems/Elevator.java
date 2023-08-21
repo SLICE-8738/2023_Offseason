@@ -21,6 +21,9 @@ public class Elevator extends SubsystemBase {
   private SparkMaxPIDController PIDLeft, PIDRight;
   private RelativeEncoder encoderLeft, encoderRight;
   private boolean lock = true;
+
+  private double targetPosition;
+
   public Elevator() {
     motorLeft = new CANSparkMax(1, MotorType.kBrushless);
     motorRight = new CANSparkMax(2, MotorType.kBrushless);
@@ -30,6 +33,8 @@ public class Elevator extends SubsystemBase {
     PIDRight = motorRight.getPIDController();
     encoderLeft = motorLeft.getEncoder();
     encoderRight = motorRight.getEncoder();
+
+    targetPosition = getElevatorHeight();
 
 
     PIDLeft.setP(0);
@@ -51,8 +56,10 @@ public class Elevator extends SubsystemBase {
    * @param positionsetament Position to set the elevator to.
    */
   public void setPIDController(double positionsetament) {
-    motorLeft.set(1);                                                            // Reset speed to zoomy mode
-    motorRight.set(1);
+    targetPosition = positionsetament;                                                 // Set target position to the desired position
+
+    motorLeft.set(0);                                                            // Reset speed to zoomy mode
+    motorRight.set(0);
     lock = true;                                                                       // Enable limit switch locking
 
     if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                            // If either limit switch is active
@@ -72,6 +79,13 @@ public class Elevator extends SubsystemBase {
    */
   public double getElevatorHeight() {
     return (encoderLeft.getPosition());
+  }
+
+  /**
+   * @return whether or not the elevator is at the target position, within a tolerance
+   */
+  public boolean isAtTargetPosition() {
+    return (Math.abs(targetPosition - getElevatorHeight()) < Constants.kElevator.ELEVATOR_POSITION_ERROR_TOLERANCE);
   }
 
   @Override
