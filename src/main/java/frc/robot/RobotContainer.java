@@ -40,6 +40,7 @@ public class RobotContainer {
   public final Arm m_arm = new Arm();
   public final Elevator m_elevator = new Elevator();
   public final LEDs m_leds = new LEDs();
+  public final Limelight m_limelight = new Limelight(); 
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   
