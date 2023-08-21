@@ -225,7 +225,7 @@ public final class Constants {
       
         public static final double UPPER_ARM_LENGTH = 0.394; // Length of upper arm in meters, 15.5 inches 
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
-        public static final double WRIST_LENGTH = -1; // TODO: get the length of the wrist in meters
+        public static final double WRIST_LENGTH = 0.15367; // Length of wrist in meters, 6.05 inches 
 
         public static final double ELBOW_POSITION_ERROR_TOLERANCE = 0.05;
         public static final double WRIST_POSITION_ERROR_TOLERANCE = 0.05;
