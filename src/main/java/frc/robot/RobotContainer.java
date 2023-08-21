@@ -12,6 +12,7 @@ import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.RainbowLEDs;
+import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -70,6 +71,9 @@ public class RobotContainer {
   public final RainbowLEDs m_rainbowLEDs = new RainbowLEDs(m_leds);
   public final CustomRainbowLEDs m_coneLights = new CustomRainbowLEDs(m_leds, 31);
   public final CustomRainbowLEDs m_cubeLights = new CustomRainbowLEDs(m_leds, 140);
+
+  // States
+  public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
