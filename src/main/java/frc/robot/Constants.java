@@ -242,4 +242,9 @@ public final class Constants {
         
         public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
       }
+
+      public static final class kLEDs {
+        public static final int LED_PWM_PORT = 0;
+        public static final int LED_LENGTH = 60;
+      }
 }
