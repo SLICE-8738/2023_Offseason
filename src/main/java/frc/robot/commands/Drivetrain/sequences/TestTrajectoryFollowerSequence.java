@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 import frc.robot.TrajectoryCommands;
+import frc.robot.commands.Drivetrain.PrepareAutoRotationsCommand;
 import frc.robot.commands.Drivetrain.SetField2dCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -28,11 +29,13 @@ public class TestTrajectoryFollowerSequence extends SequentialCommandGroup {
     Trajectory testTrajectory = TrajectoryCommands.generateTestTrajectory(drive, trajectoryTransform);
 
     SetField2dCommand setField2d = new SetField2dCommand(testTrajectory, drive);
+    PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, testTrajectory);
     SwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generateSwerveControllerCommand(drive, testTrajectory, true);
     InstantCommand stopDrive = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(
       setField2d,
+      prepareAutoRotationsCommand,
       swerveControllerCommand,
       stopDrive);
 

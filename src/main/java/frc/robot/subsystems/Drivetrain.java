@@ -84,6 +84,8 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
+    SmartDashboard.putNumber("X Position", getPose().getX());
+
   }
 
   @Override
@@ -318,22 +320,6 @@ public class Drivetrain extends SubsystemBase {
    * @return The current positions of all drivetrain swerve modules.
    */
   public SwerveModulePosition[] getPositions() {
-
-    /*SwerveModulePosition leftModuleFrontPosition = leftModuleFront.getPosition();
-    SwerveModulePosition leftModuleBackPosition = leftModuleFront.getPosition();
-    SwerveModulePosition rightModuleFrontPosition = leftModuleFront.getPosition();
-    SwerveModulePosition rightModuleBackPosition = leftModuleFront.getPosition();
-
-    leftModuleFrontPosition.angle = leftModuleFrontPosition.angle.times(-1);
-    leftModuleBackPosition.angle = leftModuleBackPosition.angle.times(-1);
-    rightModuleFrontPosition.angle = rightModuleFrontPosition.angle.times(-1);
-    rightModuleBackPosition.angle = rightModuleBackPosition.angle.times(-1);
-
-    SwerveModulePosition[] positions = {
-      leftModuleFrontPosition,
-      leftModuleBackPosition,
-      rightModuleFrontPosition,
-      rightModuleBackPosition};*/
 
     SwerveModulePosition[] positions = {
       leftModuleFront.getPosition(),

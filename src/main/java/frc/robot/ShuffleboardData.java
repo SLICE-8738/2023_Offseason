@@ -29,7 +29,7 @@ public class ShuffleboardData {
         new DrivetrainData(drivetrain);
         new AutoData(autoSelector);
 
-        new ShuffleboardPIDWidget(TrajectoryCommands.xController);
+        //new ShuffleboardPIDWidget(TrajectoryCommands.xController);
         //new ShuffleboardPIDWidget(TrajectoryCommands.thetaProfiledController);
 
     }

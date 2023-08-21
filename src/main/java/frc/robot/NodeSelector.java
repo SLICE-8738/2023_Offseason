@@ -13,6 +13,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrajectoryParameterizer;
+import edu.wpi.first.math.trajectory.TrajectoryParameterizer.TrajectoryGenerationException;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -22,7 +24,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import frc.robot.commands.DoNothingCommand;
 //import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
 import frc.robot.subsystems.Drivetrain;
@@ -274,6 +276,8 @@ public class NodeSelector {
         SmartDashboard.putNumber("Interior Waypoint X", interiorWaypoint.getX());
         SmartDashboard.putNumber("Final Position X", finalPosition.getX());
 
+        try {
+
         return new SequentialCommandGroup(
                         new Field2dTrajectoryFollowerSequence(
                             m_drivetrain, 
@@ -281,8 +285,15 @@ public class NodeSelector {
                                 initialPosition, 
                                 List.of(interiorWaypoint), 
                                 finalPosition, 
-                                new TrajectoryConfig(4, 2).setKinematics(Constants.kDrivetrain.kSwerveKinematics)))
+                                new TrajectoryConfig(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.kDrivetrain.kSwerveKinematics)))
                         /*positionSequence*/);
+                    
+        }
+        catch (TrajectoryGenerationException e) {
+
+            return new SequentialCommandGroup(new DoNothingCommand());
+
+        }
 
 
     }

@@ -1,0 +1,28 @@
+{
+  "NetworkTables": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",
+      "/Shuffleboard/Auto Tab/Starting Position": "String Chooser",
+      "/Shuffleboard/Debug Tab/Field": "Field2d",
+      "/Shuffleboard/Driver Tab/Alliance": "String Chooser",
+      "/Shuffleboard/PID Tuning/Update": "Command",
+      "/SmartDashboard/Field": "Field2d"
+    },
+    "windows": {
+      "/Shuffleboard/Debug Tab/Field": {
+        "Robot": {
+          "style": "Box/Image"
+        },
+        "image": "C:\\Users\\Slice Robotics Club\\Documents\\SLICE 2023 Code\\Slice Git\\Slice_23_Off-Season\\2023_Offseason\\.Glass\\2023-field.png",
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT3)",
+    "serverTeam": "8738"
+  }
+}
