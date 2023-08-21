@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDs;
 
-public class RainbowLEDs extends CommandBase {
+public class CustomRainbowLEDs extends CommandBase {
     private final LEDs leds;
     private int m_rainbowFirstPixelHue = 0;
+    private int range = 20;
+    private int color;
     
-    public RainbowLEDs(LEDs leds) {
+    public CustomRainbowLEDs(LEDs leds, int hue) {
       this.leds = leds;
+      color = hue;
 
       // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(leds);
@@ -23,12 +26,12 @@ public class RainbowLEDs extends CommandBase {
     @Override
     public void execute() {
         for(int i = 0; i < 77; i++) {
-            final int hue = (m_rainbowFirstPixelHue + (i * 180 / 77 )) % 180;
+            final int hue = (((m_rainbowFirstPixelHue + (i * range / 77 )) % range) + color) % 180;
             leds.setLEDhsv(i, hue, 255, 128);
         }
 
-        m_rainbowFirstPixelHue += 1.5;
-        m_rainbowFirstPixelHue %= 180;
+        m_rainbowFirstPixelHue += 0.5;
+        m_rainbowFirstPixelHue %= range;
 
         leds.ledBuffer();
     }
