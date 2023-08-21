@@ -10,6 +10,8 @@ import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
+import frc.robot.commands.LEDs.CustomRainbowLEDs;
+import frc.robot.commands.LEDs.RainbowLEDs;
 import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,22 +39,36 @@ public class RobotContainer {
   public final Intake m_intake = new Intake();
   public final Arm m_arm = new Arm();
   public final Elevator m_elevator = new Elevator();
+  public final LEDs m_leds = new LEDs();
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
 
+  // ==========================
   // Commands
+  // ==========================
+
+  // Drivetrain
   public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true);
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
 
+  // Intake
   public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake, m_arm);
   public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand(m_intake);
 
+  // Elevator
   public final ManualElevator m_manualElevator = new ManualElevator(m_elevator, operatorController);
+
+  // Arm
   public final ManualArm m_manualArm = new ManualArm(m_arm, operatorController);
+
+  // LEDs
+  public final RainbowLEDs m_rainbowLEDs = new RainbowLEDs(m_leds);
+  public final CustomRainbowLEDs m_coneLights = new CustomRainbowLEDs(m_leds, 31);
+  public final CustomRainbowLEDs m_cubeLights = new CustomRainbowLEDs(m_leds, 140);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
