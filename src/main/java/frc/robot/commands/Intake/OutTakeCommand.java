@@ -11,11 +11,12 @@ import frc.robot.subsystems.Arm.StowState;
 
 public class OutTakeCommand extends CommandBase {
   /** Creates a new OutTakeCommand. */
-  private Intake Intake; 
+  private Intake intake; 
 
   public OutTakeCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    Intake = new Intake();
+    intake = new Intake();
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -30,11 +31,11 @@ public class OutTakeCommand extends CommandBase {
     //Checks to see if it's a cone or cube being spit out and spins in the appropriate direction. 
     //"cube" is a place holder
     if (Arm.stowState == StowState.Cube){
-      Intake.IntakeSpinOut(); 
+      intake.IntakeSpinOut(); 
     }
     //"cone" is a place holder 
     else if (Arm.stowState == StowState.Cone){
-      Intake.IntakeSpinUp();
+      intake.IntakeSpinUp();
     }
   }
 
