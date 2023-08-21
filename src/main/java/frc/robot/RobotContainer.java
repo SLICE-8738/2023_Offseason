@@ -70,8 +70,7 @@ public class RobotContainer {
     Button.setDrivePercentOutput.whileTrue(m_setDrivePercentOutput);
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
 
-    //
-    Button.outPutsConeOrCube.whileTrue(m_OutTakeCommand);
+    Button.outtake.whileTrue(m_OutTakeCommand);
   }
 
   /**
