@@ -46,7 +46,7 @@ public class TrajectoryCommands {
             return new SwerveControllerCommand(
                 trajectory,
                 drive::getPose,
-                Constants.kDrivetrain.kSwerveKinematics,
+                Constants.kAutonomous.kSwerveKinematics,
                 xController,
                 yController,
                 thetaProfiledController,
@@ -60,7 +60,7 @@ public class TrajectoryCommands {
             return new SwerveControllerCommand(
                 trajectory,
                 drive::getPose,
-                Constants.kDrivetrain.kSwerveKinematics,
+                Constants.kAutonomous.kSwerveKinematics,
                 xController,
                 yController,
                 thetaProfiledController,
@@ -77,7 +77,7 @@ public class TrajectoryCommands {
         return new PPSwerveControllerCommand(
             trajectory,
             drive::getPose,
-            Constants.kDrivetrain.kSwerveKinematics,
+            Constants.kAutonomous.kSwerveKinematics,
                 xController,
                 yController,
                 thetaController,
@@ -90,11 +90,14 @@ public class TrajectoryCommands {
     public static Trajectory generateTestTrajectory(Drivetrain drive, Transform2d trajectoryTransform) {
 
         Pose2d initialPosition = drive.getPose();
-        //Pose2d finalPosition = initialPosition.plus(trajectoryTransform);
-        Pose2d finalPosition = new Pose2d(initialPosition.getX() + trajectoryTransform.getX(), initialPosition.getY() + trajectoryTransform.getY(), initialPosition.getRotation());
+        Pose2d finalPosition = initialPosition.plus(trajectoryTransform);
+        /*Pose2d finalPosition = new Pose2d(
+            initialPosition.getX() + trajectoryTransform.getX(), 
+            initialPosition.getY() + trajectoryTransform.getY(), 
+            initialPosition.getRotation().plus(trajectoryTransform.getRotation()));*/
 
-        //Translation2d interiorWaypoint = initialPosition.getTranslation().plus(trajectoryTransform.getTranslation().div(2));
-        Translation2d interiorWaypoint = new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2);
+        Translation2d interiorWaypoint = initialPosition.getTranslation().plus(trajectoryTransform.getTranslation().div(2));
+        //Translation2d interiorWaypoint = new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2);
 
         return TrajectoryGenerator.generateTrajectory(
                     initialPosition, 
@@ -103,7 +106,7 @@ public class TrajectoryCommands {
                     new TrajectoryConfig(
                         Constants.kAutonomous.kMaxVelocityMetersPerSecond, 
                         Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).
-                        setKinematics(Constants.kDrivetrain.kSwerveKinematics));
+                        setKinematics(Constants.kAutonomous.kSwerveKinematics));
 
     }
 

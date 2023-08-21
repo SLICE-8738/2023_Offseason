@@ -84,8 +84,6 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
-    SmartDashboard.putNumber("X Position", getPose().getX());
-
   }
 
   @Override
@@ -284,7 +282,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public Pose2d updateOdometry() {
 
-    m_swerveOdometry.update(getRotation2d(), getPositions());
+    m_swerveOdometry.update(Rotation2d.fromDegrees(360).minus(getRotation2d()), getPositions());
 
     /*Pose2d botPose = Limelight.getCurrentBotPoseBlue();
     Pose2d botPoseTargetSpace = Limelight.getBotPoseTargetSpace();
@@ -407,7 +405,9 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetOdometry(Pose2d position) {
 
-    m_swerveOdometry.resetPosition(getRotation2d(), getPositions(), position);
+    fieldOrientedOffset = new Rotation2d();
+
+    m_swerveOdometry.resetPosition(Rotation2d.fromDegrees(360).minus(getRotation2d()), getPositions(), position);
 
   }
 

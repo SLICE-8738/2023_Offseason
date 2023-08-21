@@ -44,7 +44,7 @@ public final class Constants {
     public static final class kDrivetrain {
 
         public static final Port NAVX_PORT = Port.kUSB;
-        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
+        public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
     
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(22);
@@ -166,16 +166,23 @@ public final class Constants {
       }
     
       public static final class kAutonomous {
+
+        public static final CustomSwerveDriveKinematics kSwerveKinematics =
+        new CustomSwerveDriveKinematics(
+            new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
+            new Translation2d(-kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
+            new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, kDrivetrain.TRACK_WIDTH / 2.0),
+            new Translation2d(-kDrivetrain.WHEEL_BASE / 2.0, kDrivetrain.TRACK_WIDTH / 2.0));
+
         //THIS MAXIMUM LINEAR VELOCITY AND ACCELERATION ARE PLACEHOLDERS FOR NOW
         public static final double kMaxVelocityMetersPerSecond = 3.5;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularVelocityRadiansPerSecond = Math.PI;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI;
     
-        //THESE P GAINS ARE PLACEHOLDERS FOR NOW
-        public static final double kPXController = 0;
-        public static final double kPYController = 0;
-        public static final double kPThetaController = 0;
+        public static final double kPXController = 2.5;
+        public static final double kPYController = 2.5;
+        public static final double kPThetaController = 3;
     
         // Constraint for the motion profilied robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

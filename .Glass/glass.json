@@ -1,5 +1,16 @@
 {
   "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "Debug Tab": {
+          "Field": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    },
     "types": {
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",
@@ -13,6 +24,10 @@
       "/Shuffleboard/Debug Tab/Field": {
         "Robot": {
           "style": "Box/Image"
+        },
+        "Trajectory": {
+          "arrows": false,
+          "style": "Track"
         },
         "image": "C:\\Users\\Slice Robotics Club\\Documents\\SLICE 2023 Code\\Slice Git\\Slice_23_Off-Season\\2023_Offseason\\.Glass\\2023-field.png",
         "window": {

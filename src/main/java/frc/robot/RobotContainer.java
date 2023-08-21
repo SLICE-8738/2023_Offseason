@@ -49,9 +49,9 @@ public class RobotContainer {
   public final SetInitialPositionCommand m_setInitialPosition = new SetInitialPositionCommand(m_drivetrain);
   public final LambdaCommand m_xControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(-2, 0), new Rotation2d())));
   public final LambdaCommand m_yControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(0, 2), new Rotation2d())));
-  public final LambdaCommand m_thetaControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(0, 0), Rotation2d.fromDegrees(270))));
+  public final LambdaCommand m_thetaControllerTestSequence = new LambdaCommand(() -> new TestTrajectoryFollowerSequence(m_drivetrain, new Transform2d(new Translation2d(-2, 0), Rotation2d.fromDegrees(180))));
 
-  public final Command m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence).until(Button.nodeAlignAndPositionCancel);
+  public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -84,7 +84,7 @@ public class RobotContainer {
     //Runs the robot along a trajectory rotating the robot 270 degrees while pressed
     Button.thetaControllerTest.whileTrue(m_thetaControllerTestSequence);
     //Aligns the robot with the node selected on Shuffleboard once pressed
-    Button.nodeAlignAndPosition.onTrue(m_nodeAlignAndPosition);
+    Button.nodeAlignAndPosition.whileTrue(m_nodeAlignAndPosition);
 
   }
 

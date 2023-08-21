@@ -20,14 +20,13 @@ public final class Button {
     public static GenericHID driverController = new GenericHID(Constants.kController.DRIVER_CONTROLLER_PORT);
 
     //Drivetrain Command Buttons
-    public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 8); //Driver Right Trigger
+    public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 1); //Driver X Button
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Y Button
     public static Trigger setInitialPosition = new POVButton(driverController, 0); //Driver D-Pad Up 
     public static Trigger xControllerTest = new POVButton(driverController, 270); //Driver D-Pad Left
     public static Trigger yControllerTest = new POVButton(driverController, 90); //Driver D-Pad Right
     public static Trigger thetaControllerTest = new POVButton(driverController, 180); //Driver D-Pad Down
-    public static Trigger nodeAlignAndPosition = new JoystickButton(driverController, 1); //Driver X Button
-    public static Trigger nodeAlignAndPositionCancel = new JoystickButton(driverController, 7); //Driver Left Trigger
+    public static Trigger nodeAlignAndPosition = new JoystickButton(driverController, 8); //Driver Right Trigger
 
     //Unassigned Left Joystick Buttons
     public static Trigger leftButton1 = new JoystickButton(leftJoystick, 1); //Left Top 1
@@ -62,6 +61,7 @@ public final class Button {
     public static Trigger driverButton3 = new JoystickButton(driverController, 3); //Driver B Button
     public static Trigger driverButton5 = new JoystickButton(driverController, 5); //Driver Left Bumper
     public static Trigger driverButton6 = new JoystickButton(driverController, 6); //Driver Right Bumper
+    public static Trigger driverButton7 = new JoystickButton(driverController, 7); //Driver Left Trigger
     public static Trigger driverButton9 = new JoystickButton(driverController, 9); //Driver Back Button
     public static Trigger driverButton10 = new JoystickButton(driverController, 10); //Driver Start Button
     public static Trigger driverButton11 = new JoystickButton(driverController, 11); //Driver Left Stick Push

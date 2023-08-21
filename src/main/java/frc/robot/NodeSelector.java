@@ -5,7 +5,6 @@
 package frc.robot;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -13,7 +12,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.TrajectoryParameterizer;
 import edu.wpi.first.math.trajectory.TrajectoryParameterizer.TrajectoryGenerationException;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -22,8 +20,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.commands.DoNothingCommand;
 //import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
@@ -206,23 +204,23 @@ public class NodeSelector {
         }
 
         if(selectedNodeIndex == 0 || selectedNodeIndex == 9 || selectedNodeIndex == 18) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 0.5:4.95, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 0.5:4.95, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 1 || selectedNodeIndex == 10 || selectedNodeIndex == 19) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.06:4.42, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 1.06:4.42, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 2 || selectedNodeIndex == 11 || selectedNodeIndex == 20) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 1.63:3.85, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 1.63:3.85, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 3 || selectedNodeIndex == 12 || selectedNodeIndex == 21) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 2.18:3.3, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 2.18:3.3, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 4 || selectedNodeIndex == 13 || selectedNodeIndex == 22) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, 2.74, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, 2.74, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 5 || selectedNodeIndex == 14 || selectedNodeIndex == 23) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.3:2.18, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 3.3:2.18, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 6 || selectedNodeIndex == 15 || selectedNodeIndex == 24) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 3.85:1.63, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 3.85:1.63, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else if(selectedNodeIndex == 7 || selectedNodeIndex == 16 || selectedNodeIndex == 25) {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.42:1.06, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 4.42:1.06, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         } else {
-            return new Pose2d(onBlueAlliance? 1.81:14.72, onBlueAlliance? 4.95:0.5, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
+            return new Pose2d(onBlueAlliance? 1.92:14.61, onBlueAlliance? 4.95:0.5, Rotation2d.fromDegrees(onBlueAlliance? 180:0));
         }
 
     }
@@ -231,7 +229,7 @@ public class NodeSelector {
 
         //Pose2d initialPosition = Limelight.getLastBotPoseBlue();
         Pose2d initialPosition = m_drivetrain.getPose();
-        Translation2d interiorWaypoint;
+        ArrayList<Translation2d> interiorWaypoints = new ArrayList<Translation2d>();
         Pose2d finalPosition;
 
         //Command positionSequence;
@@ -265,16 +263,25 @@ public class NodeSelector {
             (selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 16 || selectedNodeIndex == 17 ||
             selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 25 || selectedNodeIndex == 26) ||
-            (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81)
+            (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81) ||
+            (initialPosition.getY() > 4.44 || initialPosition.getY() < 1.05)
             ) {
-            interiorWaypoint = new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2);
-        } else  {
-            interiorWaypoint = new Translation2d(onBlueAlliance? 2.65:13.91 , initialPosition.getY());
-        }
+            interiorWaypoints.add(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2));
+        } else {
 
-        SmartDashboard.putNumber("Initial Position X", initialPosition.getX());
-        SmartDashboard.putNumber("Interior Waypoint X", interiorWaypoint.getX());
-        SmartDashboard.putNumber("Final Position X", finalPosition.getX());
+            if(
+                selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 2 || selectedNodeIndex == 3 || selectedNodeIndex == 4 ||
+                selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 11 || selectedNodeIndex == 12 || selectedNodeIndex == 13 ||
+                selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 20 || selectedNodeIndex == 21 || selectedNodeIndex == 22
+                ) {
+                interiorWaypoints.add(new Translation2d(initialPosition.getX(), 0.8));
+                interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8));
+            } else {
+                interiorWaypoints.add(new Translation2d(initialPosition.getX(), 4.62));
+                interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62));
+            }
+
+        }
 
         try {
 
@@ -283,9 +290,9 @@ public class NodeSelector {
                             m_drivetrain, 
                             TrajectoryGenerator.generateTrajectory(
                                 initialPosition, 
-                                List.of(interiorWaypoint), 
+                                interiorWaypoints, 
                                 finalPosition, 
-                                new TrajectoryConfig(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.kDrivetrain.kSwerveKinematics)))
+                                new TrajectoryConfig(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.kAutonomous.kSwerveKinematics)))
                         /*positionSequence*/);
                     
         }
