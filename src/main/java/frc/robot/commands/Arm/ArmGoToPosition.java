@@ -95,7 +95,6 @@ public class ArmGoToPosition extends CommandBase {
    */
   private double getY(double elbowPosition, double wristPosition) {
     double u = Constants.kArm.UPPER_ARM_LENGTH;
-    double l = Constants.kArm.LOWER_ARM_LENGTH;
     double w = Constants.kArm.WRIST_LENGTH;
     return u * Math.cos(Math.toRadians(elbowPosition)) + w * Math.cos(Math.toRadians(elbowPosition + wristPosition));
   }

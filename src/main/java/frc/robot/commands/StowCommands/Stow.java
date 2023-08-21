@@ -4,7 +4,6 @@
 
 package frc.robot.commands.StowCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.GoToState;
@@ -22,6 +21,5 @@ public class Stow extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     GoToState goToStow = new GoToState(elevatorSubsystem, armSubsystem, Constants.kRobotStates.stow);
     addCommands(goToStow, new Test(armSubsystem, intakeSubsystem), new Hold(armSubsystem, intakeSubsystem));
-    // TODO: Add GoToPosition command
   }
 }
