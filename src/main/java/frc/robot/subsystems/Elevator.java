@@ -50,6 +50,20 @@ public class Elevator extends SubsystemBase {
     encoderRight.setPositionConversionFactor(Constants.kElevator.ELEVATOR_POSITIONAL_CONVERSION_FACTOR);
     encoderRight.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);
   }
+
+  /**
+   * Runs the elevator at a given speed, unless the elevator is at the bottom, in which case it stops the elevator.
+   * @param speed speed to run the elevator at
+   */
+  public void runElevator(double speed) {
+    if ((limitySwitchy1.get() || limitySwitchy2.get()) && (speed < 0)) {
+      motorLeft.set(0);
+      motorRight.set(0);
+    } else {
+      motorLeft.set(speed);
+      motorRight.set(-speed);
+    }
+  }
   
   /**
    * 

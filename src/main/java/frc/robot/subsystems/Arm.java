@@ -67,6 +67,14 @@ public class Arm extends SubsystemBase {
 
   }
 
+  public void runElbow(double speed){
+    armMotor.set(speed);
+  }
+
+  public void runWrist(double speed){
+    wristMotor.set(speed);
+  }
+
   /**
    * This method sets the reference for arm's CanSparkMax PID Controller
    * @param value
