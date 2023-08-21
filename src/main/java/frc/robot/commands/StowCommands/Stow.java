@@ -4,8 +4,12 @@
 
 package frc.robot.commands.StowCommands;
 
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.GoToState;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -13,10 +17,11 @@ import frc.robot.subsystems.Intake;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Stow extends SequentialCommandGroup {
   /** Creates a new Stow. */
-  public Stow(Arm armSubsystem, Intake intakeSubsystem) {
+  public Stow(Elevator elevatorSubsystem, Arm armSubsystem, Intake intakeSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Test(armSubsystem, intakeSubsystem), new Hold(armSubsystem, intakeSubsystem));
+    GoToState goToStow = new GoToState(elevatorSubsystem, armSubsystem, Constants.kRobotStates.stow);
+    addCommands(goToStow, new Test(armSubsystem, intakeSubsystem), new Hold(armSubsystem, intakeSubsystem));
     // TODO: Add GoToPosition command
   }
 }

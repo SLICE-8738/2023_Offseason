@@ -42,6 +42,26 @@ public final class Constants {
 
     }
 
+    public static final class kRobotStates {
+      //TODO: Fill in these values
+      public static final RobotState stow = new RobotState(0, 0, 0);
+
+      public static final RobotState highScore = new RobotState(0, 0, 0);
+      public static final RobotState midScore = new RobotState(0, 0, 0);
+      public static final RobotState lowScore = new RobotState(0, 0, 0);
+
+      public static final RobotState cubeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState cubeGround = new RobotState(0, 0, 0);
+
+      public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState tippedConeGround = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeGround = new RobotState(0, 0, 0);
+      public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
+    
+    }
+
     /**
      * ALL CONSTANTS IN THIS CLASS ARE PLACEHOLDERS FOR NOW
      */
@@ -202,6 +222,13 @@ public final class Constants {
         public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
         public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_GEAR_RATIO * WRIST_SPROCKET_RATIO * 360.0;
         public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
+      
+        public static final double UPPER_ARM_LENGTH = 0.394; // Length of upper arm in meters, 15.5 inches 
+        public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
+        public static final double WRIST_LENGTH = -1; // TODO: get the length of the wrist in meters
+
+        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 0.05;
+        public static final double WRIST_POSITION_ERROR_TOLERANCE = 0.05;
       }
       public static final class kIntake {
         public static final double CONE_THRESHOLD = 222; //TODO: get the threshold value
@@ -212,5 +239,7 @@ public final class Constants {
         public static final double ELEVATOR_SPROCKET_PITCH_DIAMETER = 0.00462;
         public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 2;
         public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
+        
+        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
       }
 }
