@@ -31,19 +31,22 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   public final Drivetrain m_drivetrain = new Drivetrain();
+  public final Intake m_intake = new Intake();
+  public final Arm m_arm = new Arm();
+  public final Elevator m_elevator = new Elevator();
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
 
+  // Commands
   public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true);
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
 
-  public final Intake m_Intake = new Intake();
-  public final IntakeCommand m_IntakeCommand = new IntakeCommand();
-  public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand();
+  public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake, m_arm);
+  public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand(m_intake);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

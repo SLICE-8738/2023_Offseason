@@ -13,9 +13,9 @@ public class OutTakeCommand extends CommandBase {
   /** Creates a new OutTakeCommand. */
   private Intake intake; 
 
-  public OutTakeCommand() {
+  public OutTakeCommand(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    intake = new Intake();
+    this.intake = intake;
     addRequirements(intake);
   }
 
