@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,11 +26,13 @@ public class Arm extends SubsystemBase {
 
   //initiating relative encoders for the CANSparkMaxs Encoders and PIDControllers
   private RelativeEncoder armMotorEncoder, wristMotorEncoder;
+  private DutyCycleEncoder armThroughboreEncoder, wristThroughboreEncoder;
 
   private SparkMaxPIDController armMotorController, wristMotorController;
   public static StowState stowState;
 
   private double targetElbowPosition, targetWristPosition;
+
 
 
   /** Creates a new Arm Subsytem. */
@@ -42,6 +45,9 @@ public class Arm extends SubsystemBase {
     //defining motor encoders
     armMotorEncoder = armMotor.getEncoder();
     wristMotorEncoder = wristMotor.getEncoder();
+
+    armThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.ELBOW_THROUGHBORE_ID);
+    wristThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.WRIST_THROUGHBORE_ID);
 
     //defining PID motor Controllers
     armMotorController = armMotor.getPIDController();
@@ -63,6 +69,11 @@ public class Arm extends SubsystemBase {
     wristMotorEncoder.setPositionConversionFactor(Constants.kArm.WRIST_POSITIONAL_CONVERSION_FACTOR);
     wristMotorEncoder.setVelocityConversionFactor(Constants.kArm.WRIST_VELOCITY_CONVERSION_FACTOR);
     wristMotorEncoder.setPosition(Constants.kArm.STARTING_WRIST_ANGLE);
+
+    armThroughboreEncoder.setDistancePerRotation(Constants.kArm.ARM_DISTANCE_PER_ROTATION);
+    armThroughboreEncoder.reset();
+
+    wristThroughboreEncoder.setDistancePerRotation(Constants.kArm.WRIST_DISTANCE_PER_ROTATION);
 
 
 
@@ -110,7 +121,8 @@ public class Arm extends SubsystemBase {
    * @return the position of the arm motor in rotations
    */
   public double getElbowPosition(){
-    return armMotorEncoder.getPosition();
+    return armThroughboreEncoder.getDistance() - Constants.kArm.STARTING_ELBOW_ANGLE;
+    //return armMotorEncoder.getPosition();
   }
 
   /**
@@ -134,7 +146,8 @@ public class Arm extends SubsystemBase {
    * @return the position of the wrist motor in rotations
    */
   public double getWristPosition(){
-    return wristMotorEncoder.getPosition();
+    return wristThroughboreEncoder.getDistance() - Constants.kArm.STARTING_WRIST_ANGLE;
+    //return wristMotorEncoder.getPosition();
   }
 
   public boolean isElbowAtTarget(){
