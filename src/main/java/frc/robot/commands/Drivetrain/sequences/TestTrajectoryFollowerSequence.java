@@ -4,8 +4,11 @@
 
 package frc.robot.commands.Drivetrain.sequences;
 
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.trajectory.Trajectory;
+//import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -26,11 +29,11 @@ public class TestTrajectoryFollowerSequence extends SequentialCommandGroup {
   public TestTrajectoryFollowerSequence(Drivetrain drive, Transform2d trajectoryTransform) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    Trajectory testTrajectory = TrajectoryCommands.generateTestTrajectory(drive, trajectoryTransform);
+    PathPlannerTrajectory testTrajectory = TrajectoryCommands.generateTestTrajectory(drive, trajectoryTransform);
 
     SetField2dCommand setField2d = new SetField2dCommand(testTrajectory, drive);
     PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, testTrajectory);
-    SwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generateSwerveControllerCommand(drive, testTrajectory, true);
+    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, testTrajectory, false);
     InstantCommand stopDrive = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(

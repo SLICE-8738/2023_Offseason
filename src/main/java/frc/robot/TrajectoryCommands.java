@@ -4,19 +4,23 @@
 
 package frc.robot;
 
-import java.util.List;
+//import java.util.List;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.geometry.Translation2d;
+//import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+//import edu.wpi.first.math.trajectory.TrajectoryConfig;
+//import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 import frc.robot.subsystems.Drivetrain;
@@ -72,7 +76,7 @@ public class TrajectoryCommands {
 
     }
 
-    public static PPSwerveControllerCommand generatePPSwerveControllerCommand(Drivetrain drive, PathPlannerTrajectory trajectory) {
+    public static PPSwerveControllerCommand generatePPSwerveControllerCommand(Drivetrain drive, PathPlannerTrajectory trajectory, boolean useAllianceColor) {
 
         return new PPSwerveControllerCommand(
             trajectory,
@@ -83,21 +87,17 @@ public class TrajectoryCommands {
                 thetaController,
             //SwerveControllerCommand passes output module states to the callback
             drive::setModuleStates,
+            useAllianceColor, 
             drive);
 
     }
 
-    public static Trajectory generateTestTrajectory(Drivetrain drive, Transform2d trajectoryTransform) {
+    public static PathPlannerTrajectory generateTestTrajectory(Drivetrain drive, Transform2d trajectoryTransform) {
 
-        Pose2d initialPosition = drive.getPose();
+        /*Pose2d initialPosition = drive.getPose();
         Pose2d finalPosition = initialPosition.plus(trajectoryTransform);
-        /*Pose2d finalPosition = new Pose2d(
-            initialPosition.getX() + trajectoryTransform.getX(), 
-            initialPosition.getY() + trajectoryTransform.getY(), 
-            initialPosition.getRotation().plus(trajectoryTransform.getRotation()));*/
 
         Translation2d interiorWaypoint = initialPosition.getTranslation().plus(trajectoryTransform.getTranslation().div(2));
-        //Translation2d interiorWaypoint = new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2);
 
         return TrajectoryGenerator.generateTrajectory(
                     initialPosition, 
@@ -106,7 +106,22 @@ public class TrajectoryCommands {
                     new TrajectoryConfig(
                         Constants.kAutonomous.kMaxVelocityMetersPerSecond, 
                         Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).
-                        setKinematics(Constants.kAutonomous.kSwerveKinematics));
+                        setKinematics(Constants.kAutonomous.kSwerveKinematics));*/
+
+        Rotation2d trajectoryHeading = new Rotation2d(trajectoryTransform.getX(), trajectoryTransform.getY());
+
+        Pose2d initialPosition = drive.getPose();
+        Pose2d finalPosition = initialPosition.plus(trajectoryTransform);
+
+        PathPoint initialPoint = new PathPoint(initialPosition.getTranslation(), trajectoryHeading, initialPosition.getRotation());
+        PathPoint secondPoint = new PathPoint(initialPosition.getTranslation().plus(trajectoryTransform.getTranslation().div(2)), trajectoryHeading, finalPosition.getRotation());
+        PathPoint finalPoint = new PathPoint(finalPosition.getTranslation(), trajectoryHeading, finalPosition.getRotation());
+
+        return PathPlanner.generatePath(
+            new PathConstraints(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared),
+            initialPoint,
+            secondPoint,
+            finalPoint);
 
     }
 

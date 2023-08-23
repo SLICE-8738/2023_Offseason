@@ -7,11 +7,14 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPoint;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrajectoryParameterizer.TrajectoryGenerationException;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -227,13 +230,6 @@ public class NodeSelector {
 
     public SequentialCommandGroup getSequenceForIndex(int selectedNodeIndex) {
 
-        //Pose2d initialPosition = Limelight.getLastBotPoseBlue();
-        Pose2d initialPosition = m_drivetrain.getPose();
-        ArrayList<Translation2d> interiorWaypoints = new ArrayList<Translation2d>();
-        Pose2d finalPosition;
-
-        //Command positionSequence;
-
         boolean onBlueAlliance;
 
         if(allianceSelector.getSelected() == Alliance.BLUE) {
@@ -246,6 +242,24 @@ public class NodeSelector {
             onBlueAlliance = false;
 
         }
+
+        //Pose2d initialPosition = m_drivetrain.getPose();
+        //ArrayList<Translation2d> interiorWaypoints = new ArrayList<Translation2d>();
+        //Pose2d finalPosition;
+
+        PathPlannerTrajectory trajectory;
+
+        Rotation2d trajectoryHeading = Rotation2d.fromDegrees(onBlueAlliance? 180 : 0);
+
+        Pose2d initialPosition = m_drivetrain.getPose();
+        
+        PathPoint intitialPoint = new PathPoint(initialPosition.getTranslation(), trajectoryHeading, initialPosition.getRotation());
+        PathPoint secondPoint;
+        ArrayList<PathPoint> remainingPoints = new ArrayList<PathPoint>();
+
+        Pose2d finalPosition;
+
+        //Command positionSequence;
 
         /*if(selectedNodeIndex < 9) {
             positionSequence = new ToHighRowSequence(m_elevator, m_wrist);
@@ -260,13 +274,14 @@ public class NodeSelector {
         finalPosition = nodePosition;
 
         if(
-            (selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
+            ((selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 16 || selectedNodeIndex == 17 ||
-            selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 25 || selectedNodeIndex == 26) ||
-            (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81) ||
-            (initialPosition.getY() > 4.44 || initialPosition.getY() < 1.05)
+            selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 25 || selectedNodeIndex == 26) &&
+            (initialPosition.getY() > 4.44 || initialPosition.getY() < 1.05)) ||
+            (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81)
             ) {
-            interiorWaypoints.add(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2));
+            //interiorWaypoints.add(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2));
+            secondPoint = new PathPoint(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2), trajectoryHeading, finalPosition.getRotation());
         } else {
 
             if(
@@ -274,25 +289,55 @@ public class NodeSelector {
                 selectedNodeIndex == 9 || selectedNodeIndex == 10 || selectedNodeIndex == 11 || selectedNodeIndex == 12 || selectedNodeIndex == 13 ||
                 selectedNodeIndex == 18 || selectedNodeIndex == 19 || selectedNodeIndex == 20 || selectedNodeIndex == 21 || selectedNodeIndex == 22
                 ) {
-                interiorWaypoints.add(new Translation2d(initialPosition.getX(), 0.8));
-                interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8));
+                //interiorWaypoints.add(new Translation2d(initialPosition.getX(), 0.8));
+                //interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8));
+                secondPoint = new PathPoint(new Translation2d(initialPosition.getX(), 0.8), trajectoryHeading, finalPosition.getRotation());
+                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8), trajectoryHeading, finalPosition.getRotation()));
             } else {
-                interiorWaypoints.add(new Translation2d(initialPosition.getX(), 4.62));
-                interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62));
+                //interiorWaypoints.add(new Translation2d(initialPosition.getX(), 4.62));
+                //interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62));
+                secondPoint = new PathPoint(new Translation2d(initialPosition.getX(), 4.62), trajectoryHeading, finalPosition.getRotation());
+                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62), trajectoryHeading, finalPosition.getRotation()));
             }
+
+            remainingPoints.add(new PathPoint(finalPosition.getTranslation(), trajectoryHeading, finalPosition.getRotation()));
 
         }
 
         try {
 
-        return new SequentialCommandGroup(
+            if(remainingPoints.size() == 1) {
+
+                trajectory = PathPlanner.generatePath(
+                    new PathConstraints(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared),
+                    intitialPoint,
+                    secondPoint,
+                    remainingPoints.get(0));
+
+            }
+            else {
+
+                trajectory = PathPlanner.generatePath(
+                    new PathConstraints(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared),
+                    intitialPoint,
+                    secondPoint,
+                    remainingPoints.get(0),
+                    remainingPoints.get(1));
+
+            }
+
+            return new SequentialCommandGroup(
                         new Field2dTrajectoryFollowerSequence(
                             m_drivetrain, 
-                            TrajectoryGenerator.generateTrajectory(
+                            trajectory
+                            /*TrajectoryGenerator.generateTrajectory(
                                 initialPosition, 
                                 interiorWaypoints, 
                                 finalPosition, 
-                                new TrajectoryConfig(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.kAutonomous.kSwerveKinematics)))
+                                new TrajectoryConfig(
+                                    Constants.kAutonomous.kMaxVelocityMetersPerSecond, 
+                                    Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared).
+                                    setKinematics(Constants.kAutonomous.kSwerveKinematics))*/)
                         /*positionSequence*/);
                     
         }
