@@ -229,7 +229,16 @@ public final class Constants {
 
         public static final double ELBOW_POSITION_ERROR_TOLERANCE = 0.05;
         public static final double WRIST_POSITION_ERROR_TOLERANCE = 0.05;
+
+        public static final double ELBOW_kP = 0.1; // TODO: tune the PID values
+        public static final double ELBOW_kI = 0.0;
+        public static final double ELBOW_kD = 0.0;
+
+        public static final double WRIST_kP = 0.1; // TODO: tune the PID values
+        public static final double WRIST_kI = 0.0;
+        public static final double WRIST_kD = 0.0;
       }
+
       public static final class kIntake {
         public static final double CONE_THRESHOLD = 222; //TODO: get the threshold value
       }
@@ -243,6 +252,14 @@ public final class Constants {
         public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
 
         public static final double MAX_ELEVATOR_HEIGHT = 3.0; //TODO: get the max height
+
+        public static final int LEFT_MOTOR_ID = 1; //TODO: get the motor ids
+        public static final int RIGHT_MOTOR_ID = 2; 
+
+        public static final double kP = 0.1; //TODO: tune the PID values
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+
       }
 
       public static final class kLEDs {

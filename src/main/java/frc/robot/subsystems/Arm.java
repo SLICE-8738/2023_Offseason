@@ -48,13 +48,13 @@ public class Arm extends SubsystemBase {
     wristMotorController = wristMotor.getPIDController();
 
     //Setting the P, I(not), and D Gain for the lower motor
-    armMotorController.setP(0);
-    armMotorController.setI(0);
-    armMotorController.setD(0);
+    armMotorController.setP(Constants.kArm.ELBOW_kP);
+    armMotorController.setI(Constants.kArm.ELBOW_kI);
+    armMotorController.setD(Constants.kArm.ELBOW_kD);
     //Setting the P, I(not), and D Gain for the higher motor
-    wristMotorController.setP(0);
-    wristMotorController.setI(0);
-    wristMotorController.setD(0);
+    wristMotorController.setP(Constants.kArm.WRIST_kP);
+    wristMotorController.setI(Constants.kArm.WRIST_kI);
+    wristMotorController.setD(Constants.kArm.WRIST_kD);
 
     armMotorEncoder.setPositionConversionFactor(Constants.kArm.ARM_POSITIONAL_CONVERSION_FACTOR);
     armMotorEncoder.setVelocityConversionFactor(Constants.kArm.ARM_VELOCITY_CONVERSION_FACTOR);

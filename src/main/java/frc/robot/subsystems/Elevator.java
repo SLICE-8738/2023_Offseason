@@ -25,24 +25,26 @@ public class Elevator extends SubsystemBase {
   private double targetPosition;
 
   public Elevator() {
-    motorLeft = new CANSparkMax(1, MotorType.kBrushless);
-    motorRight = new CANSparkMax(2, MotorType.kBrushless);
+    motorLeft = new CANSparkMax(Constants.kElevator.LEFT_MOTOR_ID, MotorType.kBrushless);
+    motorRight = new CANSparkMax(Constants.kElevator.RIGHT_MOTOR_ID, MotorType.kBrushless);
     limitySwitchy1 = new DigitalInput(9);
     limitySwitchy2 = new DigitalInput(8);
+    
     PIDLeft = motorLeft.getPIDController();
     PIDRight = motorRight.getPIDController();
+
     encoderLeft = motorLeft.getEncoder();
     encoderRight = motorRight.getEncoder();
 
     targetPosition = getElevatorHeight();
 
 
-    PIDLeft.setP(0);
-    PIDRight.setP(0);
-    PIDLeft.setI(0);
-    PIDRight.setI(0);
-    PIDLeft.setD(0);
-    PIDRight.setD(0);
+    PIDLeft.setP(Constants.kElevator.kP);
+    PIDRight.setP(Constants.kElevator.kP);
+    PIDLeft.setI(Constants.kElevator.kI);
+    PIDRight.setI(Constants.kElevator.kI);
+    PIDLeft.setD(Constants.kElevator.kD);
+    PIDRight.setD(Constants.kElevator.kD);
 
     encoderLeft.setPositionConversionFactor(Constants.kElevator.ELEVATOR_POSITIONAL_CONVERSION_FACTOR);
     encoderLeft.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);

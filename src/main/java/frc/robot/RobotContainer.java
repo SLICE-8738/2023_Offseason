@@ -110,6 +110,9 @@ public class RobotContainer {
     Button.scoreHigh.onTrue(m_scoreHigh);
     Button.scoreMid.onTrue(m_scoreMid);
     Button.scoreLow.onTrue(m_scoreLow);
+
+    // Stow
+    Button.stow.onTrue(m_stow);
   }
 
   /**
