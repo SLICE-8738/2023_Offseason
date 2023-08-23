@@ -237,6 +237,9 @@ public final class Constants {
         public static final double WRIST_kP = 0.1; // TODO: tune the PID values
         public static final double WRIST_kI = 0.0;
         public static final double WRIST_kD = 0.0;
+
+        public static final double STARTING_ELBOW_ANGLE = 0.0; // TODO: get the starting angle
+        public static final double STARTING_WRIST_ANGLE = 0.0; 
       }
 
       public static final class kIntake {
