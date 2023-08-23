@@ -59,6 +59,8 @@ public final class Constants {
       public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState uprightConeGround = new RobotState(0, 0, 0);
       public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
+
+      public static final boolean coneUpright = true;
     
     }
 

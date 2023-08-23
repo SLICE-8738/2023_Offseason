@@ -18,6 +18,7 @@ import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Arm.StowState;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
@@ -81,14 +82,18 @@ public class RobotContainer {
   public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 
   /* Intake Command Sequences */
-    //Cubes
+  //Cubes
   public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = 
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeDoubleSubstation);
   public final IntakeCommandsSequence m_cubeSingleSubstation =
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeSingleSubstation);
   public final IntakeCommandsSequence m_cubeGround =
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);
-    //Cones
+    //Conditional Commands for the Cube. This conditional command executes a command based on whether the robot is facing the double substation or not
+  public final ConditionalCommand m_cubeSubstationsConditionalCommand =
+                new ConditionalCommand( m_cubeDoubleSubstationSequence, m_cubeSingleSubstation , () -> m_drivetrain.facingDoubleSub());
+  
+  //Cones
   public final IntakeCommandsSequence m_tippedConeDoubleSubstation =
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone , Constants.kRobotStates.tippedConeDoubleSubstation);
   public final IntakeCommandsSequence m_tippedConeGround =
@@ -99,6 +104,11 @@ public class RobotContainer {
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
   public final IntakeCommandsSequence m_coneSingleSubstation =
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.coneSingleSubstation);
+    //Conditional Commands for the Cone. These conditonal commands are for determining which substation the robot is at, and whether the cone is tipped or upright.
+  public final ConditionalCommand m_coneDoubleSubstationConditionalCommand =
+                new ConditionalCommand(m_uprightConeDoubleSubstation, m_tippedConeDoubleSubstation , () -> Constants.kRobotStates.coneUpright);
+  public final ConditionalCommand m_coneSubstationsConditionalCommand =
+                new ConditionalCommand(m_coneDoubleSubstationConditionalCommand, m_coneSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -131,6 +141,14 @@ public class RobotContainer {
     Button.scoreHigh.onTrue(m_scoreHigh);
     Button.scoreMid.onTrue(m_scoreMid);
     Button.scoreLow.onTrue(m_scoreLow);
+
+    //Intake Stow
+    Button.cubeGroundIntake.onTrue(m_cubeGround);
+    Button.tippedConeGroundIntake.onTrue(m_tippedConeGround);
+    Button.uprightConeGroundIntake.onTrue(m_uprightConeGround);
+
+    Button.cubeSubstationIntake.onTrue(m_cubeSubstationsConditionalCommand);
+    Button.coneSubstationIntake.onTrue(m_coneSubstationsConditionalCommand);
 
     // Stow
     Button.stow.onTrue(m_stow);
