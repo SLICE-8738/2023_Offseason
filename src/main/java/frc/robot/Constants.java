@@ -213,7 +213,7 @@ public final class Constants {
         public static final int ARM_MOTOR_ID = 3;
         public static final int WRIST_MOTOR_ID = 10;
 
-        public static final double CUBE_THRESHOLD = 9;   //TODO: get the threshold value
+        public static final double CUBE_THRESHOLD = 900;   //TODO: get the threshold value
 
         public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
         public static final double ARM_SPROCKET_RATIO = 18.0 / 60.0;
