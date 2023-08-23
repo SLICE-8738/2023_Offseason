@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.auto.AutoSelector;
 import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
+import frc.robot.commands.Drivetrain.sequences.IntakeCommandsSequence;
 import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
@@ -14,7 +15,7 @@ import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.RainbowLEDs;
 import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.*;
-
+import frc.robot.subsystems.Arm.StowState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -74,6 +75,26 @@ public class RobotContainer {
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
+
+  /* Intake Command Sequences */
+    //Cubes
+  public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = 
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeDoubleSubstation);
+  public final IntakeCommandsSequence m_cubeSingleSubstation =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeSingleSubstation);
+  public final IntakeCommandsSequence m_cubeGround =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);
+    //Cones
+  public final IntakeCommandsSequence m_tippedConeDoubleSubstation =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone , Constants.kRobotStates.tippedConeDoubleSubstation);
+  public final IntakeCommandsSequence m_tippedConeGround =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeGround);
+  public final IntakeCommandsSequence m_uprightConeDoubleSubstation =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeDoubleSubstation);
+  public final IntakeCommandsSequence m_uprightConeGround =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
+  public final IntakeCommandsSequence m_coneSingleSubstation =
+                new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.coneSingleSubstation);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

@@ -4,10 +4,9 @@
 
 package frc.robot.commands.Drivetrain.sequences;
 
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.subsystems.Arm;
@@ -24,23 +23,23 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
   
   
   /** Creates a new IntakeCommandsSequence. */
-  public IntakeCommandsSequence(Intake m_intake, Arm m_Arm, Elevator m_Elevator) {
+  public IntakeCommandsSequence(Intake m_intake, Arm m_Arm, Elevator m_Elevator, StowState stowState, RobotState m_RobotState) {
 
     // Initializing and defining the commands needed for the command sequence.
-    GoToState goToState = new GoToState(m_Elevator, m_Arm, Constants.kRobotStates.stow);
+    GoToState goToState = new GoToState(m_Elevator, m_Arm, m_RobotState);
     IntakeCommand intakeCommand = new IntakeCommand(m_intake, m_Arm);
-    // Creating instant commands that can be defined in this command
-    new InstantCommand(() -> this.setCube());
-    new InstantCommand(() -> this.setCone());
-    //new InstantCommand(() -> this.setState());        might use this to make logic better
+    
 
-    /*runs a different sequential command depending on what game piece needs to be stowed
-     * the comments are placeholders currently and will be changed to the proper logic once able to */
-    if(/*gamepiece is cone*/null){
-      addCommands(setCone(), goToState, intakeCommand.repeatedly());
+    /* runs a different sequential command depending on what game piece needs to be stowed
+     * the instant commands are used to set the StowState of the Arm based on what game piece
+     * has been picked up by the robot.
+     * The robot then goes to the desired state and runs intakeCommand
+     */
+    if( stowState == StowState.Cone ){
+      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand);
     }
-    else if(/*gamepiece is cube */ null){
-      addCommands(setCube()), goToState, intakeCommand.repeatedly();
+    else if( stowState == StowState.Cube ){
+      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand);
     }
   }
 
@@ -53,11 +52,6 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
   public void setCone(){
     Arm.stowState = StowState.Cone;
   }
-
-  /* might use
-  public void setState(){
-
-  }*/
 
 }
 
