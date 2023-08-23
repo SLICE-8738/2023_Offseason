@@ -464,6 +464,11 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
+  public boolean facingDoubleSub() {
+    double degrees = getPose().getRotation().getDegrees();
+    return degrees > 0 && degrees < 135 || degrees > 315;
+  }
+
   /**
    * Obtains and returns the current pitch of the robot from -180 to 180 degrees, with an offset of 1 degree from the gyro object.
    * 
