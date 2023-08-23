@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.auto.AutoSelector;
+import frc.robot.commands.GoToState;
 import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Elevator.ManualElevator;
@@ -74,6 +75,9 @@ public class RobotContainer {
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
+  public final GoToState m_scoreHigh = new GoToState(m_elevator, m_arm, Constants.kRobotStates.highScore);
+  public final GoToState m_scoreMid = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
+  public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -101,6 +105,11 @@ public class RobotContainer {
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
 
     Button.outtake.whileTrue(m_OutTakeCommand);
+
+    // Scoring
+    Button.scoreHigh.onTrue(m_scoreHigh);
+    Button.scoreMid.onTrue(m_scoreMid);
+    Button.scoreLow.onTrue(m_scoreLow);
   }
 
   /**
