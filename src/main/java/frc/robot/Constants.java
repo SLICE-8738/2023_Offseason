@@ -217,17 +217,17 @@ public final class Constants {
 
         public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
         public static final double ARM_SPROCKET_RATIO = 18.0 / 60.0;
-        public static final double ARM_POSITIONAL_CONVERSION_FACTOR = ARM_GEAR_RATIO * ARM_SPROCKET_RATIO * 360.0;
+        public static final double ARM_POSITIONAL_CONVERSION_FACTOR = ARM_SPROCKET_RATIO * 360.0;
         public static final double ARM_VELOCITY_CONVERSION_FACTOR = ARM_POSITIONAL_CONVERSION_FACTOR / 60.0;
 
-        public static final double ARM_DISTANCE_PER_ROTATION = ARM_SPROCKET_RATIO * 360.0;
+        //public static final double ARM_DISTANCE_PER_ROTATION = ARM_SPROCKET_RATIO * 360.0;
 
         public static final double WRIST_GEAR_RATIO = 1.0 / 5.0;
         public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
-        public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_GEAR_RATIO * WRIST_SPROCKET_RATIO * 360.0;
+        public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_SPROCKET_RATIO * 360.0;
         public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
 
-        public static final double WRIST_DISTANCE_PER_ROTATION = WRIST_SPROCKET_RATIO * 360.0;
+        //public static final double WRIST_DISTANCE_PER_ROTATION = WRIST_SPROCKET_RATIO * 360.0;
       
         public static final double UPPER_ARM_LENGTH = 0.394; // Length of upper arm in meters, 15.5 inches 
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches

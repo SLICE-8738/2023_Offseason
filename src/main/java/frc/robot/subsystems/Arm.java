@@ -6,9 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAlternateEncoder.Type;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +28,7 @@ public class Arm extends SubsystemBase {
 
   //initiating relative encoders for the CANSparkMaxs Encoders and PIDControllers
   private RelativeEncoder armMotorEncoder, wristMotorEncoder;
-  private DutyCycleEncoder armThroughboreEncoder, wristThroughboreEncoder;
+  //private DutyCycleEncoder armThroughboreEncoder, wristThroughboreEncoder;
 
   private SparkMaxPIDController armMotorController, wristMotorController;
   public static StowState stowState;
@@ -43,11 +45,10 @@ public class Arm extends SubsystemBase {
     wristMotor = new CANSparkMax(Constants.kArm.WRIST_MOTOR_ID, MotorType.kBrushless);
 
     //defining motor encoders
-    armMotorEncoder = armMotor.getEncoder();
-    wristMotorEncoder = wristMotor.getEncoder();
-
-    armThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.ELBOW_THROUGHBORE_ID);
-    wristThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.WRIST_THROUGHBORE_ID);
+    //armMotorEncoder = armMotor.getEncoder();
+    //wristMotorEncoder = wristMotor.getEncoder();
+    armMotorEncoder = armMotor.getAlternateEncoder(8192);
+    wristMotorEncoder = wristMotor.getAlternateEncoder(8192);
 
     //defining PID motor Controllers
     armMotorController = armMotor.getPIDController();
@@ -70,10 +71,14 @@ public class Arm extends SubsystemBase {
     wristMotorEncoder.setVelocityConversionFactor(Constants.kArm.WRIST_VELOCITY_CONVERSION_FACTOR);
     wristMotorEncoder.setPosition(Constants.kArm.STARTING_WRIST_ANGLE);
 
+    /* This is code for using the throughbore encoders through the DIO ports rather than the Alternate Encoder ports on the SparkMaxes
+    armThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.ELBOW_THROUGHBORE_ID);
+    wristThroughboreEncoder = new DutyCycleEncoder(Constants.kArm.WRIST_THROUGHBORE_ID);
+
     armThroughboreEncoder.setDistancePerRotation(Constants.kArm.ARM_DISTANCE_PER_ROTATION);
     armThroughboreEncoder.reset();
 
-    wristThroughboreEncoder.setDistancePerRotation(Constants.kArm.WRIST_DISTANCE_PER_ROTATION);
+    wristThroughboreEncoder.setDistancePerRotation(Constants.kArm.WRIST_DISTANCE_PER_ROTATION); */
 
 
 
@@ -121,8 +126,8 @@ public class Arm extends SubsystemBase {
    * @return the position of the arm motor in rotations
    */
   public double getElbowPosition(){
-    return armThroughboreEncoder.getDistance() - Constants.kArm.STARTING_ELBOW_ANGLE;
-    //return armMotorEncoder.getPosition();
+    //return armThroughboreEncoder.getDistance() - Constants.kArm.STARTING_ELBOW_ANGLE;
+    return armMotorEncoder.getPosition();
   }
 
   /**
@@ -146,8 +151,8 @@ public class Arm extends SubsystemBase {
    * @return the position of the wrist motor in rotations
    */
   public double getWristPosition(){
-    return wristThroughboreEncoder.getDistance() - Constants.kArm.STARTING_WRIST_ANGLE;
-    //return wristMotorEncoder.getPosition();
+    //return wristThroughboreEncoder.getDistance() - Constants.kArm.STARTING_WRIST_ANGLE;
+    return wristMotorEncoder.getPosition();
   }
 
   public boolean isElbowAtTarget(){
