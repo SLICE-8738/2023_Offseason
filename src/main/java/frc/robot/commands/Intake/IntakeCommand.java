@@ -32,7 +32,7 @@ public class IntakeCommand extends CommandBase {
 
     if (Arm.stowState == StowState.Cube){
       intake.IntakeSpinUp(); 
-      arm.wristSecureCube();
+      //arm.wristSecureCube();
     }
 
     else if (Arm.stowState == StowState.Cone){

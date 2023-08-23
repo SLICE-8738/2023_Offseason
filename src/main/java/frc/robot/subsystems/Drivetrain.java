@@ -466,7 +466,7 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean facingDoubleSub() {
     double degrees = getPose().getRotation().getDegrees();
-    return degrees > 0 && degrees < 135 || degrees > 315;
+    return (degrees > 0 && degrees < 45) || (degrees > 315 && degrees < 360) || (degrees > 135 && degrees < 225);
   }
 
   /**
