@@ -241,6 +241,8 @@ public final class Constants {
         public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
         
         public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
+
+        public static final double MAX_ELEVATOR_HEIGHT = 3.0; //TODO: get the max height
       }
 
       public static final class kLEDs {
