@@ -32,12 +32,7 @@ public class OnboardModuleState {
    * @param newAngle Target Angle
    * @return Closest angle within scope
    */
-  private static double 
-  
-  
-  
-  
-  placeInAppropriate0To360Scope(double scopeReference, double newAngle) {
+  private static double placeInAppropriate0To360Scope(double scopeReference, double newAngle) {
     double lowerBound;
     double upperBound;
     double lowerOffset = scopeReference % 360;

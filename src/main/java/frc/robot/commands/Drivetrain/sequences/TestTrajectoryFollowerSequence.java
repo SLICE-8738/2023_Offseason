@@ -11,7 +11,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 //import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+//import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 import frc.robot.TrajectoryCommands;
 import frc.robot.commands.Drivetrain.PrepareAutoRotationsCommand;
@@ -24,7 +24,7 @@ import frc.robot.subsystems.Drivetrain;
 public class TestTrajectoryFollowerSequence extends SequentialCommandGroup {
   /** 
    * Creates a new TestTrajectoryFollowerSequence, consisting of a trajectory with the given transform.
-   * Instances of this sequence should be used to test {@link SwerveControllerCommand SwerveControllerCommands}.
+   * Instances of this sequence should be used to test {@link PPSwerveControllerCommand PPSwerveControllerCommands}.
    */
   public TestTrajectoryFollowerSequence(Drivetrain drive, Transform2d trajectoryTransform) {
     // Add your commands in the addCommands() call, e.g.

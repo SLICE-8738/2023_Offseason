@@ -114,13 +114,11 @@ public class TrajectoryCommands {
         Pose2d finalPosition = initialPosition.plus(trajectoryTransform);
 
         PathPoint initialPoint = new PathPoint(initialPosition.getTranslation(), trajectoryHeading, initialPosition.getRotation());
-        PathPoint secondPoint = new PathPoint(initialPosition.getTranslation().plus(trajectoryTransform.getTranslation().div(2)), trajectoryHeading, finalPosition.getRotation());
         PathPoint finalPoint = new PathPoint(finalPosition.getTranslation(), trajectoryHeading, finalPosition.getRotation());
 
         return PathPlanner.generatePath(
             new PathConstraints(Constants.kAutonomous.kMaxVelocityMetersPerSecond, Constants.kAutonomous.kMaxAccelerationMetersPerSecondSquared),
             initialPoint,
-            secondPoint,
             finalPoint);
 
     }

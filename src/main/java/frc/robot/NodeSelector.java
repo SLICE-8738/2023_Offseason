@@ -257,7 +257,7 @@ public class NodeSelector {
         PathPoint secondPoint;
         ArrayList<PathPoint> remainingPoints = new ArrayList<PathPoint>();
 
-        Pose2d finalPosition;
+        Pose2d finalPosition = nodePosition;
 
         //Command positionSequence;
 
@@ -270,8 +270,6 @@ public class NodeSelector {
         } else {
             positionSequence = new GoToStateCommand(m_elevator, m_wrist, Constants.States.LOW_ROW_GROUND_STATE);
         }*/
-
-        finalPosition = nodePosition;
 
         if(
             ((selectedNodeIndex == 0 || selectedNodeIndex == 1 || selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
