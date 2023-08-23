@@ -32,19 +32,21 @@ public final class Button {
     public static Trigger cubeSubstationIntake = new JoystickButton(operatorJoystick, 6); //Left Top 4
     public static Trigger tippedConeGroundIntake = new JoystickButton(operatorJoystick, 2); //Left Top 2
 
+    //Score State Buttons
+    public static Trigger scoreHigh = new JoystickButton(operatorJoystick, 7); //Left Bottom 7
+    public static Trigger scoreMid = new JoystickButton(operatorJoystick, 9); //Left Bottom 9
+    public static Trigger scoreLow = new JoystickButton(operatorJoystick, 11); //Left Bottom 11
+
     //Manual Control
     public static Trigger wristDown = new JoystickButton(operatorController, 7); //Driver Left Trigger
     public static Trigger wristUp = new JoystickButton(operatorController, 8); //Driver Right Trigger
 
     //Outtake
-    public static Trigger outtake1 = new JoystickButton(operatorJoystick, 7); //Left Bottom 7
     public static Trigger outtake2 = new JoystickButton(operatorJoystick, 8); //Left Bottom 8
-    public static Trigger outtake3 = new JoystickButton(operatorJoystick, 9); //Left Bottom 9
     public static Trigger outtake4 = new JoystickButton(operatorJoystick, 10); //Left Bottom 10
-    public static Trigger outtake5 = new JoystickButton(operatorJoystick, 11); //Left Bottom 11
     public static Trigger outtake6 = new JoystickButton(operatorJoystick, 12); //Left Bottom 12
     public static Trigger controllerOuttake = new JoystickButton(operatorController, 1); //Driver X Button
-    public static Trigger outtake = outtake1.or(outtake2).or(outtake3).or(outtake4).or(outtake5).or(outtake6).or(controllerOuttake);
+    public static Trigger outtake = outtake2.or(outtake4).or(outtake6).or(controllerOuttake);
     
     //Unassigned Driver Controller Buttons
     public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver X Button

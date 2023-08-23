@@ -6,6 +6,7 @@ package frc.robot.commands.Drivetrain;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.JoystickFilter;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SwerveDriveCommand extends CommandBase {
   /** Creates a new SwerveDriveCommand. */
   private final Drivetrain m_drivetrain;
+  private final Elevator m_elevator;
 
   private final GenericHID m_driverController;
   private final JoystickFilter translationXFilter, translationYFilter, rotationFilter;
@@ -24,11 +26,12 @@ public class SwerveDriveCommand extends CommandBase {
   private final boolean m_isOpenLoop;
   private final boolean m_isFieldRelative;
 
-  public SwerveDriveCommand(Drivetrain drivetrain, GenericHID driverController, boolean isOpenLoop, boolean isFieldRelative) {
+  public SwerveDriveCommand(Drivetrain drivetrain, GenericHID driverController, boolean isOpenLoop, boolean isFieldRelative, Elevator elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
 
     m_drivetrain = drivetrain;
+    m_elevator = elevator;
 
     m_driverController = driverController;
 
@@ -48,10 +51,14 @@ public class SwerveDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    // Slow down the robot when the elevator is up
+    double elevatorPercentage = m_elevator.getElevatorHeight() / Constants.kElevator.MAX_ELEVATOR_HEIGHT;
+    double drivePercent = elevatorPercentage < 0.5 ? 1 : (1 - elevatorPercentage) * 1.5 + 0.25;
     
-    double translationX = translationXFilter.filter(m_driverController.getRawAxis(1)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
-    double translationY = -translationYFilter.filter(m_driverController.getRawAxis(0)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
-    double rotation = rotationFilter.filter(m_driverController.getRawAxis(2)) * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY;
+    double translationX = translationXFilter.filter(m_driverController.getRawAxis(1)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;
+    double translationY = -translationYFilter.filter(m_driverController.getRawAxis(0)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;
+    double rotation = rotationFilter.filter(m_driverController.getRawAxis(2)) * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY * drivePercent;
 
     m_drivetrain.swerveDrive(
       new Transform2d(new Translation2d(translationX, translationY), new Rotation2d(rotation)),

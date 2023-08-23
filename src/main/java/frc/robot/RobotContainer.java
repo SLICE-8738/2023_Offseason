@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.auto.AutoSelector;
+import frc.robot.commands.GoToState;
 import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Drivetrain.sequences.IntakeCommandsSequence;
@@ -46,15 +47,15 @@ public class RobotContainer {
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_autoSelector);
 
   // ==========================
   // Commands
   // ==========================
 
   // Drivetrain
-  public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true);
-  public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
+  public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true, m_elevator);
+  public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true, m_elevator);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
 
@@ -75,6 +76,9 @@ public class RobotContainer {
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
+  public final GoToState m_scoreHigh = new GoToState(m_elevator, m_arm, Constants.kRobotStates.highScore);
+  public final GoToState m_scoreMid = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
+  public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 
   /* Intake Command Sequences */
     //Cubes
@@ -122,6 +126,14 @@ public class RobotContainer {
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
 
     Button.outtake.whileTrue(m_OutTakeCommand);
+
+    // Scoring
+    Button.scoreHigh.onTrue(m_scoreHigh);
+    Button.scoreMid.onTrue(m_scoreMid);
+    Button.scoreLow.onTrue(m_scoreLow);
+
+    // Stow
+    Button.stow.onTrue(m_stow);
   }
 
   /**

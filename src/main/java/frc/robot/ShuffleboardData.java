@@ -12,22 +12,26 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 import frc.robot.auto.AutoSelector;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 
 /** Contains and runs all code needed to display all necessary information on Shuffleboard.*/
 public class ShuffleboardData {
 
-    private final ShuffleboardTab /*driverTab,*/ debugTab, modulesTab, autoTab;
+    private final ShuffleboardTab /*driverTab,*/ debugTab, modulesTab, autoTab, elevatorArmTab;
 
-    public ShuffleboardData(Drivetrain drivetrain, AutoSelector autoSelector) {
+    public ShuffleboardData(Drivetrain drivetrain, Elevator elevator, Arm arm, AutoSelector autoSelector) {
 
         //driverTab = Shuffleboard.getTab("Driver Tab");
         debugTab = Shuffleboard.getTab("Debug Tab");
         modulesTab = Shuffleboard.getTab("Modules Tab");
         autoTab = Shuffleboard.getTab("Auto Tab");
+        elevatorArmTab = Shuffleboard.getTab("Elevator & Arm Tab");
 
         new DrivetrainData(drivetrain);
         new AutoData(autoSelector);
+        new ElevatorArmData(elevator, arm);
 
     }
 
@@ -155,6 +159,22 @@ public class ShuffleboardData {
 
         }
 
+    }
+
+    public class ElevatorArmData {
+        public ElevatorArmData(Elevator elevator, Arm arm) {
+            elevatorArmTab.addDouble("Elevator Height", () -> elevator.getElevatorHeight()).
+            withPosition(0, 0).
+            withSize(2, 1);
+
+            elevatorArmTab.addDouble("Elbow Angle", () -> arm.getElbowPosition()).
+            withPosition(0, 1).
+            withSize(2, 1);
+
+            elevatorArmTab.addDouble("Wrist Angle", () -> arm.getWristPosition()).
+            withPosition(0, 2).
+            withSize(2, 1);
+        }
     }
 
 }
