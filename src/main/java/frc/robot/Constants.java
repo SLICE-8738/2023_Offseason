@@ -233,8 +233,8 @@ public final class Constants {
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
         public static final double WRIST_LENGTH = 0.15367; // Length of wrist in meters, 6.05 inches 
 
-        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 0.05;
-        public static final double WRIST_POSITION_ERROR_TOLERANCE = 0.05;
+        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 20;
+        public static final double WRIST_POSITION_ERROR_TOLERANCE = 20;
 
         public static final double ELBOW_kP = 0.1; // TODO: tune the PID values
         public static final double ELBOW_kI = 0.0;
@@ -263,7 +263,7 @@ public final class Constants {
         public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 2;
         public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
         
-        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
+        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 1;
 
         public static final double MAX_ELEVATOR_HEIGHT = 3.0; //TODO: get the max height
 

@@ -51,6 +51,9 @@ public class Elevator extends SubsystemBase {
 
     encoderRight.setPositionConversionFactor(Constants.kElevator.ELEVATOR_POSITIONAL_CONVERSION_FACTOR);
     encoderRight.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);
+  
+    encoderLeft.setPosition(0);
+    encoderRight.setPosition(0);
   }
 
   /**
