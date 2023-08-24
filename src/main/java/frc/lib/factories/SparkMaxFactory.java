@@ -58,7 +58,7 @@ public class SparkMaxFactory {
 
     }
 
-    private static final Configuration kDefaultDriveConfiguration = new Configuration(
+    private static final Configuration kDefaultConfiguration = new Configuration(
         IdleMode.kBrake,
         Constants.kDrivetrain.DRIVE_INVERT,
         false,
@@ -69,7 +69,18 @@ public class SparkMaxFactory {
         1000,
         1000);
 
-    private static final Configuration kDefaultAngleConfiguration = new Configuration(
+    private static final Configuration kDefaultVelocityConfiguration = new Configuration(
+        IdleMode.kBrake,
+        Constants.kDrivetrain.DRIVE_INVERT,
+        false,
+        12,
+        0.0,
+        0.0,
+        80,
+        200,
+        1000);
+
+    private static final Configuration kDefaultPositionConfiguration = new Configuration(
         IdleMode.kBrake,
         Constants.kDrivetrain.ANGLE_INVERT,
         false,
@@ -80,17 +91,32 @@ public class SparkMaxFactory {
         1500,
         200);
 
-    /** Creates a CANSparkMax object with the default drive motor configuration.*/
-    public static CANSparkMax createDefaultDriveSparkMax(int id) {
+    /**
+     * Creates a CANSparkMax object with a configuration optimized for less significant motors.
+     */
+    public static CANSparkMax createDefaultSparkMax(int id) {
 
-        return createSparkMax(id, kDefaultDriveConfiguration);
+        return createSparkMax(id, kDefaultConfiguration);
 
     }
 
-    /** Creates a CANSparkMax object with the default angle motor configuration.*/
-    public static CANSparkMax createDefaultAngleSparkMax(int id) {
+    /**
+     * Creates a CANSparkMax object with a configuration optimized for motors primarily used with
+     * velocity control.
+     */
+    public static CANSparkMax createDefaultVelocitySparkMax(int id) {
 
-        return createSparkMax(id, kDefaultAngleConfiguration);
+        return createSparkMax(id, kDefaultVelocityConfiguration);
+
+    }
+
+    /**
+     * Creates a CANSparkMax object with a configuration optimized for motors primarily used with
+     * position control.
+     */
+    public static CANSparkMax createDefaultPositionSparkMax(int id) {
+
+        return createSparkMax(id, kDefaultPositionConfiguration);
     
     }
 

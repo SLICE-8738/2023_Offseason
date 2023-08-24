@@ -9,11 +9,11 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAlternateEncoder.Type;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
@@ -41,8 +41,8 @@ public class Arm extends SubsystemBase {
   public Arm() {
     stowState = StowState.Nothing;
     //defining CANSparkMax Motors
-    armMotor = new CANSparkMax(Constants.kArm.ARM_MOTOR_ID, MotorType.kBrushless);
-    wristMotor = new CANSparkMax(Constants.kArm.WRIST_MOTOR_ID, MotorType.kBrushless);
+    armMotor = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kArm.ARM_MOTOR_ID);
+    wristMotor = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kArm.WRIST_MOTOR_ID);
 
     //defining motor encoders
     armMotorEncoder = armMotor.getEncoder();

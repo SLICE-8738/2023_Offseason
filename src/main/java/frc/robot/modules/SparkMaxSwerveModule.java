@@ -44,8 +44,8 @@ public class SparkMaxSwerveModule {
    * @param chassisAngularOffset The offset of the steer encoder of the module from true zero in radians.
    */
   public SparkMaxSwerveModule(int driveMotorPort, int steerMotorPort, double chassisAngularOffset) {
-    driveMotor = SparkMaxFactory.createDefaultDriveSparkMax(driveMotorPort);
-    steerMotor = SparkMaxFactory.createDefaultAngleSparkMax(steerMotorPort);
+    driveMotor = SparkMaxFactory.createDefaultSparkMax(driveMotorPort);
+    steerMotor = SparkMaxFactory.createDefaultPositionSparkMax(steerMotorPort);
 
     // Factory reset, so we get the SPARKS MAX to a known state before configuring
     // them. This is useful in case a SPARK MAX is swapped out.
