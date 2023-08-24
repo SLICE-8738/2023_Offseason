@@ -19,7 +19,7 @@ public class ManualArm extends CommandBase {
   public ManualArm(Arm arm, GenericHID controller) {
     m_arm = arm;
     m_controller = controller;
-    m_elbowFilter = new JoystickFilter(0.07, 0.1);
+    m_elbowFilter = new JoystickFilter(0.07, 0.7);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_arm);
   }
@@ -31,12 +31,12 @@ public class ManualArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double elbowSpeed = m_elbowFilter.filter(m_controller.getRawAxis(3));
+    double elbowSpeed = m_elbowFilter.filter(m_controller.getRawAxis(5)) * 0.5;
     double wristSpeed = 0;
     if (Button.wristUp.getAsBoolean()) {
-      wristSpeed = 0.3;
+      wristSpeed = 1;
     } else if (Button.wristDown.getAsBoolean()) {
-      wristSpeed = -0.3;
+      wristSpeed = -1;
     }
 
     m_arm.runElbow(elbowSpeed);

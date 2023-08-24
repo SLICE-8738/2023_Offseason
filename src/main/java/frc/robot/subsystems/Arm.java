@@ -85,6 +85,8 @@ public class Arm extends SubsystemBase {
     targetElbowPosition = getElbowPosition();
     targetWristPosition = getWristPosition();
 
+    stowState = StowState.Cone;
+
   }
 
   public void runElbow(double speed){

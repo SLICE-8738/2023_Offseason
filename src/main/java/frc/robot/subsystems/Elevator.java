@@ -50,7 +50,10 @@ public class Elevator extends SubsystemBase {
     encoderLeft.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);
 
     encoderRight.setPositionConversionFactor(Constants.kElevator.ELEVATOR_POSITIONAL_CONVERSION_FACTOR);
-    encoderRight.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR); 
+    encoderRight.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);
+  
+    encoderLeft.setPosition(0);
+    encoderRight.setPosition(0);
   }
 
   /**
@@ -58,12 +61,12 @@ public class Elevator extends SubsystemBase {
    * @param speed speed to run the elevator at
    */
   public void runElevator(double speed) {
-    if ((limitySwitchy1.get() || limitySwitchy2.get()) && (speed < 0)) {
+    if (false && (limitySwitchy1.get() || limitySwitchy2.get()) && (speed > 0)) {
       motorLeft.set(0);
       motorRight.set(0);
     } else {
-      motorLeft.set(speed);
-      motorRight.set(-speed);
+      motorLeft.set(-speed);
+      motorRight.set(speed);
     }
   }
   
@@ -107,13 +110,11 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    limitySwitchy1.get();
-    limitySwitchy2.get();
-    if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active and locking is set to true
+    /*if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active and locking is set to true
       if (lock == true) {                      
         motorLeft.set(0);
         motorRight.set(0);}
       
-    }
+    }*/
   }
 }

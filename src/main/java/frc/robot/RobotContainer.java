@@ -141,6 +141,7 @@ public class RobotContainer {
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
 
     Button.outtake.whileTrue(m_OutTakeCommand);
+    Button.intake.whileTrue(m_IntakeCommand);
 
     // Scoring
     Button.scoreHigh.onTrue(m_scoreHigh);
