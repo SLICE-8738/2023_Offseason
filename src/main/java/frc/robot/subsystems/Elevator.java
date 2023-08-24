@@ -6,13 +6,13 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator2. */
@@ -25,8 +25,8 @@ public class Elevator extends SubsystemBase {
   private double targetPosition;
 
   public Elevator() {
-    motorLeft = new CANSparkMax(Constants.kElevator.LEFT_MOTOR_ID, MotorType.kBrushless);
-    motorRight = new CANSparkMax(Constants.kElevator.RIGHT_MOTOR_ID, MotorType.kBrushless);
+    motorLeft = SparkMaxFactory.createDefaultSparkMax(Constants.kElevator.LEFT_MOTOR_ID);
+    motorRight = SparkMaxFactory.createDefaultSparkMax(Constants.kElevator.RIGHT_MOTOR_ID);
     limitySwitchy1 = new DigitalInput(9);
     limitySwitchy2 = new DigitalInput(8);
     

@@ -49,13 +49,13 @@ public class BaseNEOSwerveModule {
     configAngleEncoder();
 
     /* Angle Motor Config */
-    angleMotor = SparkMaxFactory.createDefaultAngleSparkMax(moduleConstants.angleMotorID);
+    angleMotor = SparkMaxFactory.createDefaultPositionSparkMax(moduleConstants.angleMotorID);
     integratedAngleEncoder = angleMotor.getEncoder();
     angleController = angleMotor.getPIDController();
     configAngleMotor();
 
     /* Drive Motor Config */
-    driveMotor = SparkMaxFactory.createDefaultDriveSparkMax(moduleConstants.driveMotorID);
+    driveMotor = SparkMaxFactory.createDefaultSparkMax(moduleConstants.driveMotorID);
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getPIDController();
     configDriveMotor();

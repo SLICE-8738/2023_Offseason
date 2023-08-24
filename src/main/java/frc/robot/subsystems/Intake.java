@@ -5,9 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   //constructor 
   public Intake() {
     //Constructs Intake Motor
-    IntakeMotor = new CANSparkMax(Constants.kIntake.MOTOR_ID, MotorType.kBrushless); 
+    IntakeMotor = SparkMaxFactory.createDefaultSparkMax(Constants.kIntake.MOTOR_ID); 
   }
 
   /** Makes motor spin to pick up cone */
