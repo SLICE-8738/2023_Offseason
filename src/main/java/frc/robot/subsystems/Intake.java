@@ -23,12 +23,12 @@ public class Intake extends SubsystemBase {
 
   /** Makes motor spin to pick up cone */
   public void IntakeSpinUp(){
-    IntakeMotor.set(0.4);
+    IntakeMotor.set(-0.4);
   }
 
   /** Makes motor spin to spit out cone*/
   public void IntakeSpinOut(){
-    IntakeMotor.set(-0.4);
+    IntakeMotor.set(0.4);
   }
 
   /** Makes motor spin at a slower rate for holding in place */
