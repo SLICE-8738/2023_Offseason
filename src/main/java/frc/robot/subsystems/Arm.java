@@ -134,7 +134,7 @@ public class Arm extends SubsystemBase {
    * 
    * @return Returns output current from wrist motor.
    */
-  public double getWristOutput() {
+  public double getWristOutputCurrent() {
     return wristMotor.getOutputCurrent();
   }
 
@@ -142,7 +142,7 @@ public class Arm extends SubsystemBase {
    * 
    * @return Returns output current from arm motor.
    */
-  public double getArmOutput() {
+  public double getArmOutputCurrent() {
     return armMotor.getOutputCurrent();
   }
 

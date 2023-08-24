@@ -50,7 +50,7 @@ public class RobotContainer {
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
   
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_autoSelector);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_intake, m_autoSelector);
 
   // ==========================
   // Commands

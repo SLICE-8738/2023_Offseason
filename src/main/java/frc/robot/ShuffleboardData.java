@@ -15,13 +15,14 @@ import frc.robot.auto.AutoSelector;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 /** Contains and runs all code needed to display all necessary information on Shuffleboard.*/
 public class ShuffleboardData {
 
     private final ShuffleboardTab /*driverTab,*/ debugTab, modulesTab, autoTab, elevatorArmTab;
 
-    public ShuffleboardData(Drivetrain drivetrain, Elevator elevator, Arm arm, AutoSelector autoSelector) {
+    public ShuffleboardData(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake, AutoSelector autoSelector) {
 
         //driverTab = Shuffleboard.getTab("Driver Tab");
         debugTab = Shuffleboard.getTab("Debug Tab");
@@ -31,7 +32,7 @@ public class ShuffleboardData {
 
         new DrivetrainData(drivetrain);
         new AutoData(autoSelector);
-        new ElevatorArmData(elevator, arm);
+        new ElevatorArmData(elevator, arm, intake);
 
     }
 
@@ -162,7 +163,7 @@ public class ShuffleboardData {
     }
 
     public class ElevatorArmData {
-        public ElevatorArmData(Elevator elevator, Arm arm) {
+        public ElevatorArmData(Elevator elevator, Arm arm, Intake intake) {
             elevatorArmTab.addDouble("Elevator Height", () -> elevator.getElevatorHeight()).
             withPosition(0, 0).
             withSize(2, 1);
@@ -173,6 +174,14 @@ public class ShuffleboardData {
 
             elevatorArmTab.addDouble("Wrist Angle", () -> arm.getWristPosition()).
             withPosition(0, 2).
+            withSize(2, 1);
+
+            elevatorArmTab.addDouble("Intake Output Current", () -> intake.getOutputCurrent()).
+            withPosition(2, 0).
+            withSize(2, 1);
+
+            elevatorArmTab.addDouble("Wrist Output Current", () -> arm.getWristOutputCurrent()).
+            withPosition(2, 1).
             withSize(2, 1);
         }
     }
