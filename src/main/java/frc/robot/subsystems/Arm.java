@@ -45,9 +45,9 @@ public class Arm extends SubsystemBase {
     wristMotor = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kArm.WRIST_MOTOR_ID);
 
     //defining motor encoders
-    //armMotorEncoder = armMotor.getEncoder();
+    armMotorEncoder = armMotor.getEncoder();
     //wristMotorEncoder = wristMotor.getEncoder();
-    armMotorEncoder = armMotor.getAlternateEncoder(8192);
+    //armMotorEncoder = armMotor.getAlternateEncoder(8192);
     wristMotorEncoder = wristMotor.getAlternateEncoder(8192);
 
     //defining PID motor Controllers
