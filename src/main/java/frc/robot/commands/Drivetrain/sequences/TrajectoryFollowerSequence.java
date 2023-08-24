@@ -4,13 +4,15 @@
 
 package frc.robot.commands.Drivetrain.sequences;
 
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+//import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.TrajectoryCommands;
 import frc.robot.auto.AutoPath;
-import frc.robot.commands.Drivetrain.PrepareAutoRotationsCommand;
+//import frc.robot.commands.Drivetrain.PrepareAutoRotationsCommand;
 import frc.robot.commands.Drivetrain.ResetOdometryCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -23,12 +25,12 @@ public class TrajectoryFollowerSequence extends SequentialCommandGroup {
   public TrajectoryFollowerSequence(Drivetrain drive, AutoPath autoPath) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, autoPath.trajectory);
-    SwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generateSwerveControllerCommand(drive, autoPath.trajectory);
+    //PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, autoPath.trajectory);
+    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, true);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(
-      prepareAutoRotationsCommand,
+      //prepareAutoRotationsCommand,
       swerveControllerCommand,
       stopDriveCommand);
       
@@ -39,13 +41,13 @@ public class TrajectoryFollowerSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     ResetOdometryCommand resetOdometryCommand = new ResetOdometryCommand(drive, position);
-    PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, autoPath.trajectory);
-    SwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generateSwerveControllerCommand(drive, autoPath.trajectory);
+    //PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, autoPath.trajectory);
+    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, true);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(
       resetOdometryCommand,
-      prepareAutoRotationsCommand,
+      //prepareAutoRotationsCommand,
       swerveControllerCommand,
       stopDriveCommand);
       

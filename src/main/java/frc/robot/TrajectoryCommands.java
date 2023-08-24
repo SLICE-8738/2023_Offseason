@@ -42,7 +42,7 @@ public class TrajectoryCommands {
 
     }
 
-    public static PPSwerveControllerCommand generatePPSwerveControllerCommand(Drivetrain drive, PathPlannerTrajectory trajectory) {
+    public static PPSwerveControllerCommand generatePPSwerveControllerCommand(Drivetrain drive, PathPlannerTrajectory trajectory, boolean useAllianceColor) {
 
         return new PPSwerveControllerCommand(
             trajectory,
@@ -53,6 +53,7 @@ public class TrajectoryCommands {
                 new PIDController(Constants.kAutonomous.kPThetaController, 0, 0),
             //SwerveControllerCommand passes output module states to the callback
             drive::setModuleStates,
+            useAllianceColor,
             drive);
 
     }
