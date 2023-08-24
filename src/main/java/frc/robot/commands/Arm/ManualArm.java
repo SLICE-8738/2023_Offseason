@@ -34,9 +34,9 @@ public class ManualArm extends CommandBase {
     double elbowSpeed = m_elbowFilter.filter(m_controller.getRawAxis(5)) * 0.5;
     double wristSpeed = 0;
     if (Button.wristUp.getAsBoolean()) {
-      wristSpeed = 1;
+      wristSpeed = -0.6;
     } else if (Button.wristDown.getAsBoolean()) {
-      wristSpeed = -1;
+      wristSpeed = 0.4;
     }
 
     m_arm.runElbow(elbowSpeed);

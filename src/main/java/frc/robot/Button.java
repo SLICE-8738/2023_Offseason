@@ -38,8 +38,8 @@ public final class Button {
     public static Trigger scoreLow = new JoystickButton(operatorJoystick, 11); //Left Bottom 11
 
     //Manual Control
-    public static Trigger wristDown = new JoystickButton(operatorController, 7); //Driver Left Trigger
-    public static Trigger wristUp = new JoystickButton(operatorController, 8); //Driver Right Trigger
+    public static Trigger wristUp = new JoystickButton(operatorController, 7); //Driver Left Trigger
+    public static Trigger wristDown = new JoystickButton(operatorController, 8); //Driver Right Trigger
 
     //Outtake
     public static Trigger outtake2 = new JoystickButton(operatorJoystick, 8); //Left Bottom 8

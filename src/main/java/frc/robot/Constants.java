@@ -222,7 +222,7 @@ public final class Constants {
 
         //public static final double ARM_DISTANCE_PER_ROTATION = ARM_SPROCKET_RATIO * 360.0;
 
-        public static final double WRIST_GEAR_RATIO = 1.0 / 5.0;
+        public static final double WRIST_GEAR_RATIO = 1.0 / 15.0;
         public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
         public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_SPROCKET_RATIO * 360.0;
         public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
@@ -254,7 +254,7 @@ public final class Constants {
       public static final class kIntake {
         public static final int MOTOR_ID = 4;
 
-        public static final double CONE_THRESHOLD = 222; //TODO: get the threshold value
+        public static final double CONE_THRESHOLD = 5; //TODO: get the threshold value
       }
 
       public static final class kElevator {

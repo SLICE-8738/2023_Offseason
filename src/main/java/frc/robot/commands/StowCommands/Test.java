@@ -39,12 +39,12 @@ public class Test extends CommandBase {
 
     if (Arm.stowState == StowState.Cube) {                           // Checks the current stowState's motor, and ends the command if output is greater than the threshold
     arm.wristSecureCube();    
-      if (arm.getArmOutput()>Constants.kArm.CUBE_THRESHOLD) {
+      if (arm.getArmOutputCurrent()>Constants.kArm.CUBE_THRESHOLD) {
         tested = true;
       }
     } else if (Arm.stowState == StowState.Cone) {
     intake.IntakeSpinHoldUp();
-      if (arm.getWristOutput()>Constants.kIntake.CONE_THRESHOLD) {
+      if (arm.getWristOutputCurrent()>Constants.kIntake.CONE_THRESHOLD) {
         tested = true;
       } 
     } else {                                                        // Ends the command if the current stowState is Nothing.
