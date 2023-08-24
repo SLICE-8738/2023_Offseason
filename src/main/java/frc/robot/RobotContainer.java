@@ -124,7 +124,7 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(m_swerveDriveClosedLoop);
     m_elevator.setDefaultCommand(m_manualElevator);
     m_arm.setDefaultCommand(m_manualArm);
-    m_leds.setDefaultCommand(m_rainbowLEDs);
+    m_leds.setDefaultCommand(m_idleLEDs);
     
   }
 
