@@ -13,13 +13,15 @@ import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.commands.LEDs.CustomRainbowLEDs;
+import frc.robot.commands.LEDs.FlashColorCommand;
 import frc.robot.commands.LEDs.RainbowLEDs;
+import frc.robot.commands.LEDs.VariableModeLEDs;
 import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Arm.StowState;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -71,9 +73,12 @@ public class RobotContainer {
   public final ManualArm m_manualArm = new ManualArm(m_arm, operatorController);
 
   // LEDs
-  public final RainbowLEDs m_rainbowLEDs = new RainbowLEDs(m_leds);
-  public final CustomRainbowLEDs m_coneLights = new CustomRainbowLEDs(m_leds, 31);
   public final CustomRainbowLEDs m_cubeLights = new CustomRainbowLEDs(m_leds, 140);
+  public final CustomRainbowLEDs m_coneLights = new CustomRainbowLEDs(m_leds, 28);
+  public final CustomRainbowLEDs m_solidOrangeLEDs = new CustomRainbowLEDs(m_leds, 145);
+  public final FlashColorCommand m_flashOrangeLEDs = new FlashColorCommand(m_leds, 175, 0.5, 0.5);
+  public final RainbowLEDs m_rainbowLEDs = new RainbowLEDs(m_leds);
+  public final VariableModeLEDs m_idleLEDs = new VariableModeLEDs(m_leds);
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);

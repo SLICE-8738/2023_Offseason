@@ -6,20 +6,49 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LEDs extends SubsystemBase {
+
+  public enum LEDMode {
+
+    RAINBOW,
+    SOLID_ORANGE,
+    FLASHING_ORANGE
+
+  }
+
   AddressableLED leds;
   AddressableLEDBuffer buffer;
+
+  SendableChooser<LEDMode> ledModeChooser;
+
+  ShuffleboardTab teleopTab;
   
   /** Creates a new LEDs. */
   public LEDs() {
     leds = new AddressableLED(Constants.kLEDs.LED_PWM_PORT);
     buffer = new AddressableLEDBuffer(Constants.kLEDs.LED_LENGTH);
 
-    leds.setLength(Constants.kLEDs.LED_PWM_PORT);
+    ledModeChooser = new SendableChooser<LEDMode>();
+
+    teleopTab = Shuffleboard.getTab("Teleop Tab");
+
+    ledModeChooser.setDefaultOption("Rainbow", LEDMode.RAINBOW);
+
+    ledModeChooser.addOption("Solid Orange", LEDMode.SOLID_ORANGE);
+    ledModeChooser.addOption("Flashing Orange", LEDMode.FLASHING_ORANGE);
+
+    teleopTab.add("LED Mode", ledModeChooser).
+    withPosition(3, 1).
+    withSize(3, 1);
+
+    leds.setLength(Constants.kLEDs.LED_LENGTH);
     leds.start();
   }
 
@@ -61,6 +90,12 @@ public class LEDs extends SubsystemBase {
 
   public void ledBuffer() {
     leds.setData(buffer);
+  }
+
+  public LEDMode getSelectedMode() {
+
+    return ledModeChooser.getSelected();
+
   }
 
   @Override
