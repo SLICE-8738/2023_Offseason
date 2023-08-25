@@ -44,7 +44,7 @@ public final class Constants {
 
     public static final class kRobotStates {
       //TODO: Fill in these values
-      public static final RobotState stow = new RobotState(0, 0, 0);
+      public static final RobotState stow = new RobotState(0, 5, 0);
 
       public static final RobotState highScore = new RobotState(0, 0, 0);
       public static final RobotState midScore = new RobotState(0, 0, 0);
@@ -52,21 +52,18 @@ public final class Constants {
 
       public static final RobotState cubeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState cubeGround = new RobotState(0, 0, 0);
+      public static final RobotState cubeGround = new RobotState(0.75, 55, 0);
 
       public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState tippedConeGround = new RobotState(0, 0, 0);
+      public static final RobotState tippedConeGround = new RobotState(0.25, 55, 0);
       public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState uprightConeGround = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeGround = new RobotState(0.5, 55, 0);
       public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
 
       public static final boolean coneUpright = true;
     
     }
 
-    /**
-     * ALL CONSTANTS IN THIS CLASS ARE PLACEHOLDERS FOR NOW
-     */
     public static final class kDrivetrain {
 
         public static final Port NAVX_PORT = Port.kUSB;
@@ -233,18 +230,18 @@ public final class Constants {
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
         public static final double WRIST_LENGTH = 0.15367; // Length of wrist in meters, 6.05 inches 
 
-        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 20;
+        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 5;
         public static final double WRIST_POSITION_ERROR_TOLERANCE = 20;
 
-        public static final double ELBOW_kP = 0.1; // TODO: tune the PID values
+        public static final double ELBOW_kP = 0.016; // TODO: tune the PID values
         public static final double ELBOW_kI = 0.0;
-        public static final double ELBOW_kD = 0.0;
+        public static final double ELBOW_kD = 0.0016;
 
-        public static final double WRIST_kP = 0.1; // TODO: tune the PID values
+        public static final double WRIST_kP = 0.01; // TODO: tune the PID values
         public static final double WRIST_kI = 0.0;
         public static final double WRIST_kD = 0.0;
 
-        public static final double STARTING_ELBOW_ANGLE = 0.0; // TODO: get the starting angle
+        public static final double STARTING_ELBOW_ANGLE = 5.0; // TODO: get the starting angle
         public static final double STARTING_WRIST_ANGLE = 0.0; 
 
         public static final int ELBOW_THROUGHBORE_ID = 0; // TODO: get the elbow throughbore ID
@@ -254,23 +251,23 @@ public final class Constants {
       public static final class kIntake {
         public static final int MOTOR_ID = 4;
 
-        public static final double CONE_THRESHOLD = 5; //TODO: get the threshold value
+        public static final double CONE_THRESHOLD = 15; //TODO: get the threshold value
       }
 
       public static final class kElevator {
         public static final double ELEVATOR_GEAR_RATIO = 1.0 / 25.0;
-        public static final double ELEVATOR_SPROCKET_PITCH_DIAMETER = 0.00462;
-        public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 2;
+        public static final double ELEVATOR_SPROCKET_PITCH_DIAMETER = 0.0462;
+        public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 8;
         public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
         
-        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 1;
+        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.01;
 
-        public static final double MAX_ELEVATOR_HEIGHT = 3.0; //TODO: get the max height
+        public static final double MAX_ELEVATOR_HEIGHT = 1.2555;
 
         public static final int LEFT_MOTOR_ID = 1; //TODO: get the motor ids
         public static final int RIGHT_MOTOR_ID = 2; 
 
-        public static final double kP = 0.1; //TODO: tune the PID values
+        public static final double kP = 4.0; //TODO: tune the PID values
         public static final double kI = 0.0;
         public static final double kD = 0.0;
 

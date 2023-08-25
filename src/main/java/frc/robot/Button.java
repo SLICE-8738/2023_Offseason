@@ -49,6 +49,8 @@ public final class Button {
     public static Trigger outtake = outtake2.or(outtake4).or(outtake6).or(controllerOuttake);
     public static Trigger intake = new JoystickButton(operatorController, 4); //Driver Y Button
 
+    public static Trigger setToStart = new JoystickButton(operatorController, 3); //Driver B Button
+
     //Unassigned Driver Controller Buttons
     public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver X Button
     public static Trigger driverButton2 = new JoystickButton(driverController, 2); //Driver A Button
@@ -63,7 +65,6 @@ public final class Button {
 
     //Unassigned Driver Controller Buttons
     public static Trigger operatorControllerButton2 = new JoystickButton(operatorController, 1); //Operator Square Button
-    public static Trigger operatorControllerButton3 = new JoystickButton(operatorController, 3); //Driver B Button
     public static Trigger operatorControllerButton5 = new JoystickButton(operatorController, 5); //Driver Left Bumper
     public static Trigger operatorControllerButton6 = new JoystickButton(operatorController, 6); //Driver Right Bumper
     public static Trigger operatorControllerButton9 = new JoystickButton(operatorController, 9); //Driver Back Button

@@ -25,8 +25,12 @@ public class Elevator extends SubsystemBase {
   private double targetPosition;
 
   public Elevator() {
-    motorLeft = SparkMaxFactory.createDefaultSparkMax(Constants.kElevator.LEFT_MOTOR_ID);
-    motorRight = SparkMaxFactory.createDefaultSparkMax(Constants.kElevator.RIGHT_MOTOR_ID);
+    motorLeft = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kElevator.LEFT_MOTOR_ID);
+    motorRight = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kElevator.RIGHT_MOTOR_ID);
+
+    motorLeft.restoreFactoryDefaults();
+    motorRight.restoreFactoryDefaults();
+
     limitySwitchy1 = new DigitalInput(9);
     limitySwitchy2 = new DigitalInput(8);
     
@@ -54,6 +58,7 @@ public class Elevator extends SubsystemBase {
   
     encoderLeft.setPosition(0);
     encoderRight.setPosition(0);
+
   }
 
   /**
@@ -65,8 +70,8 @@ public class Elevator extends SubsystemBase {
       motorLeft.set(0);
       motorRight.set(0);
     } else {
-      motorLeft.set(-speed);
-      motorRight.set(speed);
+      motorLeft.set(speed);
+      motorRight.set(-speed);
     }
   }
   

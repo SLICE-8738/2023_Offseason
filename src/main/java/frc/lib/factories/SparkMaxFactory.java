@@ -60,7 +60,7 @@ public class SparkMaxFactory {
 
     private static final Configuration kDefaultConfiguration = new Configuration(
         IdleMode.kBrake,
-        Constants.kDrivetrain.DRIVE_INVERT,
+        false,
         false,
         12,
         0.0,

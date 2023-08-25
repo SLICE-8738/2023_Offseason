@@ -22,6 +22,7 @@ import frc.robot.subsystems.Arm.StowState;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -115,6 +116,8 @@ public class RobotContainer {
   public final ConditionalCommand m_coneSubstationsConditionalCommand =
                 new ConditionalCommand(m_coneDoubleSubstationConditionalCommand, m_coneSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
+  public final InstantCommand m_setToStart = new InstantCommand(() -> m_arm.setToStart());
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -158,6 +161,8 @@ public class RobotContainer {
 
     // Stow
     Button.stow.onTrue(m_stow);
+
+    Button.setToStart.onTrue(m_setToStart);
   }
 
   /**

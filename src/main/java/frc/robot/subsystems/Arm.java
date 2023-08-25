@@ -12,9 +12,13 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.SparkMaxAlternateEncoder.Type;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
+import frc.robot.ShuffleboardPIDWidget;
 
 public class Arm extends SubsystemBase {
 
@@ -35,7 +39,9 @@ public class Arm extends SubsystemBase {
 
   private double targetElbowPosition, targetWristPosition;
 
+  private ShuffleboardTab elevatorArmTab;
 
+  private SimpleWidget voltage;
 
   /** Creates a new Arm Subsytem. */
   public Arm() {
@@ -80,12 +86,13 @@ public class Arm extends SubsystemBase {
 
     wristThroughboreEncoder.setDistancePerRotation(Constants.kArm.WRIST_DISTANCE_PER_ROTATION); */
 
-
-
     targetElbowPosition = getElbowPosition();
     targetWristPosition = getWristPosition();
 
     stowState = StowState.Cone;
+
+    elevatorArmTab = Shuffleboard.getTab("Elevator & Arm Tab");
+    voltage = elevatorArmTab.add("Voltage", 0.0);
 
   }
 
@@ -163,6 +170,14 @@ public class Arm extends SubsystemBase {
 
   public boolean isWristAtTarget(){
     return Math.abs(getWristPosition() - targetWristPosition) < Constants.kArm.WRIST_POSITION_ERROR_TOLERANCE;
+  }
+
+  public void setToStart() {
+    wristMotorEncoder.setPosition(Constants.kArm.STARTING_WRIST_ANGLE);
+    armMotorEncoder.setPosition(Constants.kArm.STARTING_ELBOW_ANGLE);
+
+    setArmController(Constants.kArm.STARTING_ELBOW_ANGLE);
+    setWristController(Constants.kArm.STARTING_WRIST_ANGLE);
   }
 
   @Override

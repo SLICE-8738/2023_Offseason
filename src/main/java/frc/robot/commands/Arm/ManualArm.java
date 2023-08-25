@@ -15,6 +15,8 @@ public class ManualArm extends CommandBase {
   private final GenericHID m_controller;
   private final JoystickFilter m_elbowFilter;
 
+  private boolean elbowStill;
+
   /** Creates a new ManualArm. */
   public ManualArm(Arm arm, GenericHID controller) {
     m_arm = arm;
@@ -26,7 +28,9 @@ public class ManualArm extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elbowStill = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,7 +43,13 @@ public class ManualArm extends CommandBase {
       wristSpeed = 0.4;
     }
 
-    m_arm.runElbow(elbowSpeed);
+    if (elbowSpeed == 0 && !elbowStill) {
+      m_arm.setArmController(m_arm.getElbowPosition());
+      elbowStill = true;
+    }else if (elbowSpeed != 0) {
+      m_arm.runElbow(elbowSpeed);
+      elbowStill = false;
+    }
     m_arm.runWrist(wristSpeed);
   }
 
