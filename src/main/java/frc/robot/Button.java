@@ -47,7 +47,7 @@ public final class Button {
     public static Trigger outtake6 = new JoystickButton(operatorJoystick, 12); //Left Bottom 12
     public static Trigger controllerOuttake = new JoystickButton(operatorController, 2); //Operator X Button
     public static Trigger outtake = outtake2.or(outtake4).or(outtake6).or(controllerOuttake);
-    public static Trigger intake = new JoystickButton(operatorController, 4); //Driver Y Button
+    public static Trigger intake = new JoystickButton(operatorController, 4); //Driver Triangle Button
 
     public static Trigger setToStart = new JoystickButton(operatorController, 3); //Driver B Button
 
@@ -67,9 +67,11 @@ public final class Button {
     public static Trigger operatorControllerButton2 = new JoystickButton(operatorController, 1); //Operator Square Button
     public static Trigger operatorControllerButton5 = new JoystickButton(operatorController, 5); //Driver Left Bumper
     public static Trigger operatorControllerButton6 = new JoystickButton(operatorController, 6); //Driver Right Bumper
-    public static Trigger operatorControllerButton9 = new JoystickButton(operatorController, 9); //Driver Back Button
-    public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); //Driver Start Button
+    public static Trigger operatorControllerButton9 = new JoystickButton(operatorController, 9); //Driver Share Button
+    public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); //Driver Options Button
     public static Trigger operatorControllerButton11 = new JoystickButton(operatorController, 11); //Driver Left Stick Push
     public static Trigger operatorControllerButton12 = new JoystickButton(operatorController, 12); //Driver Right Stick Push
+    public static Trigger operatorControllerButton13 = new JoystickButton(operatorController, 13); //Driver PlayStation Button
+    public static Trigger operatorControllerButton14 = new JoystickButton(operatorController, 14); //Driver Touchpad Push
 
 }

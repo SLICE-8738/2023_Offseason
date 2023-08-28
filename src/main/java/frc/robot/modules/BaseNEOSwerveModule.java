@@ -207,4 +207,8 @@ public class BaseNEOSwerveModule {
   public SwerveModuleState getTargetState() {
     return targetState;
   }
+
+  public double getDriveMotorOutputCurrent() {
+    return driveMotor.getOutputCurrent();
+  }
 }
