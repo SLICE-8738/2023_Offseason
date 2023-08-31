@@ -27,11 +27,11 @@ public final class Constants {
 
         public static final int JOYSTICK_PORT = 1;
 
-        public static final double driveExponent = 3;
-        public static final double driveExponentPercent = 0.7;
+        public static final double driveExponent = 1.0/3.0;
+        public static final double driveExponentPercent = 0.9;
 
-        public static final double turnExponent = 0.5;
-        public static final double turnExponentPercent = 0.7;
+        public static final double turnExponent = 1.0/3.0;
+        public static final double turnExponentPercent = 0.9;
 
     }
 
@@ -46,7 +46,7 @@ public final class Constants {
       //TODO: Fill in these values
       public static final RobotState stow = new RobotState(0, 5, 5); // Found
 
-      public static final RobotState highScore = new RobotState(4.56, 47.21, 5); // Found
+      public static final RobotState highScore = new RobotState(4.88, 52.57, 5); // Found
       public static final RobotState midScore = new RobotState(2.632, 34.4, 30.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
@@ -117,7 +117,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         public static final double MAX_LINEAR_VELOCITY = 4.5; // meters per second
-        public static final double MAX_ANGULAR_VELOCITY = 10; // radians per second
+        public static final double MAX_ANGULAR_VELOCITY = 7; // radians per second
 
         /* Motor Inverts */
         public static final boolean DRIVE_INVERT = false;
@@ -231,18 +231,18 @@ public final class Constants {
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
         public static final double WRIST_LENGTH = 0.15367; // Length of wrist in meters, 6.05 inches 
 
-        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 5;
+        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 6;
         public static final double WRIST_POSITION_ERROR_TOLERANCE = 20;
 
-        public static final double ELBOW_kP = 0.016; // TODO: tune the PID values
-        public static final double ELBOW_kI = 0.0;
+        public static final double ELBOW_kP = 0.016;
+        public static final double ELBOW_kI = 0.000001;
         public static final double ELBOW_kD = 0.0016;
 
         public static final double WRIST_kP = 12.0; // TODO: tune the PID values
         public static final double WRIST_kI = 0.0;
         public static final double WRIST_kD = 0.0;
 
-        public static final double STARTING_ELBOW_ANGLE = 5.0; // TODO: get the starting angle
+        public static final double STARTING_ELBOW_ANGLE = 5.0;
         public static final double STARTING_WRIST_ANGLE = 5.0; 
 
         public static final int ELBOW_THROUGHBORE_ID = 0; // TODO: get the elbow throughbore ID
@@ -252,7 +252,7 @@ public final class Constants {
       public static final class kIntake {
         public static final int MOTOR_ID = 4;
 
-        public static final double CONE_THRESHOLD = 15; //TODO: get the threshold value
+        public static final double CONE_THRESHOLD = 12; //TODO: get the threshold value
       }
 
       public static final class kElevator {
@@ -261,11 +261,11 @@ public final class Constants {
         public static final double ELEVATOR_POSITIONAL_CONVERSION_FACTOR = ELEVATOR_GEAR_RATIO * ELEVATOR_SPROCKET_PITCH_DIAMETER * Math.PI * 8;
         public static final double ELEVATOR_VELOCITY_CONVERSION_FACTOR = ELEVATOR_POSITIONAL_CONVERSION_FACTOR / 60.0;
         
-        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.01;
+        public static final double ELEVATOR_POSITION_ERROR_TOLERANCE = 0.05;
 
-        public static final double MAX_ELEVATOR_HEIGHT = 1.2555;
+        public static final double MAX_ELEVATOR_HEIGHT = 5.0;
 
-        public static final int LEFT_MOTOR_ID = 1; //TODO: get the motor ids
+        public static final int LEFT_MOTOR_ID = 1;
         public static final int RIGHT_MOTOR_ID = 2; 
 
         public static final double kP = 4.0; //TODO: tune the PID values

@@ -5,10 +5,12 @@
 package frc.robot.commands.Drivetrain.sequences;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotState;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Intake.IntakeCommand;
+import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -28,6 +30,8 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
     // Initializing and defining the commands needed for the command sequence.
     GoToState goToState = new GoToState(m_Elevator, m_Arm, m_RobotState);
     IntakeCommand intakeCommand = new IntakeCommand(m_intake, m_Arm);
+
+    ParallelRaceGroup outSlight = new OutTakeCommand(m_intake).withTimeout(0.1);
     
 
     /* runs a different sequential command depending on what game piece needs to be stowed
@@ -36,10 +40,10 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * The robot then goes to the desired state and runs intakeCommand
      */
     if( stowState == StowState.Cone ){
-      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand);
+      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight);
     }
     else if( stowState == StowState.Cube ){
-      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand);
+      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight);
     }
   }
 

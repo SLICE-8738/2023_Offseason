@@ -69,7 +69,7 @@ public class ArmGoToPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return secondary && m_arm.isElbowAtTarget() && m_arm.isWristAtTarget();
+    return m_arm.isElbowAtTarget() && m_arm.isWristAtTarget();
   }
 
   /**

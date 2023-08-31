@@ -35,7 +35,7 @@ public class ManualArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double elbowSpeed = m_elbowFilter.filter(m_controller.getRawAxis(5)) * 0.5;
+    double elbowSpeed = m_elbowFilter.filter(m_controller.getRawAxis(3)) * 0.5;
     double wristSpeed = 0;
     if (Button.wristUp.getAsBoolean()) {
       wristSpeed = -0.6;

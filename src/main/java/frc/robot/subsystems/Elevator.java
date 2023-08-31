@@ -112,6 +112,12 @@ public class Elevator extends SubsystemBase {
     return (Math.abs(targetPosition - getElevatorHeight()) < Constants.kElevator.ELEVATOR_POSITION_ERROR_TOLERANCE);
   }
 
+  public void setToStart() {
+    encoderLeft.setPosition(0);
+    encoderRight.setPosition(0);
+    targetPosition = 0;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
