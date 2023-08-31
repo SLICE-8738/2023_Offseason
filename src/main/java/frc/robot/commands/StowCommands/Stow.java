@@ -20,6 +20,6 @@ public class Stow extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     GoToState goToStow = new GoToState(elevatorSubsystem, armSubsystem, Constants.kRobotStates.stow);
-    addCommands(goToStow, new Test(armSubsystem, intakeSubsystem), new Hold(armSubsystem, intakeSubsystem));
+    addCommands(goToStow, new Test(armSubsystem, intakeSubsystem)/*, new Hold(armSubsystem, intakeSubsystem)*/);
   }
 }

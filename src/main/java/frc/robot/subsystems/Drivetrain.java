@@ -231,7 +231,6 @@ public class Drivetrain extends SubsystemBase {
       rotationWithOffset) 
       : new ChassisSpeeds(transform.getX(), transform.getY(), transform.getRotation().getRadians()));
 
-      
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
     leftModuleFront.setDesiredState(states[0], isOpenLoop);

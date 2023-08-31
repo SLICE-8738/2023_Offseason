@@ -55,6 +55,8 @@ public class SwerveDriveCommand extends CommandBase {
     // Slow down the robot when the elevator is up
     double elevatorPercentage = m_elevator.getElevatorHeight() / Constants.kElevator.MAX_ELEVATOR_HEIGHT;
     double drivePercent = elevatorPercentage < 0.5 ? 1 : (1 - elevatorPercentage) * 1.5 + 0.25;
+
+    drivePercent = 0.10;
     
     double translationX = translationXFilter.filter(m_driverController.getRawAxis(1)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;
     double translationY = -translationYFilter.filter(m_driverController.getRawAxis(0)) * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;

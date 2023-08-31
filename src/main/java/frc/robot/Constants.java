@@ -44,22 +44,23 @@ public final class Constants {
 
     public static final class kRobotStates {
       //TODO: Fill in these values
-      public static final RobotState stow = new RobotState(0, 5, 0);
+      public static final RobotState stow = new RobotState(0, 5, 5); // Found
 
-      public static final RobotState highScore = new RobotState(0, 0, 0);
-      public static final RobotState midScore = new RobotState(0, 0, 0);
+      public static final RobotState highScore = new RobotState(4.56, 47.21, 5); // Found
+      public static final RobotState midScore = new RobotState(2.632, 34.4, 30.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
       public static final RobotState cubeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState cubeGround = new RobotState(0.75, 55, 0);
+      public static final RobotState cubeGround = new RobotState(0, 79.1, -97.31); // Found
 
       public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState tippedConeGround = new RobotState(0.25, 55, 0);
+      public static final RobotState tippedConeGround = new RobotState(0.64, 131.85, -97.85); // Found
       public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState uprightConeGround = new RobotState(0.5, 55, 0);
+      public static final RobotState uprightConeGround = new RobotState(0, 77.4, -7.18); // Found
       public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
 
+      // Determines whether to use upright or tipped cone for double substation cone intake
       public static final boolean coneUpright = true;
     
     }
@@ -161,7 +162,7 @@ public final class Constants {
           public static final int DRIVE_MOTOR_ID = 16;
           public static final int ANGLE_MOTOR_ID = 12;
           public static final int CANCODER_ID = 20;
-          public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(220.34);
+          public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(220.96);
           public static final SwerveModuleConstants CONSTANTS =
               new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CANCODER_ID, ANGLE_OFFSET);
           }
@@ -171,7 +172,7 @@ public final class Constants {
           public static final int DRIVE_MOTOR_ID = 17;
           public static final int ANGLE_MOTOR_ID = 13;
           public static final int CANCODER_ID = 22;
-          public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(157.06);
+          public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(156.6);
           public static final SwerveModuleConstants CONSTANTS =
               new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CANCODER_ID, ANGLE_OFFSET);
         }
@@ -221,7 +222,7 @@ public final class Constants {
 
         public static final double WRIST_GEAR_RATIO = 1.0 / 15.0;
         public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
-        public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_SPROCKET_RATIO * 360.0;
+        public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_GEAR_RATIO * WRIST_SPROCKET_RATIO * 360.0;
         public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
 
         //public static final double WRIST_DISTANCE_PER_ROTATION = WRIST_SPROCKET_RATIO * 360.0;
@@ -237,12 +238,12 @@ public final class Constants {
         public static final double ELBOW_kI = 0.0;
         public static final double ELBOW_kD = 0.0016;
 
-        public static final double WRIST_kP = 0.01; // TODO: tune the PID values
+        public static final double WRIST_kP = 12.0; // TODO: tune the PID values
         public static final double WRIST_kI = 0.0;
         public static final double WRIST_kD = 0.0;
 
         public static final double STARTING_ELBOW_ANGLE = 5.0; // TODO: get the starting angle
-        public static final double STARTING_WRIST_ANGLE = 0.0; 
+        public static final double STARTING_WRIST_ANGLE = 5.0; 
 
         public static final int ELBOW_THROUGHBORE_ID = 0; // TODO: get the elbow throughbore ID
         public static final int WRIST_THROUGHBORE_ID = 0; // TODO: get the wrist throughbore ID

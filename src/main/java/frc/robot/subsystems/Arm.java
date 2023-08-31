@@ -52,9 +52,9 @@ public class Arm extends SubsystemBase {
 
     //defining motor encoders
     armMotorEncoder = armMotor.getEncoder();
-    //wristMotorEncoder = wristMotor.getEncoder();
+    wristMotorEncoder = wristMotor.getEncoder();
     //armMotorEncoder = armMotor.getAlternateEncoder(8192);
-    wristMotorEncoder = wristMotor.getAlternateEncoder(8192);
+    //wristMotorEncoder = wristMotor.getAlternateEncoder(8192);
 
     //defining PID motor Controllers
     armMotorController = armMotor.getPIDController();

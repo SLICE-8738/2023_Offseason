@@ -31,7 +31,7 @@ public class ManualElevator extends CommandBase {
   @Override
   public void execute() {
     double elevatorSpeed = m_elevatorFilter.filter(m_controller.getRawAxis(1));
-    m_elevator.runElevator(elevatorSpeed);
+    m_elevator.runElevator(-elevatorSpeed);
   }
 
   // Called once the command ends or is interrupted.
