@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Drivetrain.sequences;
+package frc.robot.commands.Intake.sequences;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -32,6 +32,8 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
     IntakeCommand intakeCommand = new IntakeCommand(m_intake, m_Arm);
 
     ParallelRaceGroup outSlight = new OutTakeCommand(m_intake).withTimeout(0.1);
+
+    InstantCommand setGamePieceSecured = new InstantCommand(() -> m_Arm.setGamePieceSecured(true));
     
 
     /* runs a different sequential command depending on what game piece needs to be stowed
@@ -40,10 +42,10 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * The robot then goes to the desired state and runs intakeCommand
      */
     if( stowState == StowState.Cone ){
-      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight);
+      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
     else if( stowState == StowState.Cube ){
-      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight);
+      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
   }
 

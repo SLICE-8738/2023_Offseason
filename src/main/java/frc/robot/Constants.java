@@ -27,8 +27,8 @@ public final class Constants {
 
         public static final int JOYSTICK_PORT = 1;
 
-        public static final double driveExponent = 1.0/3.0;
-        public static final double driveExponentPercent = 0.9;
+        public static final double driveExponent = 1.0/6.0;
+        public static final double driveExponentPercent = 1;
 
         public static final double turnExponent = 1.0/3.0;
         public static final double turnExponentPercent = 0.9;
@@ -50,15 +50,15 @@ public final class Constants {
       public static final RobotState midScore = new RobotState(2.632, 34.4, 30.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
-      public static final RobotState cubeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState cubeDoubleSubstation = new RobotState(4.6, 43.21, -119.78);
       public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
       public static final RobotState cubeGround = new RobotState(0, 79.1, -97.31); // Found
 
       public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState tippedConeGround = new RobotState(0.64, 131.85, -97.85); // Found
-      public static final RobotState uprightConeDoubleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState uprightConeDoubleSubstation = new RobotState(4.01, 9.21, 59.41);
       public static final RobotState uprightConeGround = new RobotState(0, 77.4, -7.18); // Found
-      public static final RobotState coneSingleSubstation = new RobotState(0, 0, 0);
+      public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -69.17);
 
       // Determines whether to use upright or tipped cone for double substation cone intake
       public static final boolean coneUpright = true;

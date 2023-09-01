@@ -8,10 +8,10 @@ import frc.robot.auto.AutoSelector;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
-import frc.robot.commands.Drivetrain.sequences.IntakeCommandsSequence;
 import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
+import frc.robot.commands.Intake.sequences.IntakeCommandsSequence;
 import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.FlashColorCommand;
 import frc.robot.commands.LEDs.RainbowLEDs;
@@ -154,11 +154,11 @@ public class RobotContainer {
 
     //Intake Stow
     Button.cubeGroundIntake.onTrue(m_cubeGround);
-    Button.tippedConeGroundIntake.onTrue(m_tippedConeGround);
+    Button.coneSingleSubstationIntake.onTrue(m_coneSingleSubstation);
     Button.uprightConeGroundIntake.onTrue(m_uprightConeGround);
 
-    Button.cubeSubstationIntake.onTrue(m_cubeSubstationsConditionalCommand);
-    Button.coneSubstationIntake.onTrue(m_coneSubstationsConditionalCommand);
+    Button.cubeDoubleSubstationIntake.onTrue(m_cubeDoubleSubstationSequence);
+    Button.coneDoubleSubstationIntake.onTrue(m_coneDoubleSubstationConditionalCommand);
 
     // Stow
     Button.stow.onTrue(m_stow);

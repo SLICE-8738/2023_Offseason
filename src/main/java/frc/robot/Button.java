@@ -28,9 +28,9 @@ public final class Button {
     //Intake State Buttons
     public static Trigger uprightConeGroundIntake = new JoystickButton(operatorJoystick, 3); //Left Top 3
     public static Trigger cubeGroundIntake = new JoystickButton(operatorJoystick, 4); //Left Top 5
-    public static Trigger coneSubstationIntake = new JoystickButton(operatorJoystick, 5); //Left Top 6
-    public static Trigger cubeSubstationIntake = new JoystickButton(operatorJoystick, 6); //Left Top 4
-    public static Trigger tippedConeGroundIntake = new JoystickButton(operatorJoystick, 2); //Left Top 2
+    public static Trigger coneDoubleSubstationIntake = new JoystickButton(operatorJoystick, 5); //Left Top 6
+    public static Trigger cubeDoubleSubstationIntake = new JoystickButton(operatorJoystick, 6); //Left Top 4
+    public static Trigger coneSingleSubstationIntake = new JoystickButton(operatorJoystick, 2); //Left Top 2
 
     //Score State Buttons
     public static Trigger scoreHigh = new JoystickButton(operatorJoystick, 7); //Left Bottom 7
