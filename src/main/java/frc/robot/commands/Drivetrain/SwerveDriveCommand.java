@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SwerveDriveCommand extends CommandBase {
@@ -73,6 +74,9 @@ public class SwerveDriveCommand extends CommandBase {
       new Transform2d(new Translation2d(translationX, translationY), new Rotation2d(rotation)),
       m_isOpenLoop,
       m_isFieldRelative);
+
+    SmartDashboard.putNumber("translation x", translationX);
+    SmartDashboard.putNumber("translation y", translationY);
 
   }
 
