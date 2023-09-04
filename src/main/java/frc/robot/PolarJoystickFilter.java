@@ -22,6 +22,10 @@ public class PolarJoystickFilter {
     }
 
     public double[] toPolar(double rawX, double rawY) {
+
+        if (rawX == 0 && rawY == 0) {
+            return new double[] {0, 0};
+        }
         
         double[] polarCoords = {
             Math.atan2(rawY, rawX),
@@ -48,6 +52,7 @@ public class PolarJoystickFilter {
 
     public double[] filter(double rawX, double rawY) {
         double[] filtered = toPolar(rawX, rawY);
+        filtered = withDead(filtered);
         if (curve) {
             filtered[1] = withCurve(filtered[1]);
         }
