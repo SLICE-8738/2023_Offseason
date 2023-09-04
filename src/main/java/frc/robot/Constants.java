@@ -54,13 +54,20 @@ public final class Constants {
     
         public static final double DRIVE_GEAR_RATIO = (6.75 / 1.0); // 6.75:1
         public static final double ANGLE_GEAR_RATIO = ((150.0 / 7.0) / 1.0); // (150/7):1
-    
+
         public static final SwerveDriveKinematics kSwerveKinematics =
+            new SwerveDriveKinematics(
+                new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+                new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
+    
+        /*public static final SwerveDriveKinematics kSwerveKinematics =
             new SwerveDriveKinematics(
                 new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
                 new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
-                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));
+                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));*/
         
         /* Swerve Voltage Compensation */
         public static final double MAX_VOLTAGE = 12.0;
