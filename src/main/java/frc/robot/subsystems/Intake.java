@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
@@ -15,20 +17,30 @@ public class Intake extends SubsystemBase {
   //Create 2 motors
   private CANSparkMax IntakeMotor;
 
+  private final ShuffleboardTab driverTab;
+
+  private boolean gamePieceSecured = false;
+
   //constructor 
   public Intake() {
     //Constructs Intake Motor
     IntakeMotor = SparkMaxFactory.createDefaultSparkMax(Constants.kIntake.MOTOR_ID); 
+
+    driverTab = Shuffleboard.getTab("Driver Tab");
+
+    driverTab.addBoolean("Game Piece Secured", () -> gamePieceSecured).
+    withPosition(4, 3).
+    withSize(2, 1);
   }
 
   /** Makes motor spin to pick up cone */
   public void IntakeSpinUp(){
-    IntakeMotor.set(-0.4);
+    IntakeMotor.set(-0.8);
   }
 
   /** Makes motor spin to spit out cone*/
   public void IntakeSpinOut(){
-    IntakeMotor.set(0.4);
+    IntakeMotor.set(0.8);
   }
 
   /** Makes motor spin at a slower rate for holding in place */
@@ -43,6 +55,10 @@ public class Intake extends SubsystemBase {
 
   public double getOutputCurrent() {
     return IntakeMotor.getOutputCurrent();
+  }
+
+  public void setGamePieceSecured(boolean gamePieceSecured) {
+    this.gamePieceSecured = gamePieceSecured;
   }
 
   @Override

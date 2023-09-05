@@ -34,11 +34,9 @@ public class Arm extends SubsystemBase {
 
   private double targetElbowPosition, targetWristPosition;
 
-  private ShuffleboardTab elevatorArmTab, driverTab;
+  private ShuffleboardTab elevatorArmTab;
 
   private SimpleWidget voltage;
-
-  private boolean gamePieceSecured = false;
 
   /** Creates a new Arm Subsytem. */
   public Arm() {
@@ -89,13 +87,8 @@ public class Arm extends SubsystemBase {
     stowState = StowState.Cone;
 
     elevatorArmTab = Shuffleboard.getTab("Elevator & Arm Tab");
-    driverTab = Shuffleboard.getTab("Driver Tab");
 
     voltage = elevatorArmTab.add("Voltage", 0.0);
-
-    driverTab.addBoolean("Game Piece Secured", () -> gamePieceSecured).
-    withPosition(4, 3).
-    withSize(2, 2);
 
   }
 
@@ -131,10 +124,6 @@ public class Arm extends SubsystemBase {
 
   public void wristReleaseCube(){
     wristMotor.set(0);
-  }
-
-  public void setGamePieceSecured(boolean gamePieceSecured) {
-    this.gamePieceSecured = gamePieceSecured;
   }
 
   /**

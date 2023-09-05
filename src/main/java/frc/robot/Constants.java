@@ -27,11 +27,11 @@ public final class Constants {
 
         public static final int JOYSTICK_PORT = 1;
 
-        public static final double driveExponent = 1.0/6.0;
+        public static final double driveExponent = 1.0;
         public static final double driveExponentPercent = 1;
 
-        public static final double turnExponent = 1.0/3.0;
-        public static final double turnExponentPercent = 0.9;
+        public static final double turnExponent = 1.0;
+        public static final double turnExponentPercent = 1;
 
     }
 
@@ -47,7 +47,7 @@ public final class Constants {
       public static final RobotState stow = new RobotState(0, 5, 5); // Found
 
       public static final RobotState highScore = new RobotState(4.88, 52.57, 5); // Found
-      public static final RobotState midScore = new RobotState(2.632, 34.4, 30.48); // Found
+      public static final RobotState midScore = new RobotState(2.932, 34.4, 30.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
       public static final RobotState cubeDoubleSubstation = new RobotState(4.6, 43.21, -119.78);

@@ -446,6 +446,11 @@ public class Drivetrain extends SubsystemBase {
     fieldOrientedOffset = Rotation2d.fromDegrees(error);
   }
 
+  public void reverseFieldOrientedHeading() {
+    double error = getHeading();
+    fieldOrientedOffset = Rotation2d.fromDegrees(error);
+  }
+
   /**
    * Obtains and returns the current heading of the robot as a Rotation2d from the gyro object.
    * 

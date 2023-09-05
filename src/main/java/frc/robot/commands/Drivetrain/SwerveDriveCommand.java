@@ -40,7 +40,7 @@ public class SwerveDriveCommand extends CommandBase {
 
     translationFilter = new PolarJoystickFilter(
       0.07, 
-      0.5, 
+      0.8, 
       Constants.kJoysticks.driveExponent, 
       Constants.kJoysticks.driveExponentPercent);
     rotationFilter = new PolarJoystickFilter(

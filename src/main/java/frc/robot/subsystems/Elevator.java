@@ -42,7 +42,6 @@ public class Elevator extends SubsystemBase {
 
     targetPosition = getElevatorHeight();
 
-
     PIDLeft.setP(Constants.kElevator.kP);
     PIDRight.setP(Constants.kElevator.kP);
     PIDLeft.setI(Constants.kElevator.kI);

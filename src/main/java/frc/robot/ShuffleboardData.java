@@ -20,11 +20,11 @@ import frc.robot.subsystems.Intake;
 /** Contains and runs all code needed to display all necessary information on Shuffleboard.*/
 public class ShuffleboardData {
 
-    private final ShuffleboardTab /*driverTab,*/ debugTab, modulesTab, autoTab, elevatorArmTab;
+    private final ShuffleboardTab driverTab, debugTab, modulesTab, autoTab, elevatorArmTab;
 
     public ShuffleboardData(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake, AutoSelector autoSelector) {
 
-        //driverTab = Shuffleboard.getTab("Driver Tab");
+        driverTab = Shuffleboard.getTab("Driver Tab");
         debugTab = Shuffleboard.getTab("Debug Tab");
         modulesTab = Shuffleboard.getTab("Modules Tab");
         autoTab = Shuffleboard.getTab("Auto Tab");
@@ -122,6 +122,10 @@ public class ShuffleboardData {
             withWidget(BuiltInWidgets.kCameraStream).
             withPosition(1, 0).
             withSize(3, 3);*/
+
+            driverTab.addCamera("Limelight", "limelight-slice-1", "http://10.87.38.73:5800").
+            withPosition(5, 0).
+            withSize(3, 3);
 
         }
 

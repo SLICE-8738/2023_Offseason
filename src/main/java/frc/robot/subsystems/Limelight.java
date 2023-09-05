@@ -16,10 +16,9 @@ import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
 
 //*Creates Limelight subsystem */
@@ -50,9 +49,6 @@ public class Limelight extends SubsystemBase {
 
   private final NetworkTableEntry pipeline;
 
-  //Creates a tab to be able to see limelight in shffleboard 
-  private final ShuffleboardTab driverTab;
-
   /** Creates a new Limelight. */
   public Limelight() {
     
@@ -64,13 +60,6 @@ public class Limelight extends SubsystemBase {
     cameraMode = table.getEntry("cameraMode");
     
     pipeline = table.getEntry("pipeline");
-
-    //defines driver tab 
-    driverTab = Shuffleboard.getTab("Driver Tab");
-
-    driverTab.addCamera("Limelight", "limelight-slice-1", "http://10.87.38.73:5800").
-    withPosition(5, 0).
-    withSize(3, 3);
 
   }
 

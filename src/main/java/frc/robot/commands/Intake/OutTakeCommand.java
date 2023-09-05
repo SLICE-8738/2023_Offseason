@@ -44,12 +44,14 @@ public class OutTakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.IntakeStopSpinning();
+    intake.setGamePieceSecured(false);
     //When button is stoppedPressed
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.getOutputCurrent() > Constants.kIntake.CONE_THRESHOLD;
+    //return intake.getOutputCurrent() > Constants.kIntake.CONE_THRESHOLD;
+    return false;
   }
 }

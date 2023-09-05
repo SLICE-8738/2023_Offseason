@@ -29,7 +29,11 @@ public class PolarJoystickFilter {
         
         double[] polarCoords = {
             Math.atan2(rawY, rawX),
-            Math.hypot(rawX, rawY)};
+            Math.sqrt(rawX * rawX + rawY * rawY)};
+
+        if (polarCoords[1] > 1) {
+            polarCoords[1] = 1;
+        }
 
         return polarCoords;
     }
@@ -57,8 +61,9 @@ public class PolarJoystickFilter {
             filtered[1] = withCurve(filtered[1]);
         }
         filtered[1] = smoothing * lastInput + (1 - smoothing) * filtered[1];
+        lastInput = filtered[1];
         double[] signal = withDead(filtered);
-        lastInput = signal[1];
+        //System.out.println("X: " + (Math.cos(signal[0]) * signal[1]) + ", Y:" + (Math.sin(signal[0]) * signal[1]));
         return new double[] {Math.cos(signal[0]) * signal[1], Math.sin(signal[0]) * signal[1]};
     }
 

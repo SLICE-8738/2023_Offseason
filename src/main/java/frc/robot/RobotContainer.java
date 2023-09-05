@@ -11,12 +11,12 @@ import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Elevator.ManualElevator;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
-import frc.robot.commands.Intake.sequences.IntakeCommandsSequence;
 import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.FlashColorCommand;
 import frc.robot.commands.LEDs.RainbowLEDs;
 import frc.robot.commands.LEDs.VariableModeLEDs;
 import frc.robot.commands.StowCommands.Stow;
+import frc.robot.commands.sequences.IntakeCommandsSequence;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Arm.StowState;
 
@@ -118,6 +118,8 @@ public class RobotContainer {
                 new ConditionalCommand(m_coneDoubleSubstationConditionalCommand, m_coneSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
   public final SequentialCommandGroup m_setToStart = new InstantCommand(() -> m_arm.setToStart()).andThen(new InstantCommand(() -> m_elevator.setToStart()));
+
+  public final InstantCommand m_reverseResetHeading = new InstantCommand(() -> m_drivetrain.reverseFieldOrientedHeading());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
