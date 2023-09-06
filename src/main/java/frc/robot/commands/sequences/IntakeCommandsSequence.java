@@ -42,20 +42,10 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * The robot then goes to the desired state and runs intakeCommand
      */
     if( stowState == StowState.Cone ){
-      addCommands(
-        new InstantCommand(() -> this.setCone()), 
-        new GoToState(m_Elevator, m_Arm, m_RobotState), 
-        new IntakeCommand(m_intake, m_Arm), 
-        new OutTakeCommand(m_intake).withTimeout(0.1), 
-        new InstantCommand(() -> m_intake.setGamePieceSecured(true)));
+      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
     else if( stowState == StowState.Cube ){
-      addCommands(
-        new InstantCommand(() -> this.setCube()), 
-        new GoToState(m_Elevator, m_Arm, m_RobotState), 
-        new IntakeCommand(m_intake, m_Arm), 
-        new OutTakeCommand(m_intake).withTimeout(0.1), 
-        new InstantCommand(() -> m_intake.setGamePieceSecured(true)));
+      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
   }
 
@@ -70,4 +60,3 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
   }
 
 }
-

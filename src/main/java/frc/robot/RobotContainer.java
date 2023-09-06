@@ -114,8 +114,6 @@ public class RobotContainer {
     //Conditional Commands for the Cone. These conditonal commands are for determining which substation the robot is at, and whether the cone is tipped or upright.
   public final ConditionalCommand m_coneDoubleSubstationConditionalCommand =
                 new ConditionalCommand(m_uprightConeDoubleSubstation, m_tippedConeDoubleSubstation , () -> Constants.kRobotStates.coneUpright);
-  public final ConditionalCommand m_coneSubstationsConditionalCommand =
-                new ConditionalCommand(m_coneDoubleSubstationConditionalCommand, m_coneSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
   public final SequentialCommandGroup m_setToStart = new InstantCommand(() -> m_arm.setToStart()).andThen(new InstantCommand(() -> m_elevator.setToStart()));
 

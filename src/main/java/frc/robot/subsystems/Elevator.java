@@ -65,7 +65,7 @@ public class Elevator extends SubsystemBase {
    * @param speed speed to run the elevator at
    */
   public void runElevator(double speed) {
-    if (false && (limitySwitchy1.get() || limitySwitchy2.get()) && (speed > 0)) {
+    if (/*false && (limitySwitchy1.get() || limitySwitchy2.get()) && (speed > 0)*/ getElevatorHeight() >= 4.96) {
       motorLeft.set(0);
       motorRight.set(0);
     } else {
@@ -120,7 +120,8 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                          // Set speed to 0 when the limit switches become active and locking is set to true
+    /*if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {
+      // Set speed to 0 when the limit switches become active and locking is set to true
       if (lock == true) {                      
         motorLeft.set(0);
         motorRight.set(0);}

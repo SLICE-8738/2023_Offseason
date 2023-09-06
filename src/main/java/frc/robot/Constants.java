@@ -47,7 +47,7 @@ public final class Constants {
       public static final RobotState stow = new RobotState(0, 5, 5); // Found
 
       public static final RobotState highScore = new RobotState(4.88, 52.57, 5); // Found
-      public static final RobotState midScore = new RobotState(2.932, 34.4, 30.48); // Found
+      public static final RobotState midScore = new RobotState(2.782, 39.4, 30.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
       public static final RobotState cubeDoubleSubstation = new RobotState(4.6, 43.21, -119.78);
@@ -211,7 +211,7 @@ public final class Constants {
         public static final int ARM_MOTOR_ID = 3;
         public static final int WRIST_MOTOR_ID = 10;
 
-        public static final double CUBE_THRESHOLD = 900;   //TODO: get the threshold value
+        public static final double CUBE_THRESHOLD = 8;   //TODO: get the threshold value
 
         public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
         public static final double ARM_SPROCKET_RATIO = 18.0 / 60.0;

@@ -11,7 +11,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.Timer;
+
 import frc.lib.config.CTREConfigs;
 import frc.lib.config.SwerveModuleConstants;
 import frc.lib.factories.SparkMaxFactory;
@@ -100,7 +100,6 @@ public class BaseNEOSwerveModule {
     angleController.setD(Constants.kDrivetrain.ANGLE_KD);
     angleController.setFF(Constants.kDrivetrain.ANGLE_KFF);
     angleMotor.burnFlash();
-    Timer.delay(1.0);
     resetToAbsolute();
   }
 

@@ -37,8 +37,9 @@ public class Test extends CommandBase {
   @Override
   public void execute() {
 
-    if (Arm.stowState == StowState.Cube) {                           // Checks the current stowState's motor, and ends the command if output is greater than the threshold
-    arm.wristSecureCube();    
+    if (Arm.stowState == StowState.Cube) { 
+      tested = true; // Assume you have a cube                      // Checks the current stowState's motor, and ends the command if output is greater than the threshold
+    //arm.wristSecureCube();    
       if (arm.getArmOutputCurrent()>Constants.kArm.CUBE_THRESHOLD) {
         tested = true;
       }
