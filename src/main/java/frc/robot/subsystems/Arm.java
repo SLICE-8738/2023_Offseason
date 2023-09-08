@@ -30,7 +30,7 @@ public class Arm extends SubsystemBase {
   //private DutyCycleEncoder armThroughboreEncoder, wristThroughboreEncoder;
 
   private SparkMaxPIDController armMotorController, wristMotorController;
-  public static StowState stowState;
+  public static StowState stowState = StowState.Cone;
 
   private double targetElbowPosition, targetWristPosition;
 

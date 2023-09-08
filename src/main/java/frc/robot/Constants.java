@@ -102,9 +102,9 @@ public final class Constants {
         public static final double DRIVE_KFF = 0.0;
     
         /* Drive Motor Characterization Values */
-        public static final double DRIVE_KS = 0.20464;
-        public static final double DRIVE_KV = 2.6677;
-        public static final double DRIVE_KA = 0.35256;
+        public static final double DRIVE_KS = 0.23065;
+        public static final double DRIVE_KV = 2.717;
+        public static final double DRIVE_KA = 0.32115;
     
         /* Drive Motor Conversion Factors */
         public static final double DRIVE_POSITION_CONVERSION_FACTOR =
@@ -135,7 +135,7 @@ public final class Constants {
         THESE SPEEDS WERE CALCULATED BASED ON THE CURRENT MAXIMUM VELOCITY
         CONSTANT AND ARE PLACEHOLDERS FOR NOW*/
         public static final double CHARGE_STATION_BALANCE_SPEED = 1.35;
-        public static final double BOARD_CHARGE_SPEED = -2.475;
+        public static final double BOARD_CHARGE_SPEED = 2.475;
 
         // The minimum angle the drivetrain must be at to stop when boarding the charge station
         public static final double BOARD_CHARGE_MINIMUM_STOP_ANGLE = 6;

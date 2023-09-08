@@ -12,9 +12,14 @@ import frc.robot.auto.modes.Pathplanner.ScoreOneCubePickUpOneGamePieceThenEngage
 import frc.robot.auto.modes.Pathplanner.ScoreTwoGamePiecesMode;
 import frc.robot.auto.modes.Pathplanner.ScoreTwoGamePiecesThenEngageMode;
 import frc.robot.auto.modes.Pathplannerless.ScoreOneConeHighRowMode;
+import frc.robot.auto.modes.Pathplannerless.ScoreOneConeHighRowThenEngageMode;
+import frc.robot.auto.modes.Pathplannerless.ScoreOneConeHighRowThenMobilityMode;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 import java.util.Optional;
 
@@ -40,6 +45,8 @@ public class AutoSelector {
     public enum DesiredMode {
         
         SCORE_ONE_CONE_HIGH_ROW_PATHPLANNERLESS,
+        SCORE_ONE_CONE_HIGH_ROW_THEN_MOBILITY_PATHPLANNERLESS,
+        SCORE_ONE_CONE_HIGH_ROW_THEN_ENGAGE_PATHPLANNERLESS,
         SCORE_ONE_CUBE_MOBILITY_THEN_ENGAGE_PATHPLANNER,
         SCORE_ONE_CUBE_PICK_UP_ONE_GAME_PIECE_THEN_ENGAGE_PATHPLANNER,
         SCORE_TWO_GAME_PIECES_PATHPLANNER,
@@ -62,10 +69,16 @@ public class AutoSelector {
     public double initialAutoPoseRotationOffset = 0;
 
     private final Drivetrain m_drivetrain;
+    private final Elevator m_elevator;
+    private final Arm m_arm;
+    private final Intake m_intake;
 
-    public AutoSelector(Drivetrain drivetrain) {
+    public AutoSelector(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake) {
 
         m_drivetrain = drivetrain;
+        m_elevator = elevator;
+        m_arm = arm;
+        m_intake = intake;
 
         startingPositionChooser = new SendableChooser<StartingPosition>();
 
@@ -81,6 +94,8 @@ public class AutoSelector {
 
         modeChooser.setDefaultOption("Any - Score One Cone High Row ", DesiredMode.SCORE_ONE_CONE_HIGH_ROW_PATHPLANNERLESS);
 
+        modeChooser.addOption("Any - Score One Cone High Row Then Mobility ", DesiredMode.SCORE_ONE_CONE_HIGH_ROW_THEN_MOBILITY_PATHPLANNERLESS);
+        modeChooser.addOption("Middle - Score One Cone High Row Then Engage ", DesiredMode.SCORE_ONE_CONE_HIGH_ROW_THEN_ENGAGE_PATHPLANNERLESS);
         modeChooser.addOption("(Pathplanner) Score One Cube Mobility Then Engage", DesiredMode.SCORE_ONE_CUBE_MOBILITY_THEN_ENGAGE_PATHPLANNER);
         modeChooser.addOption("(Pathplanner) Score One Cube Pick Up One Game Piece Then Engage", DesiredMode.SCORE_ONE_CUBE_PICK_UP_ONE_GAME_PIECE_THEN_ENGAGE_PATHPLANNER);
         modeChooser.addOption("(Pathplanner) Score Two Game Pieces Then Engage", DesiredMode.SCORE_TWO_GAME_PIECES_THEN_ENGAGE_PATHPLANNER);
@@ -115,6 +130,10 @@ public class AutoSelector {
 
             case SCORE_ONE_CONE_HIGH_ROW_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneConeHighRowMode(m_drivetrain/*, m_elevator, m_wrist, m_intake*/));
+            case SCORE_ONE_CONE_HIGH_ROW_THEN_MOBILITY_PATHPLANNERLESS:
+                return Optional.of(new ScoreOneConeHighRowThenMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake));
+            case SCORE_ONE_CONE_HIGH_ROW_THEN_ENGAGE_PATHPLANNERLESS:
+                return Optional.of(new ScoreOneConeHighRowThenEngageMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_CUBE_MOBILITY_THEN_ENGAGE_PATHPLANNER:
                 return Optional.of(new ScoreOneCubeMobilityThenEngageMode(position, m_drivetrain));
             case SCORE_ONE_CUBE_PICK_UP_ONE_GAME_PIECE_THEN_ENGAGE_PATHPLANNER:

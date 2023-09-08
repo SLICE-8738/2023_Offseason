@@ -50,7 +50,7 @@ public class RobotContainer {
   public final LEDs m_leds = new LEDs();
   public final Limelight m_limelight = new Limelight(); 
 
-  public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
+  public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain, m_elevator, m_arm, m_intake);
   
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_intake, m_autoSelector);
 
@@ -84,7 +84,9 @@ public class RobotContainer {
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
-  public final GoToState m_scoreHigh = new GoToState(m_elevator, m_arm, Constants.kRobotStates.highScore);
+  public final GoToState m_scoreHighFirst = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
+  public final GoToState m_scoreHighLast = new GoToState(m_elevator, m_arm, Constants.kRobotStates.highScore);
+  public final SequentialCommandGroup m_scoreHigh = new SequentialCommandGroup(m_scoreHighFirst, m_scoreHighLast);
   public final GoToState m_scoreMid = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
   public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 
