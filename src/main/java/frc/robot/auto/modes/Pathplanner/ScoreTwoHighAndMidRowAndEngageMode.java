@@ -23,9 +23,9 @@ import frc.robot.subsystems.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreTwoGamePiecesThenEngageMode extends SequentialCommandGroup {
+public class ScoreTwoHighAndMidRowAndEngageMode extends SequentialCommandGroup {
   /** Creates a new ScoreTwoGamePiecesThenEngageMode. */
-  public ScoreTwoGamePiecesThenEngageMode(AutoSelector.StartingPosition startPosition, Drivetrain drive/*, Elevator elevator, Wrist wrist, Intake intake*/) {
+  public ScoreTwoHighAndMidRowAndEngageMode(AutoSelector.StartingPosition startPosition, Drivetrain drive/*, Elevator elevator, Wrist wrist, Intake intake*/) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 

@@ -23,7 +23,7 @@ import frc.robot.Constants;
 public class BaseNEOSwerveModule {
   public int moduleNumber;
   private Rotation2d lastAngle;
-  private SwerveModuleState targetState = new SwerveModuleState(0.0, new Rotation2d());
+  private SwerveModuleState targetState = new SwerveModuleState();
   private Rotation2d angleOffset;
 
   private CANSparkMax angleMotor;

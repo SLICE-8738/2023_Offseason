@@ -65,7 +65,7 @@ public class RobotContainer {
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
 
   // Intake
-  public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake, m_arm);
+  public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake);
   public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand(m_intake);
 
   // Elevator

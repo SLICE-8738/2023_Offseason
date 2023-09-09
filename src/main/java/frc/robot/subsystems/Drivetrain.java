@@ -85,16 +85,6 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
-    SmartDashboard.putNumber("Left Front Drive Output Current", leftModuleFront.getDriveMotorOutputCurrent());
-    SmartDashboard.putNumber("Left Back Drive Output Current", leftModuleBack.getDriveMotorOutputCurrent());
-    SmartDashboard.putNumber("Right Front Drive Output Current", rightModuleFront.getDriveMotorOutputCurrent());
-    SmartDashboard.putNumber("Right Back Drive Output Current", rightModuleBack.getDriveMotorOutputCurrent());
-
-    SmartDashboard.putNumber("Left Front Drive Position", leftModuleFront.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Left Back Drive Position", leftModuleBack.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Right Front Drive Position", rightModuleFront.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Right Back Drive Position", rightModuleBack.getPosition().distanceMeters);
-
   }
 
   @Override

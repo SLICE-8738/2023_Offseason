@@ -7,6 +7,7 @@ package frc.robot.commands.sequences;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.RobotState;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Intake.IntakeCommand;
@@ -23,13 +24,12 @@ import frc.robot.subsystems.Arm.StowState;
 /** This sequential command group is logic for determining what state the intake should go to */
 public class IntakeCommandsSequence extends SequentialCommandGroup {
   
-  
   /** Creates a new IntakeCommandsSequence. */
-  public IntakeCommandsSequence(Intake m_intake, Arm m_Arm, Elevator m_Elevator, StowState stowState, RobotState m_RobotState) {
+  public IntakeCommandsSequence(Intake m_intake, Arm m_arm, Elevator m_elevator, StowState stowState, RobotState m_RobotState) {
 
     // Initializing and defining the commands needed for the command sequence.
-    GoToState goToState = new GoToState(m_Elevator, m_Arm, m_RobotState);
-    IntakeCommand intakeCommand = new IntakeCommand(m_intake, m_Arm);
+    GoToState goToState = new GoToState(m_elevator, m_arm, m_RobotState);
+    IntakeCommand intakeCommand = new IntakeCommand(m_intake);
 
     ParallelRaceGroup outSlight = new OutTakeCommand(m_intake).withTimeout(0.1);
 
@@ -41,10 +41,10 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * has been picked up by the robot.
      * The robot then goes to the desired state and runs intakeCommand
      */
-    if( stowState == StowState.Cone ){
+    if(stowState == StowState.Cone) {
       addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
-    else if( stowState == StowState.Cube ){
+    else if(stowState == StowState.Cube) {
       addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight, setGamePieceSecured);
     }
   }

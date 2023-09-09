@@ -12,12 +12,10 @@ import frc.robot.subsystems.Arm.StowState;
 
 public class IntakeCommand extends CommandBase {
   private Intake intake; 
-  private Arm arm;
   /** Creates a new IntakeCommand. */
-  public IntakeCommand(Intake intake, Arm arm) {
+  public IntakeCommand(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
-    this.arm = arm;
   }
 
   // Called when the command is initially scheduled.
