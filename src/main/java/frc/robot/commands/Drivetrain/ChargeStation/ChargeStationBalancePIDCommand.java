@@ -34,15 +34,7 @@ public class ChargeStationBalancePIDCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-    m_drivetrain.setDriveIdleMode(true);
-    m_drivetrain.setAngleIdleMode(true);
-
-    //THESE PID GAINS ARE TUNED FOR DIFFERENTIAL DRIVE AND ARE PLACEHOLDERS FOR NOW
-    m_drivetrain.setDrivePIDF(.17, .000001, .12, .62);
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

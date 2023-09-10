@@ -131,19 +131,19 @@ public class AutoSelector {
         switch(mode) {
 
             case SCORE_ONE_HIGH_ROW_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowMode(m_drivetrain/*, m_elevator, m_wrist, m_intake*/));
+                return Optional.of(new ScoreOneHighRowMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain));
+                return Optional.of(new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain));
+                return Optional.of(new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain));
+                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain));
+                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             default:
                 break;
     

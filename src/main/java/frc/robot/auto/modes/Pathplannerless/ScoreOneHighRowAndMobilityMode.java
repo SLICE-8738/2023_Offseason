@@ -5,7 +5,6 @@
 package frc.robot.auto.modes.Pathplannerless;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.Constants;
@@ -13,8 +12,9 @@ import frc.robot.commands.GoToState;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Arm;
+//import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 import frc.robot.commands.Drivetrain.AutoDrive.AutonomousDistanceDriveCommand;
-import frc.robot.commands.Intake.OutTakeCommand;
+import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
 import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -27,20 +27,13 @@ public class ScoreOneHighRowAndMobilityMode extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     //SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
-    //InstantCalibrationCommand calibrateElevatorAndWrist = new InstantCalibrationCommand(elevator, wrist);
-    //PlaceHighRowSequence placeCone = new PlaceHighRowSequence(elevator, wrist, intake);
     GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
-    GoToState toHigh = new GoToState(elevator, arm, Constants.kRobotStates.highScore);
-    ParallelRaceGroup outtake = new OutTakeCommand(intake).withTimeout(1);
-    GoToState stow = new GoToState(elevator, arm, Constants.kRobotStates.stow);
-
+    OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
     AutonomousDistanceDriveCommand mobility = new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(2, 0), new Translation2d(4, 0));
 
     addCommands(
       toMid,
-      toHigh,
-      outtake,
-      stow,
+      scoreHighAndStow,
       mobility
     );
 

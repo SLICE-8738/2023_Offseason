@@ -5,31 +5,33 @@
 package frc.robot.auto.modes.Pathplannerless;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-/*import frc.robot.commands.InstantCalibrationCommand;
-import frc.robot.commands.sequences.PlaceHighRowSequence;
+
+import frc.robot.Constants;
+import frc.robot.commands.GoToState;
+//import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
+import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Wrist;*/
-import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
-import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreOneHighRowMode extends SequentialCommandGroup {
   /** Creates a new ScoreOneConeHighRowMode. */
-  public ScoreOneHighRowMode(Drivetrain drivetrain/*, Elevator elevator, Wrist wrist, Intake intake*/) {
+  public ScoreOneHighRowMode(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
-    //InstantCalibrationCommand calibrateElevatorAndWrist = new InstantCalibrationCommand(elevator, wrist);
-    //PlaceHighRowSequence placeCone = new PlaceHighRowSequence(elevator, wrist, intake);
-
+    //SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
+    GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
+    OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
+    
     addCommands(
-      setInitialPosition/*,
-      calibrateElevatorAndWrist,
-      placeCone*/
+      //setInitialPosition,
+      toMid,
+      scoreHighAndStow
     );
 
   }

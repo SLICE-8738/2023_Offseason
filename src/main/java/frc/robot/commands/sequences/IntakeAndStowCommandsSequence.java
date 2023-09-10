@@ -12,6 +12,7 @@ import frc.robot.RobotState;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Intake.IntakeCommand;
 import frc.robot.commands.Intake.OutTakeCommand;
+import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -22,15 +23,16 @@ import frc.robot.subsystems.Arm.StowState;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
 /** This sequential command group is logic for determining what state the intake should go to */
-public class IntakeCommandsSequence extends SequentialCommandGroup {
+public class IntakeAndStowCommandsSequence extends SequentialCommandGroup {
   
   /** Creates a new IntakeCommandsSequence. */
-  public IntakeCommandsSequence(Intake intake, Arm arm, Elevator elevator, StowState stowState, RobotState robotState) {
+  public IntakeAndStowCommandsSequence(Intake intake, Arm arm, Elevator elevator, StowState stowState, RobotState robotState) {
 
     // Initializing and defining the commands needed for the command sequence.
     GoToState goToState = new GoToState(elevator, arm, robotState);
     IntakeCommand intakeCommand = new IntakeCommand(intake);
-    ParallelRaceGroup outSlight = new OutTakeCommand(intake).withTimeout(0.1);
+    ParallelRaceGroup outSlight = new OutTakeCommand(intake).withTimeout(0.1);    
+    Stow stow = new Stow(elevator, arm, intake);
 
     /* runs a different sequential command depending on what game piece needs to be stowed
      * the instant commands are used to set the StowState of the Arm based on what game piece
@@ -38,10 +40,10 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * The robot then goes to the desired state and runs intakeCommand
      */
     if(stowState == StowState.Cone) {
-      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight);
+      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight, stow);
     }
     else if(stowState == StowState.Cube) {
-      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight);
+      addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight, stow);
     }
   }
 
