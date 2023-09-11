@@ -8,13 +8,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.*;
 import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 
-import edu.wpi.first.math.geometry.Pose2d;
+import java.util.ArrayList;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-//import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /** 
  * This command should be used in Pathplannerless autonomous sequences to
@@ -24,33 +24,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * there is no other command resetting the odometry elsewhere in the sequence.
  */
 public class AutonomousDistanceDriveCommand extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+
   private final Drivetrain m_drivetrain;
 
   private final double xDistance, yDistance;
-  private double xSpeed, ySpeed;
+  private double forwardSpeed, sidewaysSpeed;
 
-  private Translation2d targetTranslation;
+  private ArrayList<SwerveModulePosition> targetPositions;
 
-  private double xError, yError;
+  private double forwardError, sidewaysError = 0;
 
   /**
    * Creates a new AutonomousDistanceDriveCommand.
    *
    * @param drivetrain The instance of the Drivetrain subsystem declared in RobotContainer.
-   * @param speeds The desired field-relative desired velocities in meters/second for the robot to move at along
-   *               the X and Y axes of the field(forwards/backwards from driver POV).
-   * @param distances The desired field-relative desired distances in meters along the X and Y axes of the field
-   *                  for the robot to travel.
+   * @param speeds The desired robot-relative forward and sideways velocities in meters/second for the robot 
+   *               to move at.
+   * @param distances The desired robot-relative forward and sideways distances in meters for the robot to travel.
    */
   public AutonomousDistanceDriveCommand(Drivetrain drivetrain, Translation2d speeds, Translation2d distances) {
     m_drivetrain = drivetrain;
 
-    xSpeed = speeds.getX();
-    ySpeed = speeds.getY();
+    forwardSpeed = speeds.getX();
+    sidewaysSpeed = speeds.getY();
 
-    xDistance = Math.abs(distances.getX()) * Math.signum(xSpeed);
-    yDistance = Math.abs(distances.getY()) * Math.signum(ySpeed);
+    xDistance = Math.abs(distances.getX()) * Math.signum(forwardSpeed);
+    yDistance = Math.abs(distances.getY()) * Math.signum(sidewaysSpeed);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -60,8 +59,13 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void initialize() {
 
-    Pose2d initialPosition = m_drivetrain.getPose();
-    targetTranslation = new Translation2d(initialPosition.getX() + xDistance, initialPosition.getY() + yDistance);
+    SwerveModulePosition[] initialPositions = m_drivetrain.getPositions();
+    
+    for(SwerveModulePosition modPosition : initialPositions) {
+
+      targetPositions.add(new SwerveModulePosition(modPosition.distanceMeters + Math.hypot(xDistance, yDistance), new Rotation2d(xDistance, yDistance)));
+
+    }
     
   }
 
@@ -69,24 +73,37 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void execute() {
 
-    Pose2d currentPosition = m_drivetrain.getPose();
+    SwerveModulePosition[] currentPositions = m_drivetrain.getPositions();
 
-    xError = Math.abs(currentPosition.getX() - targetTranslation.getX()); 
-    yError = Math.abs(currentPosition.getY() - targetTranslation.getY()); 
+    for(int i = 0; i < 4; i ++) {
 
-    if(xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
-
-      xSpeed = 0;
+      forwardError += Math.abs((targetPositions.get(i).angle.getCos() * targetPositions.get(i).distanceMeters) - (currentPositions[i].angle.getCos() * currentPositions[i].distanceMeters));
 
     }
-    if(yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
 
-      ySpeed = 0;
+    forwardError /= 4; 
+
+    for(int i = 0; i < 4; i ++) {
+
+      sidewaysError += Math.abs((targetPositions.get(i).angle.getSin() * targetPositions.get(i).distanceMeters) - (currentPositions[i].angle.getSin() * currentPositions[i].distanceMeters));
+
+    }
+    
+    sidewaysError /= 4;
+
+    if(forwardError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
+
+      forwardSpeed = 0;
+
+    }
+    if(sidewaysError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
+
+      sidewaysSpeed = 0;
 
     }
 
     // Sets the x speed and y speed of the robot
-    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(xSpeed, ySpeed), new Rotation2d()), true, true);
+    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(forwardSpeed, sidewaysSpeed), new Rotation2d()), false, false);
 
   }
 
@@ -94,7 +111,7 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(), new Rotation2d()), true, true);
+    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(), new Rotation2d()), false, false);
 
   }
 
@@ -103,8 +120,8 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   public boolean isFinished() {
 
     return 
-      (xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
-      (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE);
+      (forwardError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
+      (sidewaysError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE);
 
   }
 }
