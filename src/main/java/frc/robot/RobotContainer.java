@@ -99,8 +99,8 @@ public class RobotContainer {
   public final IntakeCommandsSequence m_cubeGround =
                 new IntakeCommandsSequence(m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);
     //Conditional Commands for the Cube. This conditional command executes a command based on whether the robot is facing the double substation or not
-  public final ConditionalCommand m_cubeSubstationsConditionalCommand =
-                new ConditionalCommand( m_cubeDoubleSubstationSequence, m_cubeSingleSubstation , () -> m_drivetrain.facingDoubleSub());
+  //public final ConditionalCommand m_cubeSubstationsConditionalCommand =
+    //            new ConditionalCommand( m_cubeDoubleSubstationSequence, m_cubeSingleSubstation , () -> m_drivetrain.facingDoubleSub());
   
   //Cones
   public final IntakeCommandsSequence m_tippedConeDoubleSubstation =

@@ -44,6 +44,7 @@ public class Test extends CommandBase {
         tested = true;
       }
     } else if (Arm.stowState == StowState.Cone) {
+      tested = true; // Assume you have a cone
     intake.IntakeSpinHoldUp();
       if (arm.getWristOutputCurrent()>Constants.kIntake.CONE_THRESHOLD) {
         tested = true;

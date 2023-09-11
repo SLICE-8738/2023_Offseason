@@ -48,13 +48,13 @@ public class ArmGoToPosition extends CommandBase {
 
     if (goingOut) {
       // If going out, wait until the elbow if far enough out before moving the wrist
-      if (getY(m_arm.getElbowPosition(), m_wristPosition) < getX(m_arm.getElbowPosition(), m_wristPosition)) {
+      if (.05 + getY(m_arm.getElbowPosition(), m_wristPosition) < getX(m_arm.getElbowPosition(), m_wristPosition)) {
         m_arm.setWristController(m_wristPosition);
         secondary = true;
       }
     }else {
       // If going in, wait until the wrist is far enough out before moving the elbow
-      if (getY(m_elbowPosition, m_arm.getWristPosition()) < getX(m_elbowPosition, m_arm.getWristPosition())) {
+      if (.05 + getY(m_elbowPosition, m_arm.getWristPosition()) < getX(m_elbowPosition, m_arm.getWristPosition())) {
         m_arm.setArmController(m_elbowPosition);
         secondary = true;
       }

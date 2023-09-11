@@ -30,7 +30,7 @@ public class IntakeCommand extends CommandBase {
     //Checks to see if it's a cone or cube being picked up and spins in the appropriate direction. 
 
     if (Arm.stowState == StowState.Cube){
-      intake.IntakeSpinUp(); 
+      intake.IntakeSpinUpCube(); 
       //arm.wristSecureCube();
     }
 

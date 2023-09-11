@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   //constructor 
   public Intake() {
     //Constructs Intake Motor
-    IntakeMotor = SparkMaxFactory.createDefaultSparkMax(Constants.kIntake.MOTOR_ID); 
+    IntakeMotor = SparkMaxFactory.createDefaultVelocitySparkMax(Constants.kIntake.MOTOR_ID); 
 
     driverTab = Shuffleboard.getTab("Driver Tab");
 
@@ -41,6 +41,10 @@ public class Intake extends SubsystemBase {
   /** Makes motor spin to spit out cone*/
   public void IntakeSpinOut(){
     IntakeMotor.set(0.8);
+  }
+
+  public void IntakeSpinUpCube() {
+    IntakeMotor.set(-0.4);
   }
 
   /** Makes motor spin at a slower rate for holding in place */

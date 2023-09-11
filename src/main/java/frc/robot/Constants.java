@@ -44,20 +44,20 @@ public final class Constants {
 
     public static final class kRobotStates {
       //TODO: Fill in these values
-      public static final RobotState stow = new RobotState(0, 5, 5); // Found
+      public static final RobotState stow = new RobotState(0, 0, 28); // Found
 
       public static final RobotState highScore = new RobotState(4.88, 52.57, 5); // Found
-      public static final RobotState midScore = new RobotState(2.782, 39.4, 30.48); // Found
+      public static final RobotState midScore = new RobotState(2.782, 39.4, 20.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
-      public static final RobotState cubeDoubleSubstation = new RobotState(4.6, 43.21, -119.78);
+      public static final RobotState cubeDoubleSubstation = new RobotState(4.25, 43.21, -119.78);
       public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState cubeGround = new RobotState(0, 79.1, -97.31); // Found
+      public static final RobotState cubeGround = new RobotState(0, 84.1, -97.31); // Found
 
       public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState tippedConeGround = new RobotState(0.64, 131.85, -97.85); // Found
       public static final RobotState uprightConeDoubleSubstation = new RobotState(4.01, 9.21, 59.41);
-      public static final RobotState uprightConeGround = new RobotState(0, 77.4, -7.18); // Found
+      public static final RobotState uprightConeGround = new RobotState(0, 80.4, -17.18); // Found
       public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -69.17);
 
       // Determines whether to use upright or tipped cone for double substation cone intake
@@ -242,8 +242,8 @@ public final class Constants {
         public static final double WRIST_kI = 0.0;
         public static final double WRIST_kD = 0.0;
 
-        public static final double STARTING_ELBOW_ANGLE = 5.0;
-        public static final double STARTING_WRIST_ANGLE = 5.0; 
+        public static final double STARTING_ELBOW_ANGLE = 0.0;
+        public static final double STARTING_WRIST_ANGLE = 28.0; 
 
         public static final int ELBOW_THROUGHBORE_ID = 0; // TODO: get the elbow throughbore ID
         public static final int WRIST_THROUGHBORE_ID = 0; // TODO: get the wrist throughbore ID
