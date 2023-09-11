@@ -40,6 +40,8 @@ public class Drivetrain extends SubsystemBase {
 
   private Rotation2d fieldOrientedOffset;
 
+  public double speedPercent;
+
   /** Creates a new Drivetrain. */
   public Drivetrain() {
 
@@ -74,6 +76,8 @@ public class Drivetrain extends SubsystemBase {
       new Pose2d(8.28, 4, Rotation2d.fromDegrees(180)));
 
     fieldOrientedOffset = new Rotation2d();
+
+    speedPercent = 1;
 
   }
 
@@ -215,11 +219,11 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState[] states = Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(
       isFieldRelative
       ? ChassisSpeeds.fromFieldRelativeSpeeds(
-      transform.getX(), 
-      transform.getY(), 
-      transform.getRotation().getRadians(), 
+      transform.getX() * speedPercent, 
+      transform.getY() * speedPercent, 
+      transform.getRotation().getRadians() * speedPercent, 
       rotationWithOffset) 
-      : new ChassisSpeeds(transform.getX(), transform.getY(), transform.getRotation().getRadians()));
+      : new ChassisSpeeds(transform.getX() * speedPercent, transform.getY() * speedPercent, transform.getRotation().getRadians() * speedPercent));
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 

@@ -121,6 +121,8 @@ public class RobotContainer {
 
   public final InstantCommand m_reverseResetHeading = new InstantCommand(() -> m_drivetrain.reverseFieldOrientedHeading());
 
+  public final SlowMode m_slowMode = new SlowMode(m_drivetrain);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -166,6 +168,8 @@ public class RobotContainer {
     Button.stow.onTrue(m_stow);
 
     Button.setToStart.onTrue(m_setToStart);
+
+    Button.slowMode.whileTrue(m_slowMode);
   }
 
   /**
