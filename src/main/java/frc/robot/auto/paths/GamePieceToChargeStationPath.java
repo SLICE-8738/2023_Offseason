@@ -24,10 +24,10 @@ public class GamePieceToChargeStationPath extends AutoPath {
                 trajectory = PathPlanner.loadPath("Blue Middle Game Piece To Chage Station", new PathConstraints(0.5, 0.2));
                 break;
             case BLUE_COMMUNITY_RIGHT:
-                trajectory = PathPlanner.loadPath("Blue Right Game Piece To Charge Station", new PathConstraints(0.5, 0.2));
+                trajectory = PathPlanner.loadPath("Blue Right Game Piece To Charge Station", new PathConstraints(3.0, 2.0));
                 break;
             case RED_COMMUNITY_LEFT:
-                trajectory = PathPlanner.loadPath("Red Left Game Piece To Charge Station", new PathConstraints(0.5, 0.2));
+                trajectory = PathPlanner.loadPath("Red Left Game Piece To Charge Station", new PathConstraints(3.0, 2.0));
                 break;
             case RED_COMMUNITY_MIDDLE:
                 trajectory = PathPlanner.loadPath("Red Middle Game Piece To Charge Station", new PathConstraints(0.5, 0.2));

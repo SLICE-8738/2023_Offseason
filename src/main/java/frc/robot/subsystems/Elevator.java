@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
@@ -31,8 +32,8 @@ public class Elevator extends SubsystemBase {
     motorLeft.restoreFactoryDefaults();
     motorRight.restoreFactoryDefaults();
 
-    limitySwitchy1 = new DigitalInput(9);
-    limitySwitchy2 = new DigitalInput(8);
+    limitySwitchy1 = new DigitalInput(Constants.kElevator.LIMIT_SWITCH_1_CHANNEL);
+    limitySwitchy2 = new DigitalInput(Constants.kElevator.LIMIT_SWITCH_2_CHANNEL);
     
     PIDLeft = motorLeft.getPIDController();
     PIDRight = motorRight.getPIDController();
@@ -85,7 +86,7 @@ public class Elevator extends SubsystemBase {
     motorRight.set(0);
     lock = true;                                                                       // Enable limit switch locking
 
-    if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {                            // If either limit switch is active
+    if ((!limitySwitchy1.get()) || (!limitySwitchy2.get())) {                            // If either limit switch is active
       if (positionsetament>(encoderLeft.getPosition()*encoderRight.getPosition())) {   // If desired set position is greater than average current position, then move
         lock = false;                                                                  // Disable locking 
         PIDLeft.setReference(positionsetament, ControlType.kPosition);
@@ -120,12 +121,17 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*if ((limitySwitchy1.get()) || (limitySwitchy2.get())) {
+    if ((!limitySwitchy1.get()) || (!limitySwitchy2.get())) {
       // Set speed to 0 when the limit switches become active and locking is set to true
       if (lock == true) {                      
         motorLeft.set(0);
         motorRight.set(0);}
       
-    }*/
+    }
+
+    SmartDashboard.putBoolean("Limit Switch 1", limitySwitchy1.get());
+    SmartDashboard.putBoolean("Limit Switch 2", limitySwitchy2.get());
+
   }
+
 }

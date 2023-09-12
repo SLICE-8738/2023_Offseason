@@ -68,7 +68,7 @@ public final class Constants {
     public static final class kDrivetrain {
 
         public static final Port NAVX_PORT = Port.kUSB;
-        public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
+        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
     
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(22);
@@ -143,7 +143,7 @@ public final class Constants {
         public static final double BOARD_CHARGE_ANGLE_CHANGE_THRESHOLD = 3.8;
 
         //Autnomous Tolerances
-        public static final double AUTO_DISTANCE_ERROR_TOLERANCE = 0.25;
+        public static final double AUTO_DISTANCE_ERROR_TOLERANCE = 0.35;
 
             
         /* Module Specific Constants */
@@ -205,6 +205,13 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularVelocityRadiansPerSecond, kMaxAngularAccelerationRadiansPerSecondSquared);
+
+        public static final SwerveDriveKinematics kSwerveKinematics =
+            new SwerveDriveKinematics(
+                new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
+                new Translation2d(-kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
+                new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, kDrivetrain.TRACK_WIDTH / 2.0),
+                new Translation2d(-kDrivetrain.WHEEL_BASE / 2.0, kDrivetrain.TRACK_WIDTH / 2.0));
       }
 
       public static final class kArm {
@@ -271,6 +278,9 @@ public final class Constants {
         public static final double kP = 4.0; //TODO: tune the PID values
         public static final double kI = 0.0;
         public static final double kD = 0.0;
+
+        public static final int LIMIT_SWITCH_1_CHANNEL = 9;
+        public static final int LIMIT_SWITCH_2_CHANNEL = 8;
 
       }
 

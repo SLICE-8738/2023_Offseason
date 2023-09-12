@@ -27,7 +27,7 @@ public class TrajectoryCommands {
         return new SwerveControllerCommand(
             trajectory,
             drive::getPose,
-            Constants.kDrivetrain.kSwerveKinematics,
+            Constants.kAutonomous.kSwerveKinematics,
                 new PIDController(Constants.kAutonomous.kPXController, 0, 0),
                 new PIDController(Constants.kAutonomous.kPYController, 0, 0),
                 new ProfiledPIDController(
@@ -47,7 +47,7 @@ public class TrajectoryCommands {
         return new PPSwerveControllerCommand(
             trajectory,
             drive::getPose,
-            Constants.kDrivetrain.kSwerveKinematics,
+            Constants.kAutonomous.kSwerveKinematics,
                 new PIDController(Constants.kAutonomous.kPXController, 0, 0),
                 new PIDController(Constants.kAutonomous.kPYController, 0, 0),
                 new PIDController(Constants.kAutonomous.kPThetaController, 0, 0),

@@ -11,6 +11,7 @@ import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GamePieceToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.sequences.IntakeAndStowCommandsSequence;
 import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
@@ -19,6 +20,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm.StowState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -32,7 +34,7 @@ public class ScoreOneHighRowPickUpAndEngageMode extends SequentialCommandGroup {
     GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
     OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
     GridToGamePiecePath gridToGamePiece = new GridToGamePiecePath(startPosition);
-    //PickUpGamePieceGroundSequence pickUpGamePiece = new PickUpGamePieceGroundSequence(elevator, wrist, intake);
+    IntakeAndStowCommandsSequence intakeCone = new IntakeAndStowCommandsSequence(intake, arm, elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
     GamePieceToChargeStationPath gamePieceToChargeStation = new GamePieceToChargeStationPath(startPosition);
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drive);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drive);
@@ -44,7 +46,7 @@ public class ScoreOneHighRowPickUpAndEngageMode extends SequentialCommandGroup {
       toMid,
       scoreHighAndStow,
       trajectory1,
-      //pickUpGamePiece,
+      intakeCone,
       trajectory2,
       boardChargeStation,
       balance
