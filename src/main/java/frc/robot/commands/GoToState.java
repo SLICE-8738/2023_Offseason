@@ -38,7 +38,7 @@ public class GoToState extends ParallelCommandGroup {
     ConditionalCommand stowedSequence = new ConditionalCommand(stowedSequenceL15, stowedSequenceG15, () -> (arm.getElbowPosition() < 15 && robotState.getElbowAngle() < 15 && robotState.getElevatorHeight() > 0.25));
 
     ArmGoToPosition outArmPrimary = new ArmGoToPosition(arm, 15, robotState.getWristAngle());
-    SequentialCommandGroup outElevator = new ElevatorGoToPosition(elevator, robotState.getElevatorHeight()).beforeStarting(new WaitUntilCommand(() -> arm.getElbowPosition() > 15));
+    SequentialCommandGroup outElevator = new ElevatorGoToPosition(elevator, robotState.getElevatorHeight()).beforeStarting(new WaitUntilCommand(() -> arm.getElbowPosition() > 10));
     ArmGoToPosition outArmSecondary = new ArmGoToPosition(arm, robotState.getElbowAngle(), robotState.getWristAngle());
     SequentialCommandGroup outSequence = new SequentialCommandGroup(new ParallelCommandGroup(outElevator, outArmPrimary), outArmSecondary);
 

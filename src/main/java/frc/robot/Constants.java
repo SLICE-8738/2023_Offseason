@@ -52,11 +52,11 @@ public final class Constants {
 
       public static final RobotState cubeDoubleSubstation = new RobotState(4.25, 43.21, -119.78);
       public static final RobotState cubeSingleSubstation = new RobotState(0, 0, 0);
-      public static final RobotState cubeGround = new RobotState(0, 84.1, -97.31); // Found
+      public static final RobotState cubeGround = new RobotState(0, 86.6, -97.31); // Found
 
       public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
       public static final RobotState tippedConeGround = new RobotState(0.64, 131.85, -97.85); // Found
-      public static final RobotState uprightConeDoubleSubstation = new RobotState(4.01, 9.21, 59.41);
+      public static final RobotState uprightConeDoubleSubstation = new RobotState(3.96, 15.21, 62.41);
       public static final RobotState uprightConeGround = new RobotState(0, 80.4, -17.18); // Found
       public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -69.17);
 
@@ -68,7 +68,7 @@ public final class Constants {
     public static final class kDrivetrain {
 
         public static final Port NAVX_PORT = Port.kUSB;
-        public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
+        public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW- (except for some godforsaken reason CCW- CW+ is the one that actually works so ignore this)
     
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(22);
@@ -199,15 +199,15 @@ public final class Constants {
         //THESE P GAINS ARE PLACEHOLDERS FOR NOW
         public static final double kPXController = 1;
         public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
+        public static final double kPThetaController = 0.125;
     
         // Constraint for the motion profilied robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularVelocityRadiansPerSecond, kMaxAngularAccelerationRadiansPerSecondSquared);
 
-        public static final SwerveDriveKinematics kSwerveKinematics =
-            new SwerveDriveKinematics(
+        public static final CustomSwerveDriveKinematics kSwerveKinematics =
+            new CustomSwerveDriveKinematics(
                 new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
                 new Translation2d(-kDrivetrain.WHEEL_BASE / 2.0, -kDrivetrain.TRACK_WIDTH / 2.0),
                 new Translation2d(kDrivetrain.WHEEL_BASE / 2.0, kDrivetrain.TRACK_WIDTH / 2.0),
@@ -238,7 +238,7 @@ public final class Constants {
         public static final double LOWER_ARM_LENGTH = 0.584; // Length of lower arm in meters, 23 inches
         public static final double WRIST_LENGTH = 0.15367; // Length of wrist in meters, 6.05 inches 
 
-        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 6;
+        public static final double ELBOW_POSITION_ERROR_TOLERANCE = 7.5;
         public static final double WRIST_POSITION_ERROR_TOLERANCE = 20;
 
         public static final double ELBOW_kP = 0.016;

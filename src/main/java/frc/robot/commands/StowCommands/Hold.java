@@ -31,7 +31,7 @@ public class Hold extends CommandBase {
     if (Arm.stowState == StowState.Nothing) {                       // Runs the motor for given stowState to hold in place
 
     } else if (Arm.stowState == StowState.Cube) {
-        arm.wristSecureCube();
+        intake.IntakeRetainCube();
     } else if (Arm.stowState == StowState.Cone) {
         intake.IntakeSpinHoldUp();
     }

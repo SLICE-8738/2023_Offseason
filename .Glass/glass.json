@@ -1,0 +1,26 @@
+{
+  "NetworkTables": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",
+      "/Shuffleboard/Auto Tab/Starting Position": "String Chooser",
+      "/Shuffleboard/Debug Tab/Field": "Field2d",
+      "/Shuffleboard/Teleop Tab/LED Mode": "String Chooser",
+      "/SmartDashboard/Field": "Field2d"
+    },
+    "windows": {
+      "/Shuffleboard/Debug Tab/Field": {
+        "Trajectory": {
+          "arrows": false,
+          "style": "Track"
+        },
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT3)"
+  }
+}

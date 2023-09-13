@@ -25,30 +25,28 @@ public final class Button {
     public static Trigger resetModuleAngles = new JoystickButton(driverController, 2); //Driver X Button
     
     //Stow
-    public static Trigger stow = new JoystickButton(operatorJoystick, 1); //Left Top 1
+    public static Trigger stow = new JoystickButton(operatorJoystick, 1); //Operator Top 1
 
     //Intake State Buttons
-    public static Trigger uprightConeGroundIntake = new JoystickButton(operatorJoystick, 3); //Left Top 3
-    public static Trigger cubeGroundIntake = new JoystickButton(operatorJoystick, 4); //Left Top 5
-    public static Trigger coneDoubleSubstationIntake = new JoystickButton(operatorJoystick, 5); //Left Top 6
-    public static Trigger cubeDoubleSubstationIntake = new JoystickButton(operatorJoystick, 6); //Left Top 4
-    public static Trigger coneSingleSubstationIntake = new JoystickButton(operatorJoystick, 2); //Left Top 2
+    public static Trigger uprightConeGroundIntake = new JoystickButton(operatorJoystick, 3); //Operator Top 3
+    public static Trigger cubeGroundIntake = new JoystickButton(operatorJoystick, 4); //Operator Top 5
+    public static Trigger coneDoubleSubstationIntake = new JoystickButton(operatorJoystick, 5); //Operator Top 6
+    public static Trigger cubeDoubleSubstationIntake = new JoystickButton(operatorJoystick, 6); //Operator Top 4
+    public static Trigger coneSingleSubstationIntake = new JoystickButton(operatorJoystick, 2); //Operator Top 2
 
     //Score State Buttons
-    public static Trigger scoreHigh = new JoystickButton(operatorJoystick, 7); //Left Bottom 7
-    public static Trigger scoreMid = new JoystickButton(operatorJoystick, 9); //Left Bottom 9
-    public static Trigger scoreLow = new JoystickButton(operatorJoystick, 11); //Left Bottom 11
+    public static Trigger scoreHigh = new JoystickButton(operatorJoystick, 7); //Operator Bottom 7
+    public static Trigger scoreMid = new JoystickButton(operatorJoystick, 9); //Operator Bottom 9
+    public static Trigger scoreLow = new JoystickButton(operatorJoystick, 11); //Operator Bottom 11
 
     //Manual Control
     public static Trigger wristUp = new JoystickButton(operatorController, 7); //Driver Left Trigger
     public static Trigger wristDown = new JoystickButton(operatorController, 8); //Driver Right Trigger
 
     //Outtake
-    public static Trigger outtake2 = new JoystickButton(operatorJoystick, 8); //Left Bottom 8
-    public static Trigger outtake4 = new JoystickButton(operatorJoystick, 10); //Left Bottom 10
-    public static Trigger outtake6 = new JoystickButton(operatorJoystick, 12); //Left Bottom 12
+    public static Trigger outtake2 = new JoystickButton(operatorJoystick, 12); //Operator Bottom 12
     public static Trigger controllerOuttake = new JoystickButton(operatorController, 2); //Operator A Button
-    public static Trigger outtake = outtake2.or(outtake4).or(outtake6).or(controllerOuttake);
+    public static Trigger outtake = outtake2.or(controllerOuttake);
     public static Trigger intake = new JoystickButton(operatorController, 4); //Operator Y Button
 
     public static Trigger setToStart = new JoystickButton(operatorController, 3); //Operator B Button
@@ -73,5 +71,9 @@ public final class Button {
     public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); //Operator Start Button
     public static Trigger operatorControllerButton11 = new JoystickButton(operatorController, 11); //Operator Left Stick Push
     public static Trigger operatorControllerButton12 = new JoystickButton(operatorController, 12); //Operator Right Stick Push
+
+    //Unassigned Operator Joystick Buttons
+    public static Trigger operatorJoystickButton8 = new JoystickButton(operatorJoystick, 8); //Operator Bottom 8
+    public static Trigger operatorJoystickButton10 = new JoystickButton(operatorJoystick, 10); //Operator Bottom 10
 
 }

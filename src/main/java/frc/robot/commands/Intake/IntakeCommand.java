@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
@@ -12,16 +13,20 @@ import frc.robot.subsystems.Arm.StowState;
 
 public class IntakeCommand extends CommandBase {
   private Intake intake; 
+  private final Timer timer;
   /** Creates a new IntakeCommand. */
   public IntakeCommand(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+    timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     //Will initialize when go to position is done
+    timer.reset();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,6 +56,12 @@ public class IntakeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+    if(timer.get() <= 1.5) {
+      return false;
+    }
+
     return intake.getOutputCurrent() > Constants.kIntake.CONE_THRESHOLD;
+
   }
 }
