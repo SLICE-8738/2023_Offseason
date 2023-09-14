@@ -91,6 +91,18 @@ public class SparkMaxFactory {
         1500,
         200);
 
+        private static final Configuration kDefaultPriorityConfiguration = new Configuration(
+        IdleMode.kBrake,
+        Constants.kDrivetrain.DRIVE_INVERT,
+        false,
+        12,
+        0.0,
+        0.0,
+        30,
+        200,
+        500
+        );
+
     /**
      * Creates a CANSparkMax object with a configuration optimized for less significant motors.
      */
@@ -117,6 +129,16 @@ public class SparkMaxFactory {
     public static CANSparkMax createDefaultPositionSparkMax(int id) {
 
         return createSparkMax(id, kDefaultPositionConfiguration);
+    
+    }
+
+    /**
+     * Creates a CANSparkMax object with a configuration optimized for motors primarily used with
+     * position control.
+     */
+    public static CANSparkMax createDefaultPrioritySparkMax(int id) {
+
+        return createSparkMax(id, kDefaultPriorityConfiguration);
     
     }
 

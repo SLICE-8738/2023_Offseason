@@ -1,5 +1,16 @@
 {
   "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "Debug Tab": {
+          "Field": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    },
     "types": {
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",

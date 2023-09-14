@@ -108,7 +108,7 @@ public final class Constants {
     
         /* Drive Motor Conversion Factors */
         public static final double DRIVE_POSITION_CONVERSION_FACTOR =
-            WHEEL_CIRCUMFERENCE / DRIVE_GEAR_RATIO;
+            WHEEL_CIRCUMFERENCE / DRIVE_GEAR_RATIO * 3;
         public static final double DRIVE_VELOCITY_CONVERSION_FACTOR = DRIVE_POSITION_CONVERSION_FACTOR / 60.0;
         public static final double ANGLE_POSITION_CONVERSION_FACTOR_DEGREES = 360.0 / ANGLE_GEAR_RATIO;
         public static final double ANGLE_POSITION_CONVERSION_FACTOR_RADIANS = Math.PI * 2;

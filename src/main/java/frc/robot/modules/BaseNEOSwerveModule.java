@@ -55,7 +55,7 @@ public class BaseNEOSwerveModule {
     configAngleMotor();
 
     /* Drive Motor Config */
-    driveMotor = SparkMaxFactory.createDefaultSparkMax(moduleConstants.driveMotorID);
+    driveMotor = SparkMaxFactory.createDefaultPrioritySparkMax(moduleConstants.driveMotorID);
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getPIDController();
     configDriveMotor();

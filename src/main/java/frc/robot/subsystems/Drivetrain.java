@@ -88,6 +88,11 @@ public class Drivetrain extends SubsystemBase {
     updateOdometry();
 
     m_field2d.setRobotPose(getPose());
+    
+    SmartDashboard.putNumber("Left Front Distance", leftModuleFront.getPosition().distanceMeters);
+    SmartDashboard.putNumber("Left Back Distance", leftModuleBack.getPosition().distanceMeters);
+    SmartDashboard.putNumber("Right Front Distance", rightModuleFront.getPosition().distanceMeters);
+    SmartDashboard.putNumber("Right Back Distance", rightModuleBack.getPosition().distanceMeters);
 
   }
 
@@ -286,7 +291,15 @@ public class Drivetrain extends SubsystemBase {
    */
   public Pose2d updateOdometry() {
 
-    return m_swerveDrivetrainOdometry.update(getRotation2d(), getPositions());
+    SwerveModulePosition[] modulePositions = getPositions();
+
+    for(int i = 0; i < 4; i ++) {
+
+      modulePositions[i].distanceMeters *= -1;
+
+    }
+
+    return m_swerveDrivetrainOdometry.update(Rotation2d.fromDegrees(360).minus(getRotation2d()), modulePositions);
 
   }
 

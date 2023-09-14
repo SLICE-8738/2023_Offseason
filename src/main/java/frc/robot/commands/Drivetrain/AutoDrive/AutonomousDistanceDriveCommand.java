@@ -30,8 +30,7 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
 
   private SwerveModulePosition[] initialPositions;
 
-  private double forwardError, sidewaysError = 0;
-
+  private double error = 0;
 
   /**
    * Creates a new AutonomousDistanceDriveCommand.
@@ -66,42 +65,21 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void execute() {
 
-    double forwardDistance = 0;
-    double sidewaysDistance = 0;
+    double distance = 0;
 
     SwerveModulePosition[] currentPositions = m_drivetrain.getPositions();
 
     for(int i = 0; i < 4; i ++) {
 
-      forwardDistance += (currentPositions[i].angle.getCos() * currentPositions[i].distanceMeters) - (initialPositions[i].angle.getCos() * initialPositions[i].distanceMeters);
+      distance += currentPositions[i].distanceMeters - initialPositions[i].distanceMeters;
 
     }
 
-    for(int i = 0; i < 4; i ++) {
+    distance /= 4;
 
-      sidewaysDistance += (currentPositions[i].angle.getSin() * currentPositions[i].distanceMeters) - (initialPositions[i].angle.getSin() * initialPositions[i].distanceMeters);
+    error = Math.abs(Math.abs(Math.hypot(targetSidewaysDistance, targetForwardDistance) - Math.abs(distance)));
 
-    }
-
-    forwardDistance /= 4;
-    sidewaysDistance /= 4;
-
-    forwardError = Math.abs(Math.abs(targetForwardDistance) - Math.abs(forwardDistance));
-    sidewaysError = Math.abs(Math.abs(targetSidewaysDistance) - Math.abs(sidewaysDistance));
-
-    System.out.println(forwardError);
-    System.out.println(sidewaysError);
-
-    if(forwardError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
-
-      forwardSpeed = 0;
-
-    }
-    if(sidewaysError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
-
-      sidewaysSpeed = 0;
-
-    }
+    System.out.println(error);
 
     // Sets the x speed and y speed of the robot
     m_drivetrain.swerveDrive(new Transform2d(new Translation2d(forwardSpeed, sidewaysSpeed), new Rotation2d()), false, false);
@@ -120,9 +98,7 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    return 
-      (forwardError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
-      (sidewaysError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE);
+    return (error < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE);
 
   }
 }
