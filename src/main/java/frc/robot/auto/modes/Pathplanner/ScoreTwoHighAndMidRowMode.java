@@ -34,7 +34,7 @@ public class ScoreTwoHighAndMidRowMode extends SequentialCommandGroup {
     GamePieceToGridPath gamePieceToGrid = new GamePieceToGridPath(startPosition);
     OuttakeAndStowCommandsSequence scoreMidAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore);
 
-    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getPathStartingPosition());
+    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getPathInitialState());
     Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToGrid);
 
     addCommands(

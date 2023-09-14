@@ -34,7 +34,7 @@ public class ScoreOneHighRowMobilityAndEngageMode extends SequentialCommandGroup
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drive);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drive);
 
-    Field2dTrajectoryFollowerSequence trajectory = new Field2dTrajectoryFollowerSequence(drive, gridOutOfCommunityToChargeStation, gridOutOfCommunityToChargeStation.getPathStartingPosition());
+    Field2dTrajectoryFollowerSequence trajectory = new Field2dTrajectoryFollowerSequence(drive, gridOutOfCommunityToChargeStation, gridOutOfCommunityToChargeStation.getPathInitialState());
 
     addCommands(
       toMid,

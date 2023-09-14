@@ -5,8 +5,7 @@
 package frc.robot.auto;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
-
-import edu.wpi.first.math.geometry.Pose2d;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 /** 
  * This class serves as a superclass for all auto path classes primarily to
@@ -17,9 +16,9 @@ public class AutoPath {
 
     public PathPlannerTrajectory trajectory;
 
-    public Pose2d getPathStartingPosition() {
+    public PathPlannerState getPathInitialState() {
 
-        return trajectory.getInitialPose();
+        return trajectory.getInitialState();
 
     }
 

@@ -4,15 +4,16 @@
 
 package frc.robot.commands.Drivetrain.sequences;
 
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.TrajectoryCommands;
 import frc.robot.auto.AutoPath;
+import frc.robot.commands.Drivetrain.AutonomousResetOdometryCommand;
 import frc.robot.commands.Drivetrain.PrepareAutoRotationsCommand;
-import frc.robot.commands.Drivetrain.ResetOdometryCommand;
 import frc.robot.commands.Drivetrain.SetField2dCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -39,10 +40,10 @@ public class Field2dTrajectoryFollowerSequence extends SequentialCommandGroup {
   }
 
   /** Creates a new Field2dTrajectoryFollowerSequence, reseting the position of the robot at the beginning of the sequence. */
-  public Field2dTrajectoryFollowerSequence(Drivetrain drive, AutoPath autoPath, Pose2d position) {
+  public Field2dTrajectoryFollowerSequence(Drivetrain drive, AutoPath autoPath, PathPlannerState initialState) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    ResetOdometryCommand resetOdometryCommand = new ResetOdometryCommand(drive, position);
+    AutonomousResetOdometryCommand resetOdometryCommand = new AutonomousResetOdometryCommand(drive, initialState);
     SetField2dCommand setField2dCommand = new SetField2dCommand(autoPath.trajectory, drive);
     PrepareAutoRotationsCommand prepareAutoRotationsCommand = new PrepareAutoRotationsCommand(drive, autoPath.trajectory);
     PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory);

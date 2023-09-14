@@ -11,14 +11,12 @@ import frc.robot.subsystems.Intake;
 
 
 public class Hold extends CommandBase {
-  private Arm arm;
   private Intake intake;
   /** Creates a new Hold. */
-  public Hold(Arm armSubsystem, Intake intakeSubsystem) {
+  public Hold(Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    arm = armSubsystem;
     intake = intakeSubsystem;
-    addRequirements(armSubsystem, intakeSubsystem);
+    addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -39,7 +37,11 @@ public class Hold extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+    intake.IntakeStopSpinning();
+
+  }
 
   // Returns true when the command should end.
   @Override

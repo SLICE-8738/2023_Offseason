@@ -149,6 +149,7 @@ public class RobotContainer {
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
     Button.slowMode.whileTrue(m_slowMode);
     Button.resetModuleAngles.onTrue(m_resetModuleAngles);
+    Button.reverseFieldOrientedHeading.onTrue(m_reverseResetHeading);
 
     Button.outtake.whileTrue(m_OutTakeCommand);
     Button.intake.whileTrue(m_IntakeCommand);
@@ -170,6 +171,7 @@ public class RobotContainer {
     Button.stow.onTrue(m_stow);
 
     Button.setToStart.onTrue(m_setToStart);
+
 
   }
 

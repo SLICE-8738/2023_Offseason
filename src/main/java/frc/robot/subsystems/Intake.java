@@ -53,7 +53,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void IntakeRetainCube() {
-    IntakeMotor.set(-0.05);
+    IntakeMotor.set(-0.2);
   }
 
   /** Makes motor stop spinning */

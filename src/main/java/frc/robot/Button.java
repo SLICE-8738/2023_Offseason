@@ -20,6 +20,7 @@ public final class Button {
 
     //Drivetrain Command Buttons
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); //Driver Triangle Button
+    public static Trigger reverseFieldOrientedHeading = new JoystickButton(driverController, 1); //Driver Square Button
     public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 6); //Driver Right Bumper
     public static Trigger slowMode = new JoystickButton(driverController, 8); //Driver Right Trigger
     public static Trigger resetModuleAngles = new JoystickButton(driverController, 2); //Driver X Button
@@ -52,7 +53,6 @@ public final class Button {
     public static Trigger setToStart = new JoystickButton(operatorController, 3); //Operator B Button
 
     //Unassigned Driver Controller Buttons
-    public static Trigger driverButton1 = new JoystickButton(driverController, 1); //Driver Square Button
     public static Trigger driverButton3 = new JoystickButton(driverController, 3); //Driver Circle Button
     public static Trigger driverButton5 = new JoystickButton(driverController, 5); //Driver Left Bumper
     public static Trigger driverButton7 = new JoystickButton(driverController, 7); //Driver Left Trigger

@@ -165,16 +165,16 @@ public class AutoSelector {
             switch(desiredMode) {
 
                 case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridOutOfCommunityToChargeStationPath(startingPosition).getPathStartingPosition();
+                    initialAutoPose = new GridOutOfCommunityToChargeStationPath(startingPosition).getPathInitialState().poseMeters;
                     break;
                 case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathStartingPosition();
+                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathInitialState().poseMeters;
                     break;
                 case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathStartingPosition();
+                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathInitialState().poseMeters;
                     break;
                 case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathStartingPosition();
+                    initialAutoPose = new GridToGamePiecePath(startingPosition).getPathInitialState().poseMeters;
                     break;
                 default:
                     System.err.println("No valid initial auto pose found for " + desiredMode);

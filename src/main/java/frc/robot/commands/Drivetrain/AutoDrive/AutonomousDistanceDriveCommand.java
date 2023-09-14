@@ -8,13 +8,10 @@ import frc.robot.Constants;
 import frc.robot.subsystems.*;
 import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** 
@@ -28,12 +25,13 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
 
   private final Drivetrain m_drivetrain;
 
-  private final double xDistance, yDistance;
+  private final double targetForwardDistance, targetSidewaysDistance;
   private double forwardSpeed, sidewaysSpeed;
 
-  private ArrayList<SwerveModulePosition> targetPositions = new ArrayList<SwerveModulePosition>();
+  private SwerveModulePosition[] initialPositions;
 
   private double forwardError, sidewaysError = 0;
+
 
   /**
    * Creates a new AutonomousDistanceDriveCommand.
@@ -49,8 +47,8 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
     forwardSpeed = speeds.getX();
     sidewaysSpeed = speeds.getY();
 
-    xDistance = Math.abs(distances.getX()) * Math.signum(forwardSpeed);
-    yDistance = Math.abs(distances.getY()) * Math.signum(sidewaysSpeed);
+    targetForwardDistance = Math.abs(distances.getX()) * Math.signum(forwardSpeed);
+    targetSidewaysDistance = Math.abs(distances.getY()) * Math.signum(sidewaysSpeed);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -60,13 +58,7 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void initialize() {
 
-    SwerveModulePosition[] initialPositions = m_drivetrain.getPositions();
-    
-    for(SwerveModulePosition modPosition : initialPositions) {
-
-      targetPositions.add(new SwerveModulePosition(modPosition.distanceMeters + Math.hypot(xDistance, yDistance), new Rotation2d(xDistance, yDistance)));
-
-    }
+    initialPositions = m_drivetrain.getPositions();
     
   }
 
@@ -74,23 +66,31 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public void execute() {
 
+    double forwardDistance = 0;
+    double sidewaysDistance = 0;
+
     SwerveModulePosition[] currentPositions = m_drivetrain.getPositions();
 
     for(int i = 0; i < 4; i ++) {
 
-      forwardError += Math.abs((targetPositions.get(i).angle.getCos() * targetPositions.get(i).distanceMeters) - (currentPositions[i].angle.getCos() * currentPositions[i].distanceMeters));
+      forwardDistance += (currentPositions[i].angle.getCos() * currentPositions[i].distanceMeters) - (initialPositions[i].angle.getCos() * initialPositions[i].distanceMeters);
 
     }
-
-    forwardError /= 4; 
 
     for(int i = 0; i < 4; i ++) {
 
-      sidewaysError += Math.abs((targetPositions.get(i).angle.getSin() * targetPositions.get(i).distanceMeters) - (currentPositions[i].angle.getSin() * currentPositions[i].distanceMeters));
+      sidewaysDistance += (currentPositions[i].angle.getSin() * currentPositions[i].distanceMeters) - (initialPositions[i].angle.getSin() * initialPositions[i].distanceMeters);
 
     }
-    
-    sidewaysError /= 4;
+
+    forwardDistance /= 4;
+    sidewaysDistance /= 4;
+
+    forwardError = Math.abs(Math.abs(targetForwardDistance) - Math.abs(forwardDistance));
+    sidewaysError = Math.abs(Math.abs(targetSidewaysDistance) - Math.abs(sidewaysDistance));
+
+    System.out.println(forwardError);
+    System.out.println(sidewaysError);
 
     if(forwardError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
 
