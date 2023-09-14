@@ -46,7 +46,7 @@ public final class Constants {
       //TODO: Fill in these values
       public static final RobotState stow = new RobotState(0, 0, 28); // Found
 
-      public static final RobotState highScore = new RobotState(4.88, 52.57, 5); // Found
+      public static final RobotState highScore = new RobotState(4.88, 52.57, 17); // Found
       public static final RobotState midScore = new RobotState(2.782, 39.4, 20.48); // Found
       public static final RobotState lowScore = new RobotState(0, 0, 0);
 
