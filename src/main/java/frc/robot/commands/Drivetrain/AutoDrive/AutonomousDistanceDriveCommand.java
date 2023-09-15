@@ -78,6 +78,8 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
 
     onBlueAllianceFinal = onBlueAlliance.getAsBoolean();
 
+    System.out.println("Auto Distance Drive: On Blue Alliance: " + onBlueAllianceFinal);
+
     if(!onBlueAllianceFinal) {
 
       xSpeed *= -1;

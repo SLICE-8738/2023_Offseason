@@ -6,7 +6,7 @@ package frc.robot;
 
 import java.util.Map;
 
-//import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -118,14 +118,15 @@ public class ShuffleboardData {
             withSize(3, 2);
         
             //Displays the feed from the USB camera on Shuffleboard
-            /*driverTab.add(CameraServer.startAutomaticCapture()).
+            driverTab.add(CameraServer.startAutomaticCapture()).
             withWidget(BuiltInWidgets.kCameraStream).
             withPosition(1, 0).
-            withSize(3, 3);*/
-
-            driverTab.addCamera("Limelight", "limelight-slice-1", "http://10.87.38.73:5800").
-            withPosition(5, 0).
             withSize(3, 3);
+
+            //Displays the feed from the Limelight on Shuffleboard
+            /*driverTab.addCamera("Limelight", "limelight-slice-1", "http://10.87.38.73:5800").
+            withPosition(5, 0).
+            withSize(3, 3);*/
 
         }
 
