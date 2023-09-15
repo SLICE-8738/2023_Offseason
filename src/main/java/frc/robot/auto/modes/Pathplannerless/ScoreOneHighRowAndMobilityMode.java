@@ -4,6 +4,8 @@
 
 package frc.robot.auto.modes.Pathplannerless;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -22,14 +24,14 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreOneHighRowAndMobilityMode extends SequentialCommandGroup {
   /** Creates a new ScoreOneConeHighRowMode. */
-  public ScoreOneHighRowAndMobilityMode(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake) {
+  public ScoreOneHighRowAndMobilityMode(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake, BooleanSupplier onBlueAlliance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     //SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
     GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
     OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
-    AutonomousDistanceDriveCommand mobility = new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(-2, 0), new Translation2d(-4, 0));
+    AutonomousDistanceDriveCommand mobility = new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(-2, 0), new Translation2d(-4, 0), onBlueAlliance);
 
     addCommands(
       toMid,

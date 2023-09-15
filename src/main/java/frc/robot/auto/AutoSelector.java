@@ -133,7 +133,7 @@ public class AutoSelector {
             case SCORE_ONE_HIGH_ROW_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake, () -> storedStartingPosition.name().startsWith("BLUE")));
             case SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
