@@ -9,16 +9,18 @@ import frc.robot.subsystems.Drivetrain;
 
 public class SlowMode extends CommandBase {
   Drivetrain m_drivetrain;
+  double speedPercent;
   /** Creates a new SlowMode. */
-  public SlowMode(Drivetrain drivetrain) {
+  public SlowMode(Drivetrain drivetrain, double speedPercent) {
     m_drivetrain = drivetrain;
+    this.speedPercent = speedPercent;
     // THERE SHOULDN'T BE A REQUIREMENT FOR THIS COMMAND
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_drivetrain.speedPercent = 0.25;
+    m_drivetrain.speedPercent = speedPercent;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
