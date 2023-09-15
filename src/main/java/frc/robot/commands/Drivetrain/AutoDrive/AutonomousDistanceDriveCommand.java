@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -39,6 +40,8 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   private final BooleanSupplier onBlueAlliance;
   private boolean onBlueAllianceFinal;
 
+  private final Timer timer;
+
   /**
    * Creates a new AutonomousDistanceDriveCommand.
    *
@@ -60,6 +63,8 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
     xDistance = Math.abs(distances.getX()) * Math.signum(xSpeed);
     yDistance = Math.abs(distances.getY()) * Math.signum(ySpeed);
 
+    timer = new Timer();
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
   }
@@ -67,6 +72,9 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
+    timer.reset();
+    timer.start();
 
     onBlueAllianceFinal = onBlueAlliance.getAsBoolean();
 
@@ -123,8 +131,9 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   public boolean isFinished() {
 
     return 
-      (xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
-      (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE);
+      ((xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
+      (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE)) ||
+      ((timer.hasElapsed(xSpeed == 0? 0 : (xDistance / xSpeed) + 1)) && timer.hasElapsed(ySpeed == 0? 0 : (yDistance / ySpeed) + 1));
 
   }
 }
