@@ -40,10 +40,10 @@ public class ScoreTwoHighAndMidRowMode extends SequentialCommandGroup {
     addCommands(
       toMid,
       scoreHighAndStow,
-      trajectory1,
+      trajectory1
       //pickUpGamePiece,
-      trajectory2,
-      scoreMidAndStow
+      //trajectory2,
+      //scoreMidAndStow
     );
     
   }

@@ -192,8 +192,8 @@ public class AutoSelector {
 
         if(botPose != null && initialAutoPose != null) {
 
-            initialAutoPoseXOffset = initialAutoPose.getX() - botPose.getX();
-            initialAutoPoseYOffset = initialAutoPose.getY() - botPose.getY();
+            initialAutoPoseXOffset = Math.abs(initialAutoPose.getX() - botPose.getX());
+            initialAutoPoseYOffset = Math.abs(initialAutoPose.getY() - botPose.getY());
             initialAutoPoseRotationOffset = initialAutoPose.getRotation().getDegrees() - botPose.getRotation().getDegrees();
 
         }
