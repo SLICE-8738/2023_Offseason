@@ -19,11 +19,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //import edu.wpi.first.wpilibj.smartdashboard.*;
 
-/** 
+/**
  * This command should be used in Pathplannerless autonomous sequences to
  * drive the robot at given x and y speeds over given x and y distances.
  * 
- * <p> Instances of this command should be used along with a {@link SetInitialPositionCommand} in sequences if 
+ * <p>
+ * Instances of this command should be used along with a
+ * {@link SetInitialPositionCommand} in sequences if
  * there is no other command resetting the odometry elsewhere in the sequence.
  */
 public class AutonomousDistanceDriveCommand extends CommandBase {
@@ -38,6 +40,7 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   private double xError, yError;
 
   private final BooleanSupplier onBlueAlliance;
+  private final boolean useOnBlueAlliance;
   private boolean onBlueAllianceFinal;
 
   private final Timer timer;
@@ -45,17 +48,31 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   /**
    * Creates a new AutonomousDistanceDriveCommand.
    *
-   * @param drivetrain The instance of the Drivetrain subsystem declared in RobotContainer.
-   * @param speeds The desired field-relative desired velocities in meters/second for the robot to move at along
-   *               the X and Y axes of the field(forwards/backwards from driver POV).
-   * @param distances The desired field-relative desired distances in meters along the X and Y axes of the field
-   *                  for the robot to travel.
-   * @param onBlueAlliance A boolean supplier that returns whether the robot is running autonomous on the blue alliance side
-   *                       of the field.
+   * @param drivetrain        The instance of the Drivetrain subsystem declared in
+   *                          RobotContainer.
+   * @param speeds            The desired field-relative desired velocities in
+   *                          meters/second for the robot to move at along
+   *                          the X and Y axes of the field(forwards/backwards
+   *                          from
+   *                          driver POV).
+   * @param distances         The desired field-relative desired distances in
+   *                          meters
+   *                          along the X and Y axes of the field
+   *                          for the robot to travel.
+   * @param onBlueAlliance    A boolean supplier that returns whether the robot is
+   *                          running autonomous on the blue alliance side
+   *                          of the field.
+   * @param useOnBlueAlliance Whether the onBlueAlliance boolean supplier should
+   *                          be used to
+   *                          invert the given speeds and distances if a red
+   *                          alliance starting
+   *                          position is selected.
    */
-  public AutonomousDistanceDriveCommand(Drivetrain drivetrain, Translation2d speeds, Translation2d distances, BooleanSupplier onBlueAlliance) {
+  public AutonomousDistanceDriveCommand(Drivetrain drivetrain, Translation2d speeds, Translation2d distances,
+      BooleanSupplier onBlueAlliance, boolean useOnBlueAlliance) {
     m_drivetrain = drivetrain;
     this.onBlueAlliance = onBlueAlliance;
+    this.useOnBlueAlliance = useOnBlueAlliance;
 
     xSpeed = speeds.getX();
     ySpeed = speeds.getY();
@@ -80,19 +97,20 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
 
     System.out.println("Auto Distance Drive: On Blue Alliance: " + onBlueAllianceFinal);
 
-    if(!onBlueAllianceFinal) {
+    if (useOnBlueAlliance) {
 
-      xSpeed *= -1;
-      ySpeed *= -1;
+      if (onBlueAllianceFinal) {
 
-      xDistance *= -1;
-      yDistance *= -1;
+        xSpeed *= -1;
+        xDistance *= -1;
+
+      }
 
     }
 
     Pose2d initialPosition = m_drivetrain.getPose();
     targetTranslation = new Translation2d(initialPosition.getX() + xDistance, initialPosition.getY() + yDistance);
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -101,15 +119,15 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
 
     Pose2d currentPosition = m_drivetrain.getPose();
 
-    xError = Math.abs(currentPosition.getX() - targetTranslation.getX()); 
-    yError = Math.abs(currentPosition.getY() - targetTranslation.getY()); 
+    xError = Math.abs(currentPosition.getX() - targetTranslation.getX());
+    yError = Math.abs(currentPosition.getY() - targetTranslation.getY());
 
-    if(xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
+    if (xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
 
       xSpeed = 0;
 
     }
-    if(yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
+    if (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) {
 
       ySpeed = 0;
 
@@ -132,10 +150,10 @@ public class AutonomousDistanceDriveCommand extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    return 
-      ((xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) && 
-      (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE)) ||
-      ((timer.hasElapsed(xSpeed == 0? 0 : (xDistance / xSpeed) + 1)) && timer.hasElapsed(ySpeed == 0? 0 : (yDistance / ySpeed) + 1));
+    return ((xError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE) &&
+        (yError < Constants.kDrivetrain.AUTO_DISTANCE_ERROR_TOLERANCE)) ||
+        ((timer.hasElapsed(xSpeed == 0 ? 0 : (xDistance / xSpeed) + 1))
+            && timer.hasElapsed(ySpeed == 0 ? 0 : (yDistance / ySpeed) + 1));
 
   }
 }

@@ -34,7 +34,7 @@ public class Elevator extends SubsystemBase {
 
     limitySwitchy1 = new DigitalInput(Constants.kElevator.LIMIT_SWITCH_1_CHANNEL);
     limitySwitchy2 = new DigitalInput(Constants.kElevator.LIMIT_SWITCH_2_CHANNEL);
-    
+
     PIDLeft = motorLeft.getPIDController();
     PIDRight = motorRight.getPIDController();
 
@@ -55,18 +55,20 @@ public class Elevator extends SubsystemBase {
 
     encoderRight.setPositionConversionFactor(Constants.kElevator.ELEVATOR_POSITIONAL_CONVERSION_FACTOR);
     encoderRight.setVelocityConversionFactor(Constants.kElevator.ELEVATOR_VELOCITY_CONVERSION_FACTOR);
-  
+
     encoderLeft.setPosition(0);
     encoderRight.setPosition(0);
 
   }
 
   /**
-   * Runs the elevator at a given speed, unless the elevator is at the bottom, in which case it stops the elevator.
+   * Runs the elevator at a given speed, unless the elevator is at the bottom, in
+   * which case it stops the elevator.
+   * 
    * @param speed speed to run the elevator at
    */
   public void runElevator(double speed) {
-    if (/*false && (limitySwitchy1.get() || limitySwitchy2.get()) && (speed > 0)*/ getElevatorHeight() >= 4.96) {
+    if (/* false && (limitySwitchy1.get() || limitySwitchy2.get()) && (speed > 0) */ getElevatorHeight() >= 4.96) {
       motorLeft.set(0);
       motorRight.set(0);
     } else {
@@ -74,26 +76,28 @@ public class Elevator extends SubsystemBase {
       motorRight.set(-speed);
     }
   }
-  
+
   /**
    * 
    * @param positionsetament Position to set the elevator to.
    */
   public void setPIDController(double positionsetament) {
-    targetPosition = positionsetament;                                                 // Set target position to the desired position
+    targetPosition = positionsetament; // Set target position to the desired position
 
-    motorLeft.set(0);                                                            // Reset speed to zoomy mode
+    motorLeft.set(0); // Reset speed to zoomy mode
     motorRight.set(0);
-    lock = true;                                                                       // Enable limit switch locking
+    lock = true; // Enable limit switch locking
 
-    if ((!limitySwitchy1.get()) || (!limitySwitchy2.get())) {                            // If either limit switch is active
-      if (positionsetament>(encoderLeft.getPosition()*encoderRight.getPosition())) {   // If desired set position is greater than average current position, then move
-        lock = false;                                                                  // Disable locking 
+    if ((!limitySwitchy1.get()) || (!limitySwitchy2.get())) { // If either limit switch is active
+      if (positionsetament > (encoderLeft.getPosition() * encoderRight.getPosition())) { // If desired set position is
+                                                                                         // greater than average current
+                                                                                         // position, then move
+        lock = false; // Disable locking
         PIDLeft.setReference(positionsetament, ControlType.kPosition);
         PIDRight.setReference(-positionsetament, ControlType.kPosition);
-      } 
+      }
     }
-    PIDLeft.setReference(positionsetament, ControlType.kPosition);                    // If limit switches aren't active, then move
+    PIDLeft.setReference(positionsetament, ControlType.kPosition); // If limit switches aren't active, then move
     PIDRight.setReference(-positionsetament, ControlType.kPosition);
   }
 
@@ -106,7 +110,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * @return whether or not the elevator is at the target position, within a tolerance
+   * @return whether or not the elevator is at the target position, within a
+   *         tolerance
    */
   public boolean isAtTargetPosition() {
     return (Math.abs(targetPosition - getElevatorHeight()) < Constants.kElevator.ELEVATOR_POSITION_ERROR_TOLERANCE);
@@ -122,11 +127,13 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if ((!limitySwitchy1.get()) || (!limitySwitchy2.get())) {
-      // Set speed to 0 when the limit switches become active and locking is set to true
-      if (lock == true) {                      
+      // Set speed to 0 when the limit switches become active and locking is set to
+      // true
+      if (lock == true) {
         motorLeft.set(0);
-        motorRight.set(0);}
-      
+        motorRight.set(0);
+      }
+
     }
 
     SmartDashboard.putBoolean("Limit Switch 1", limitySwitchy1.get());

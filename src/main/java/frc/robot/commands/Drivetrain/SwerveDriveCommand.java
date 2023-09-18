@@ -25,7 +25,8 @@ public class SwerveDriveCommand extends CommandBase {
   private final boolean m_isOpenLoop;
   private final boolean m_isFieldRelative;
 
-  public SwerveDriveCommand(Drivetrain drivetrain, GenericHID driverController, boolean isOpenLoop, boolean isFieldRelative, Elevator elevator) {
+  public SwerveDriveCommand(Drivetrain drivetrain, GenericHID driverController, boolean isOpenLoop,
+      boolean isFieldRelative, Elevator elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
 
@@ -38,23 +39,23 @@ public class SwerveDriveCommand extends CommandBase {
     m_isFieldRelative = isFieldRelative;
 
     translationFilter = new PolarJoystickFilter(
-      0.07, 
-      0.85, 
-      Constants.kJoysticks.driveExponent, 
-      Constants.kJoysticks.driveExponentPercent);
+        0.07,
+        0.85,
+        Constants.kJoysticks.driveExponent,
+        Constants.kJoysticks.driveExponentPercent);
     rotationFilter = new PolarJoystickFilter(
-      0.07, 
-      0.5, 
-      Constants.kJoysticks.turnExponent, 
-      Constants.kJoysticks.turnExponentPercent);
-    
+        0.07,
+        0.5,
+        Constants.kJoysticks.turnExponent,
+        Constants.kJoysticks.turnExponentPercent);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    //m_drivetrain.resetModulesToAbsolute();
+    // m_drivetrain.resetModulesToAbsolute();
 
   }
 
@@ -65,18 +66,20 @@ public class SwerveDriveCommand extends CommandBase {
     // Slow down the robot when the elevator is up
     double elevatorPercentage = m_elevator.getElevatorHeight() / Constants.kElevator.MAX_ELEVATOR_HEIGHT;
     double drivePercent = elevatorPercentage < 0.5 ? 1 : (1 - elevatorPercentage) * 1.5 + 0.25;
-    
-    double[] translation = translationFilter.filter(m_driverController.getRawAxis(1), -m_driverController.getRawAxis(0));
 
-    double translationX = translation[0] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;
-    double translationY = translation[1] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY * drivePercent;
+    double[] translation = translationFilter.filter(m_driverController.getRawAxis(1),
+        -m_driverController.getRawAxis(0));
 
-    double rotation = rotationFilter.filter(m_driverController.getRawAxis(2), 0)[0] * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY * drivePercent;
+    double translationX = translation[0] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
+    double translationY = translation[1] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
+
+    double rotation = rotationFilter.filter(m_driverController.getRawAxis(2), 0)[0]
+        * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY;
 
     m_drivetrain.swerveDrive(
-      new Transform2d(new Translation2d(translationX, translationY), new Rotation2d(rotation)),
-      m_isOpenLoop,
-      m_isFieldRelative);
+        new Transform2d(new Translation2d(translationX, translationY), new Rotation2d(rotation)),
+        m_isOpenLoop,
+        m_isFieldRelative);
 
   }
 
@@ -84,7 +87,8 @@ public class SwerveDriveCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
 
-    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(0, 0), new Rotation2d()), m_isOpenLoop, m_isFieldRelative);
+    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(0, 0), new Rotation2d()), m_isOpenLoop,
+        m_isFieldRelative);
 
   }
 

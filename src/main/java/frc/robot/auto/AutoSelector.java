@@ -28,23 +28,24 @@ import java.util.Optional;
  * This class primarily manages the creation and updating of the autonomous mode
  * and starting position sendable choosers on Shuffleboard.
  * 
- * <p> {@link SendableChooser See SendableChooser class here}
+ * <p>
+ * {@link SendableChooser See SendableChooser class here}
  */
 public class AutoSelector {
-    
+
     public enum StartingPosition {
 
-        BLUE_COMMUNITY_LEFT, 
-        BLUE_COMMUNITY_MIDDLE, 
-        BLUE_COMMUNITY_RIGHT, 
-        RED_COMMUNITY_LEFT, 
-        RED_COMMUNITY_MIDDLE, 
+        BLUE_COMMUNITY_LEFT,
+        BLUE_COMMUNITY_MIDDLE,
+        BLUE_COMMUNITY_RIGHT,
+        RED_COMMUNITY_LEFT,
+        RED_COMMUNITY_MIDDLE,
         RED_COMMUNITY_RIGHT
 
     }
 
     public enum DesiredMode {
-        
+
         SCORE_ONE_HIGH_ROW_PATHPLANNERLESS,
         SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS,
         SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS,
@@ -95,13 +96,19 @@ public class AutoSelector {
 
         modeChooser.setDefaultOption("Any - Score One High Row ", DesiredMode.SCORE_ONE_HIGH_ROW_PATHPLANNERLESS);
 
-        modeChooser.addOption("Any - Score One High Row And Mobility ", DesiredMode.SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS);
-        modeChooser.addOption("Middle - Score One High Row And Engage ", DesiredMode.SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS);
+        modeChooser.addOption("Any - Score One High Row And Mobility ",
+                DesiredMode.SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS);
+        modeChooser.addOption("Middle - Score One High Row And Engage ",
+                DesiredMode.SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS);
 
-        modeChooser.addOption("(Pathplanner) Score One High Row Mobility And Engage", DesiredMode.SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score One High Row Pick Up Piece And Engage", DesiredMode.SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row", DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row And Engage", DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER);
+        modeChooser.addOption("(Pathplanner) Score One High Row Mobility And Engage",
+                DesiredMode.SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER);
+        modeChooser.addOption("(Pathplanner) Score One High Row Pick Up Piece And Engage",
+                DesiredMode.SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER);
+        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row",
+                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER);
+        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row And Engage",
+                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER);
 
     }
 
@@ -110,10 +117,10 @@ public class AutoSelector {
         StartingPosition startingPosition = startingPositionChooser.getSelected();
         DesiredMode desiredMode = modeChooser.getSelected();
 
-        if(storedStartingPosition != startingPosition || storedDesiredMode != desiredMode) {
-            
+        if (storedStartingPosition != startingPosition || storedDesiredMode != desiredMode) {
+
             System.out.println("Auto selection changed, updating creator; Starting Position: " + startingPosition.name()
-            + ", Desired Mode: " + desiredMode.name());
+                    + ", Desired Mode: " + desiredMode.name());
 
             autoMode = getAutoModeForParams(startingPosition, desiredMode);
 
@@ -128,25 +135,30 @@ public class AutoSelector {
 
     private Optional<SequentialCommandGroup> getAutoModeForParams(StartingPosition position, DesiredMode mode) {
 
-        switch(mode) {
+        switch (mode) {
 
             case SCORE_ONE_HIGH_ROW_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake, () -> storedStartingPosition.name().startsWith("BLUE")));
+                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake,
+                        () -> storedStartingPosition.name().startsWith("BLUE")));
             case SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS:
                 return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(
+                        new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(
+                        new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
             case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, m_elevator, m_arm, m_intake,
+                        () -> storedStartingPosition.name().startsWith("BLUE")));
             case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, m_elevator, m_arm,
+                        m_intake, () -> storedStartingPosition.name().startsWith("BLUE")));
             default:
                 break;
-    
+
         }
 
         System.err.println("No valid auto mode found for " + mode);
@@ -156,16 +168,20 @@ public class AutoSelector {
 
     public void updateInitialAutoPoseOffset(StartingPosition startingPosition, DesiredMode desiredMode) {
 
-        /*This variable should be should be assigned to Limelight.getLastBotPoseBlue() instead when
-        the Limelight subsystem file is added*/
+        /*
+         * This variable should be should be assigned to Limelight.getLastBotPoseBlue()
+         * instead when
+         * the Limelight subsystem file is added
+         */
         Pose2d botPose = m_drivetrain.getPose();
 
-        if(desiredMode.name().endsWith("PATHPLANNER")) {
+        if (desiredMode.name().endsWith("PATHPLANNER")) {
 
-            switch(desiredMode) {
+            switch (desiredMode) {
 
                 case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridOutOfCommunityToChargeStationPath(startingPosition).getPathInitialState().poseMeters;
+                    initialAutoPose = new GridOutOfCommunityToChargeStationPath(startingPosition)
+                            .getPathInitialState().poseMeters;
                     break;
                 case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
                     initialAutoPose = new GridToGamePiecePath(startingPosition).getPathInitialState().poseMeters;
@@ -179,22 +195,22 @@ public class AutoSelector {
                 default:
                     System.err.println("No valid initial auto pose found for " + desiredMode);
                     break;
-                
+
             }
 
-        }
-        else {
+        } else {
 
             System.out.println("No initial pose is available for Pathplannerless modes");
             initialAutoPose = botPose;
 
         }
 
-        if(botPose != null && initialAutoPose != null) {
+        if (botPose != null && initialAutoPose != null) {
 
             initialAutoPoseXOffset = Math.abs(initialAutoPose.getX() - botPose.getX());
             initialAutoPoseYOffset = Math.abs(initialAutoPose.getY() - botPose.getY());
-            initialAutoPoseRotationOffset = initialAutoPose.getRotation().getDegrees() - botPose.getRotation().getDegrees();
+            initialAutoPoseRotationOffset = initialAutoPose.getRotation().getDegrees()
+                    - botPose.getRotation().getDegrees();
 
         }
 
@@ -217,12 +233,11 @@ public class AutoSelector {
 
     public String getStoredDesiredMode() {
 
-        if(storedDesiredMode != null) {
+        if (storedDesiredMode != null) {
 
             return storedDesiredMode.name();
 
-        }
-        else {
+        } else {
 
             return "None Stored";
 
@@ -238,12 +253,11 @@ public class AutoSelector {
 
     public String getStoredStartingPositionName() {
 
-        if(storedStartingPosition != null) {
+        if (storedStartingPosition != null) {
 
             return storedStartingPosition.name();
 
-        }
-        else {
+        } else {
 
             return "None Stored";
 

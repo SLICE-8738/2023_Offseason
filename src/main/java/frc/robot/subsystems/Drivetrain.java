@@ -25,7 +25,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends SubsystemBase {
 
-  //private final SparkMaxSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
+  // private final SparkMaxSwerveModule leftModuleFront, leftModuleBack,
+  // rightModuleFront, rightModuleBack;
   private final BaseNEOSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
 
   private final SwerveDriveOdometry m_swerveDrivetrainOdometry;
@@ -45,11 +46,25 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
   public Drivetrain() {
 
-    //The angle offset arguments for these swerve modules are placeholders for now
-    /*leftModuleFront = new SparkMaxSwerveModule(Constants.kDrivetrain.Mod0.DRIVE_MOTOR_ID, Constants.kDrivetrain.Mod0.ANGLE_MOTOR_ID, Constants.kDrivetrain.Mod0.ANGLE_OFFSET.getRadians());
-    leftModuleBack = new SparkMaxSwerveModule(Constants.kDrivetrain.Mod1.DRIVE_MOTOR_ID, Constants.kDrivetrain.Mod1.ANGLE_MOTOR_ID, Constants.kDrivetrain.Mod1.ANGLE_OFFSET.getRadians());
-    rightModuleFront = new SparkMaxSwerveModule(Constants.kDrivetrain.Mod2.DRIVE_MOTOR_ID, Constants.kDrivetrain.Mod2.ANGLE_MOTOR_ID, Constants.kDrivetrain.Mod2.ANGLE_OFFSET.getRadians());
-    rightModuleBack = new SparkMaxSwerveModule(Constants.kDrivetrain.Mod3.DRIVE_MOTOR_ID, Constants.kDrivetrain.Mod3.ANGLE_MOTOR_ID, Constants.kDrivetrain.Mod3.ANGLE_OFFSET.getRadians());*/
+    // The angle offset arguments for these swerve modules are placeholders for now
+    /*
+     * leftModuleFront = new
+     * SparkMaxSwerveModule(Constants.kDrivetrain.Mod0.DRIVE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod0.ANGLE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod0.ANGLE_OFFSET.getRadians());
+     * leftModuleBack = new
+     * SparkMaxSwerveModule(Constants.kDrivetrain.Mod1.DRIVE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod1.ANGLE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod1.ANGLE_OFFSET.getRadians());
+     * rightModuleFront = new
+     * SparkMaxSwerveModule(Constants.kDrivetrain.Mod2.DRIVE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod2.ANGLE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod2.ANGLE_OFFSET.getRadians());
+     * rightModuleBack = new
+     * SparkMaxSwerveModule(Constants.kDrivetrain.Mod3.DRIVE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod3.ANGLE_MOTOR_ID,
+     * Constants.kDrivetrain.Mod3.ANGLE_OFFSET.getRadians());
+     */
 
     leftModuleFront = new BaseNEOSwerveModule(0, Constants.kDrivetrain.Mod0.CONSTANTS);
     leftModuleBack = new BaseNEOSwerveModule(1, Constants.kDrivetrain.Mod1.CONSTANTS);
@@ -70,10 +85,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putData(m_field2d);
 
     m_swerveDrivetrainOdometry = new SwerveDriveOdometry(
-      Constants.kDrivetrain.kSwerveKinematics, 
-      getRotation2d(), 
-      getPositions(),
-      new Pose2d(8.28, 4, Rotation2d.fromDegrees(180)));
+        Constants.kDrivetrain.kSwerveKinematics,
+        getRotation2d(),
+        getPositions(),
+        new Pose2d(8.28, 4, Rotation2d.fromDegrees(180)));
 
     fieldOrientedOffset = new Rotation2d();
 
@@ -83,12 +98,12 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-  // This method will be called once per scheduler run
+    // This method will be called once per scheduler run
 
     updateOdometry();
 
     m_field2d.setRobotPose(getPose());
-    
+
     SmartDashboard.putNumber("Left Front Distance", leftModuleFront.getPosition().distanceMeters);
     SmartDashboard.putNumber("Left Back Distance", leftModuleBack.getPosition().distanceMeters);
     SmartDashboard.putNumber("Right Front Distance", rightModuleFront.getPosition().distanceMeters);
@@ -104,8 +119,9 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Sets the idle mode of all drive motors to either brake mode or coast mode.
    * 
-   * @param enableBrakeMode Whether or not the idle mode of all 
-   * drive motors should be set to brake mode(false to set to coast mode).
+   * @param enableBrakeMode Whether or not the idle mode of all
+   *                        drive motors should be set to brake mode(false to set
+   *                        to coast mode).
    * 
    */
   public void setDriveIdleMode(boolean enableBrakeMode) {
@@ -120,8 +136,9 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Sets the idle mode of all angle motors to either brake mode or coast mode.
    * 
-   * @param enableBrakeMode Whether or not the idle mode of all 
-   * angle motors should be set to brake mode(false to set to coast mode).
+   * @param enableBrakeMode Whether or not the idle mode of all
+   *                        angle motors should be set to brake mode(false to set
+   *                        to coast mode).
    * 
    */
   public void setAngleIdleMode(boolean enableBrakeMode) {
@@ -134,7 +151,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets all drive motors to specified proportional, integral, derivative, and feedforward gains.
+   * Sets all drive motors to specified proportional, integral, derivative, and
+   * feedforward gains.
    * 
    * @param kP The desired proportional gain for all drive motors to be set to.
    * @param kI The desired integral gain for all drive motors to be set to.
@@ -151,7 +169,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets all angle motors to specified proportional, integral, derivative, and feedforward gains.
+   * Sets all angle motors to specified proportional, integral, derivative, and
+   * feedforward gains.
    * 
    * @param kP The desired proportional gain for all angle motors to be set to.
    * @param kI The desired integral gain for all angle motors to be set to.
@@ -168,9 +187,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets the maxiumum and reverse power of all native drive PIDF controllers to a specified value.
+   * Sets the maxiumum and reverse power of all native drive PIDF controllers to a
+   * specified value.
    * 
-   * @param max The desired maximum forward and reverse power to set all native drive PIDF controllers to.
+   * @param max The desired maximum forward and reverse power to set all native
+   *            drive PIDF controllers to.
    */
   public void setMaxDriveOutput(double max) {
 
@@ -182,9 +203,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets the maxiumum and reverse power of all native angle PID controllers to a specified value.
+   * Sets the maxiumum and reverse power of all native angle PID controllers to a
+   * specified value.
    * 
-   * @param max The desired maximum forward and reverse power to set all native angle PID controllers to.
+   * @param max The desired maximum forward and reverse power to set all native
+   *            angle PID controllers to.
    */
   public void setMaxAngleOutput(double max) {
 
@@ -196,20 +219,31 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Drives the robot at either given field-relative X, Y, and rotational velocities or given
+   * Drives the robot at either given field-relative X, Y, and rotational
+   * velocities or given
    * robot-relative forward, sideways, and rotational velocities.
    * 
-   * <p> If using robot-relative velocities, the X component of the Translation2d object should be the forward velocity
+   * <p>
+   * If using robot-relative velocities, the X component of the Translation2d
+   * object should be the forward velocity
    * and the Y component should be the sideways velocity.
    * 
-   * @param transform A Transform2d object representing either the desired field-relative velocities in meters/second for the 
-   *                  robot to move at along the X and Y axes of the field(forwards/backwards from driver POV), or the desired robot-relative forward 
-   *                  and sideways velocities in meters/second for the robot to move at, as well as the desired velocity in radians/second for the 
-   *                  robot to rotate at.
+   * @param transform       A Transform2d object representing either the desired
+   *                        field-relative velocities in meters/second for the
+   *                        robot to move at along the X and Y axes of the
+   *                        field(forwards/backwards from driver POV), or the
+   *                        desired robot-relative forward
+   *                        and sideways velocities in meters/second for the robot
+   *                        to move at, as well as the desired velocity in
+   *                        radians/second for the
+   *                        robot to rotate at.
    * 
-   * @param isOpenLoop Whether the accordingly generated states for the given velocities should be set using open loop control for the drive motors
-   *                   of the swerve modules.
-   * @param isFieldRelative Whether the given velocities are relative to the field or not.
+   * @param isOpenLoop      Whether the accordingly generated states for the given
+   *                        velocities should be set using open loop control for
+   *                        the drive motors
+   *                        of the swerve modules.
+   * @param isFieldRelative Whether the given velocities are relative to the field
+   *                        or not.
    */
   public void swerveDrive(Transform2d transform, boolean isOpenLoop, boolean isFieldRelative) {
 
@@ -222,13 +256,14 @@ public class Drivetrain extends SubsystemBase {
     }
 
     SwerveModuleState[] states = Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(
-      isFieldRelative
-      ? ChassisSpeeds.fromFieldRelativeSpeeds(
-      transform.getX() * speedPercent, 
-      transform.getY() * speedPercent, 
-      transform.getRotation().getRadians() * speedPercent, 
-      rotationWithOffset) 
-      : new ChassisSpeeds(transform.getX() * speedPercent, transform.getY() * speedPercent, transform.getRotation().getRadians() * speedPercent));
+        isFieldRelative
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                transform.getX() * speedPercent,
+                transform.getY() * speedPercent,
+                transform.getRotation().getRadians() * speedPercent,
+                rotationWithOffset)
+            : new ChassisSpeeds(transform.getX() * speedPercent, transform.getY() * speedPercent,
+                transform.getRotation().getRadians() * speedPercent));
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
@@ -252,7 +287,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Resets and starts a timer in order to provide a time 
+   * Resets and starts a timer in order to provide a time
    * since the beginning of the trajectory to sample from.
    */
   public void startAutoTrajectoryTimer() {
@@ -270,13 +305,15 @@ public class Drivetrain extends SubsystemBase {
   public void setCurrentAutoTrajectory(Trajectory trajectory) {
 
     currentAutoTrajectory = trajectory;
-    
+
   }
 
   /**
-   * Samples and obtains the rotation at the current time step of the current auto trajectory. 
+   * Samples and obtains the rotation at the current time step of the current auto
+   * trajectory.
    * 
-   * @return The rotation of the robot of at the current time step of the current auto trajectory.
+   * @return The rotation of the robot of at the current time step of the current
+   *         auto trajectory.
    */
   public Rotation2d getAutoTrajectoryRotation() {
 
@@ -285,7 +322,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Updates the drivetrain odometry object to the robot's current position on the field.
+   * Updates the drivetrain odometry object to the robot's current position on the
+   * field.
    * 
    * @return The new updated pose of the robot.
    */
@@ -293,7 +331,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModulePosition[] modulePositions = getPositions();
 
-    for(int i = 0; i < 4; i ++) {
+    for (int i = 0; i < 4; i++) {
 
       modulePositions[i].distanceMeters *= -1;
 
@@ -321,10 +359,10 @@ public class Drivetrain extends SubsystemBase {
   public SwerveModulePosition[] getPositions() {
 
     SwerveModulePosition[] positions = {
-      leftModuleFront.getPosition(),
-      leftModuleBack.getPosition(),
-      rightModuleFront.getPosition(),
-      rightModuleBack.getPosition()};
+        leftModuleFront.getPosition(),
+        leftModuleBack.getPosition(),
+        rightModuleFront.getPosition(),
+        rightModuleBack.getPosition() };
 
     return positions;
 
@@ -338,30 +376,32 @@ public class Drivetrain extends SubsystemBase {
   public SwerveModuleState[] getStates() {
 
     SwerveModuleState[] states = {
-      leftModuleFront.getState(),
-      leftModuleBack.getState(),
-      rightModuleFront.getState(),
-      rightModuleBack.getState()};
+        leftModuleFront.getState(),
+        leftModuleBack.getState(),
+        rightModuleFront.getState(),
+        rightModuleBack.getState() };
 
-      return states;
+    return states;
 
   }
 
   /**
-   * Obtains and returns the target states that the drivetrain swerve modules have been set to.
+   * Obtains and returns the target states that the drivetrain swerve modules have
+   * been set to.
    * 
-   * @return The target states that the drivetrain swerve modules have been set to.
+   * @return The target states that the drivetrain swerve modules have been set
+   *         to.
    */
   public SwerveModuleState[] getTargetStates() {
 
     SwerveModuleState[] targetStates = {
-      leftModuleFront.getTargetState(),
-      leftModuleBack.getTargetState(),
-      rightModuleFront.getTargetState(),
-      rightModuleBack.getTargetState()};
+        leftModuleFront.getTargetState(),
+        leftModuleBack.getTargetState(),
+        rightModuleFront.getTargetState(),
+        rightModuleBack.getTargetState() };
 
     return targetStates;
-    
+
   }
 
   /**
@@ -374,10 +414,10 @@ public class Drivetrain extends SubsystemBase {
   public double[] getCANCoderAngles() {
 
     double[] angles = {
-      leftModuleFront.getCanCoder().getDegrees(),
-      leftModuleBack.getCanCoder().getDegrees(),
-      rightModuleFront.getCanCoder().getDegrees(),
-      rightModuleBack.getCanCoder().getDegrees()};
+        leftModuleFront.getCanCoder().getDegrees(),
+        leftModuleBack.getCanCoder().getDegrees(),
+        rightModuleFront.getCanCoder().getDegrees(),
+        rightModuleBack.getCanCoder().getDegrees() };
 
     return angles;
 
@@ -410,14 +450,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Resets the position of the odometry object to the robot's initial position based
+   * Resets the position of the odometry object to the robot's initial position
+   * based
    * on the selected starting position on Shuffleboard.
    */
   public void setInitialPosition() {
 
     StartingPosition startingPosition = AutoSelector.getStoredStartingPosition();
 
-    switch(startingPosition) {
+    switch (startingPosition) {
 
       case BLUE_COMMUNITY_LEFT:
         resetOdometry(new Pose2d(1.83, 4.39, Rotation2d.fromDegrees(180)));
@@ -459,24 +500,27 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Obtains and returns the current heading of the robot as a Rotation2d from the gyro object.
+   * Obtains and returns the current heading of the robot as a Rotation2d from the
+   * gyro object.
    * 
    * @return The current heading of the robot as a Rotation2d.
    */
   public Rotation2d getRotation2d() {
 
     return Rotation2d.fromDegrees(getHeading());
-    
+
   }
-  
+
   /**
-   * Obtains and returns the current heading of the robot going positive counter-clockwise from 0 to 360 degrees from the gyro object.
+   * Obtains and returns the current heading of the robot going positive
+   * counter-clockwise from 0 to 360 degrees from the gyro object.
    *
-   * @return The current heading of the robot going counter-clockwise positive from 0 to 360 degrees.
+   * @return The current heading of the robot going counter-clockwise positive
+   *         from 0 to 360 degrees.
    */
   public double getHeading() {
 
-    return Constants.kDrivetrain.INVERT_GYRO? -navXGyro.getYaw() + 180 : navXGyro.getYaw() + 180;
+    return Constants.kDrivetrain.INVERT_GYRO ? -navXGyro.getYaw() + 180 : navXGyro.getYaw() + 180;
 
   }
 
@@ -486,9 +530,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Obtains and returns the current pitch of the robot from -180 to 180 degrees, with an offset of 1 degree from the gyro object.
+   * Obtains and returns the current pitch of the robot from -180 to 180 degrees,
+   * with an offset of 1 degree from the gyro object.
    * 
-   * @return The current pitch of the robot from -180 to 180 degrees, with an offset of 1 degree.
+   * @return The current pitch of the robot from -180 to 180 degrees, with an
+   *         offset of 1 degree.
    */
   public double getPitch() {
 
@@ -497,9 +543,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Obtains and returns the current roll of the robot from -180 to 180 degrees, with an offset of 1.7 degrees from the gyro object.
+   * Obtains and returns the current roll of the robot from -180 to 180 degrees,
+   * with an offset of 1.7 degrees from the gyro object.
    * 
-   * @return The current pitch of the robot from -180 to 180 degrees, with an offset of 1.7 degrees.
+   * @return The current pitch of the robot from -180 to 180 degrees, with an
+   *         offset of 1.7 degrees.
    */
   public double getRoll() {
 
@@ -517,10 +565,12 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets the desired states of all drivetrain swerve modules to a specified arrary of states using
+   * Sets the desired states of all drivetrain swerve modules to a specified
+   * arrary of states using
    * closed loop control for the drive motors of the swerve modules.
    * 
-   * @param states The desired states for all drivetrain swerve modules to be set to.
+   * @param states The desired states for all drivetrain swerve modules to be set
+   *               to.
    */
   public void setModuleStates(SwerveModuleState[] states) {
 
@@ -534,11 +584,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets the drive and angle motors of all swerve modules to given drive and angle motor
+   * Sets the drive and angle motors of all swerve modules to given drive and
+   * angle motor
    * percent outputs.
    * 
-   * @param drivePercentOutput The percent output between -1 and 1 to set all drive motors to.
-   * @param anglePercentOutput The percent output between -1 and 1 to set all angle motors to.
+   * @param drivePercentOutput The percent output between -1 and 1 to set all
+   *                           drive motors to.
+   * @param anglePercentOutput The percent output between -1 and 1 to set all
+   *                           angle motors to.
    */
   public void setPercentOutput(double drivePercentOutput, double anglePercentOutput) {
 
@@ -550,19 +603,19 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets all drivetrain swerve modules to states with speeds of 0 and the current angles of the modules.
+   * Sets all drivetrain swerve modules to states with speeds of 0 and the current
+   * angles of the modules.
    */
   public void stopDrive() {
 
     SwerveModuleState[] stopStates = {
-      new SwerveModuleState(0, leftModuleFront.getState().angle),
-      new SwerveModuleState(0, leftModuleBack.getState().angle),
-      new SwerveModuleState(0, rightModuleFront.getState().angle),
-      new SwerveModuleState(0, rightModuleBack.getState().angle)};
-
+        new SwerveModuleState(0, leftModuleFront.getState().angle),
+        new SwerveModuleState(0, leftModuleBack.getState().angle),
+        new SwerveModuleState(0, rightModuleFront.getState().angle),
+        new SwerveModuleState(0, rightModuleBack.getState().angle) };
 
     setModuleStates(stopStates);
-    
+
   }
 
 }

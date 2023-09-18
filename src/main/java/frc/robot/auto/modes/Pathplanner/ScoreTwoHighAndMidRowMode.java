@@ -4,48 +4,69 @@
 
 package frc.robot.auto.modes.Pathplanner;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GridToGamePiecePath;
 import frc.robot.auto.paths.GamePieceToGridPath;
 import frc.robot.commands.GoToState;
+import frc.robot.commands.Drivetrain.AutoDrive.AutonomousDistanceDriveCommand;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.StowCommands.Stow;
+import frc.robot.commands.sequences.IntakeCommandsSequence;
 import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm.StowState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreTwoHighAndMidRowMode extends SequentialCommandGroup {
   /** Creates a new ScoreTwoGamePiecesThenEngageMode. */
-  public ScoreTwoHighAndMidRowMode(AutoSelector.StartingPosition startPosition, Drivetrain drive, Elevator elevator, Arm arm, Intake intake) {
+  public ScoreTwoHighAndMidRowMode(AutoSelector.StartingPosition startPosition, Drivetrain drive, Elevator elevator,
+      Arm arm, Intake intake, BooleanSupplier onBlueAlliance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
-    OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
+    OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator,
+        Constants.kRobotStates.highScore);
     GridToGamePiecePath gridToGamePiece = new GridToGamePiecePath(startPosition);
-    //PickUpGamePieceGroundSequence pickUpGamePiece = new PickUpGamePieceGroundSequence(elevator, wrist, intake);
-    GamePieceToGridPath gamePieceToGrid = new GamePieceToGridPath(startPosition);
-    OuttakeAndStowCommandsSequence scoreMidAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore);
 
-    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getPathInitialState());
+    IntakeCommandsSequence groundConeIntake = new IntakeCommandsSequence(intake, arm, elevator, StowState.Cone,
+        Constants.kRobotStates.uprightConeGround);
+    AutonomousDistanceDriveCommand driveForward = new AutonomousDistanceDriveCommand(drive, new Translation2d(1, 0),
+        new Translation2d(0.25, 0), onBlueAlliance, true);
+    Stow stow = new Stow(elevator, arm, intake);
+
+    SequentialCommandGroup pickUpGamePiece = new SequentialCommandGroup(
+        new ParallelRaceGroup(groundConeIntake, driveForward.beforeStarting(new WaitCommand(1))), stow);
+
+    GamePieceToGridPath gamePieceToGrid = new GamePieceToGridPath(startPosition);
+    OuttakeAndStowCommandsSequence scoreMidAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator,
+        Constants.kRobotStates.midScore);
+
+    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece,
+        gridToGamePiece.getPathInitialState());
     Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToGrid);
 
     addCommands(
-      toMid,
-      scoreHighAndStow,
-      trajectory1
-      //pickUpGamePiece,
-      //trajectory2,
-      //scoreMidAndStow
+        toMid,
+        scoreHighAndStow,
+        trajectory1
+    // pickUpGamePiece
+    // trajectory2,
+    // scoreMidAndStow
     );
-    
+
   }
-  
+
 }
