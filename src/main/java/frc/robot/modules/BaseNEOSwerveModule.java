@@ -83,7 +83,7 @@ public class BaseNEOSwerveModule {
 
   public void resetToAbsolute() {
     double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
-    integratedAngleEncoder.setPosition(-absolutePosition);
+    integratedAngleEncoder.setPosition(absolutePosition);
   }
 
   private void configAngleEncoder() {
@@ -93,7 +93,6 @@ public class BaseNEOSwerveModule {
   }
 
   private void configAngleMotor() {
-    angleMotor.restoreFactoryDefaults();
     integratedAngleEncoder.setPositionConversionFactor(Constants.kDrivetrain.ANGLE_POSITION_CONVERSION_FACTOR_DEGREES);
     angleController.setP(Constants.kDrivetrain.ANGLE_KP);
     angleController.setI(Constants.kDrivetrain.ANGLE_KI);
@@ -104,7 +103,6 @@ public class BaseNEOSwerveModule {
   }
 
   private void configDriveMotor() {
-    driveMotor.restoreFactoryDefaults();
     driveEncoder.setVelocityConversionFactor(Constants.kDrivetrain.DRIVE_VELOCITY_CONVERSION_FACTOR);
     driveEncoder.setPositionConversionFactor(Constants.kDrivetrain.DRIVE_POSITION_CONVERSION_FACTOR);
     driveController.setP(Constants.kDrivetrain.DRIVE_KP);

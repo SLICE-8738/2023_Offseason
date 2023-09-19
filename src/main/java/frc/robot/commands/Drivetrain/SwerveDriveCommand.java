@@ -67,14 +67,12 @@ public class SwerveDriveCommand extends CommandBase {
     double elevatorPercentage = m_elevator.getElevatorHeight() / Constants.kElevator.MAX_ELEVATOR_HEIGHT;
     double drivePercent = elevatorPercentage < 0.5 ? 1 : (1 - elevatorPercentage) * 1.5 + 0.25;
 
-    double[] translation = translationFilter.filter(m_driverController.getRawAxis(1),
-        -m_driverController.getRawAxis(0));
+    double[] translation = translationFilter.filter(m_driverController.getRawAxis(1), m_driverController.getRawAxis(0));
 
     double translationX = translation[0] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
     double translationY = translation[1] * Constants.kDrivetrain.MAX_LINEAR_VELOCITY;
 
-    double rotation = rotationFilter.filter(m_driverController.getRawAxis(2), 0)[0]
-        * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY;
+    double rotation = rotationFilter.filter(-m_driverController.getRawAxis(2), 0)[0] * Constants.kDrivetrain.MAX_ANGULAR_VELOCITY;
 
     m_drivetrain.swerveDrive(
         new Transform2d(new Translation2d(translationX, translationY), new Rotation2d(rotation)),
