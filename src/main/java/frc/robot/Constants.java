@@ -73,7 +73,7 @@ public final class Constants {
   public static final class kDrivetrain {
 
     public static final Port NAVX_PORT = Port.kUSB;
-    public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW- (except for some godforsaken
+    public static final boolean INVERT_GYRO = true; // Always ensure Gyro is CCW+ CW- (except for some godforsaken
                                                      // reason CCW- CW+ is the one that actually works so ignore this)
 
     /* Drivetrain Constants */

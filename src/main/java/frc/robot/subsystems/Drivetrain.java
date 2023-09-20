@@ -329,15 +329,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public Pose2d updateOdometry() {
 
-    SwerveModulePosition[] modulePositions = getPositions();
-
-    for (int i = 0; i < 4; i++) {
-
-      modulePositions[i].distanceMeters *= -1;
-
-    }
-
-    return m_swerveDrivetrainOdometry.update(Rotation2d.fromDegrees(360).minus(getRotation2d()), modulePositions);
+    return m_swerveDrivetrainOdometry.update(getRotation2d(), getPositions());
 
   }
 

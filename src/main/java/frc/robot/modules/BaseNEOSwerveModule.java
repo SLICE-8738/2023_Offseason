@@ -198,7 +198,7 @@ public class BaseNEOSwerveModule {
   }
 
   public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(driveEncoder.getPosition(), getCanCoder());
+    return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
   }
 
   public SwerveModuleState getTargetState() {
