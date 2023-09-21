@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auto.modes.Pathplanner.ScoreOneHighRowMobilityAndEngageMode;
 import frc.robot.auto.modes.Pathplanner.ScoreOneHighRowPickUpAndEngageMode;
 import frc.robot.auto.modes.Pathplanner.ScoreTwoHighAndMidRowMode;
+import frc.robot.auto.modes.Pathplanner.TestTrajectoryMode;
 import frc.robot.auto.modes.Pathplanner.ScoreTwoHighAndMidRowAndEngageMode;
 import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowMode;
 import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndMobilityMode;
 import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndEngageMode;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
+import frc.robot.auto.paths.TestPath;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
@@ -53,6 +55,7 @@ public class AutoSelector {
         SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER,
         SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER,
         SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER,
+        TEST_TRAJECTORY_MODE_PATHPLANNER
 
     }
 
@@ -109,6 +112,8 @@ public class AutoSelector {
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER);
         modeChooser.addOption("(Pathplanner) Score Two High and Mid Row And Engage",
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER);
+        modeChooser.addOption("(Pathplanner) Test Trajectory Mode", 
+                DesiredMode.TEST_TRAJECTORY_MODE_PATHPLANNER);
 
     }
 
@@ -156,6 +161,8 @@ public class AutoSelector {
             case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
                 return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, m_elevator, m_arm,
                         m_intake, () -> storedStartingPosition.name().startsWith("BLUE")));
+            case TEST_TRAJECTORY_MODE_PATHPLANNER:
+                return Optional.of(new TestTrajectoryMode(m_drivetrain));
             default:
                 break;
 
@@ -168,11 +175,6 @@ public class AutoSelector {
 
     public void updateInitialAutoPoseOffset(StartingPosition startingPosition, DesiredMode desiredMode) {
 
-        /*
-         * This variable should be should be assigned to Limelight.getLastBotPoseBlue()
-         * instead when
-         * the Limelight subsystem file is added
-         */
         Pose2d botPose = m_drivetrain.getPose();
 
         if (desiredMode.name().endsWith("PATHPLANNER")) {
@@ -192,6 +194,8 @@ public class AutoSelector {
                 case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
                     initialAutoPose = new GridToGamePiecePath(startingPosition).getPathInitialState().poseMeters;
                     break;
+                case TEST_TRAJECTORY_MODE_PATHPLANNER:
+                    initialAutoPose = new TestPath().getPathInitialState().poseMeters;
                 default:
                     System.err.println("No valid initial auto pose found for " + desiredMode);
                     break;
@@ -209,8 +213,7 @@ public class AutoSelector {
 
             initialAutoPoseXOffset = Math.abs(initialAutoPose.getX() - botPose.getX());
             initialAutoPoseYOffset = Math.abs(initialAutoPose.getY() - botPose.getY());
-            initialAutoPoseRotationOffset = initialAutoPose.getRotation().getDegrees()
-                    - botPose.getRotation().getDegrees();
+            initialAutoPoseRotationOffset = initialAutoPose.getRotation().getDegrees() - botPose.getRotation().getDegrees();
 
         }
 

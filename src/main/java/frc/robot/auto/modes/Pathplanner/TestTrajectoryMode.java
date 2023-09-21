@@ -5,6 +5,7 @@
 package frc.robot.auto.modes.Pathplanner;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.auto.paths.TestPath;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
 import frc.robot.subsystems.Drivetrain;
@@ -20,9 +21,11 @@ public class TestTrajectoryMode extends SequentialCommandGroup {
 
     TestPath testPath = new TestPath();
 
-    Field2dTrajectoryFollowerSequence trajectory = new Field2dTrajectoryFollowerSequence(drive, testPath);
+    WaitCommand wait = new WaitCommand(1);
+    Field2dTrajectoryFollowerSequence trajectory = new Field2dTrajectoryFollowerSequence(drive, testPath, testPath.getPathInitialState());
 
     addCommands(
+      wait,
       trajectory
     );
   }
