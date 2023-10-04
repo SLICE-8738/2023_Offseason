@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
-import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
+import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
 import frc.robot.commands.Drivetrain.ChargeStation.ChargeStationBalanceCommand;

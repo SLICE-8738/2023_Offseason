@@ -16,8 +16,9 @@ import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.FlashColorCommand;
 import frc.robot.commands.LEDs.RainbowLEDs;
 import frc.robot.commands.LEDs.VariableModeLEDs;
+import frc.robot.commands.StateSequences.IntakeCommandsSequence;
+import frc.robot.commands.StateSequences.ScoreHighSequence;
 import frc.robot.commands.StowCommands.Stow;
-import frc.robot.commands.sequences.IntakeCommandsSequence;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Arm.StowState;
 
@@ -95,9 +96,7 @@ public class RobotContainer {
 
   // States
   public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
-  public final GoToState m_scoreHighFirst = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
-  public final GoToState m_scoreHighLast = new GoToState(m_elevator, m_arm, Constants.kRobotStates.highScore);
-  public final SequentialCommandGroup m_scoreHigh = new SequentialCommandGroup(m_scoreHighFirst, m_scoreHighLast);
+  public final ScoreHighSequence m_scoreHigh = new ScoreHighSequence(m_elevator, m_arm);
   public final GoToState m_scoreMid = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
   public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 

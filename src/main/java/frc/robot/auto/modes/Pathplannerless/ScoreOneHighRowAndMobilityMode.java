@@ -16,7 +16,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Arm;
 //import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 import frc.robot.commands.Drivetrain.AutoDrive.AutonomousDistanceDriveCommand;
-import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
+import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

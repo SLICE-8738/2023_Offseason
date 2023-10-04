@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.Constants;
 import frc.robot.commands.GoToState;
-//import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
-import frc.robot.commands.sequences.OuttakeAndStowCommandsSequence;
+import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;

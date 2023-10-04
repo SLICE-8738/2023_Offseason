@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Drivetrain;
 
-public class AutonomousResetOdometryCommand extends CommandBase {
+public class TrajectoryResetOdometryCommand extends CommandBase {
 
   private final Drivetrain m_drivetrain;
   private final PathPlannerState m_initialState;
   
    /** Creates a new ResetOdometryCommand. */
-  public AutonomousResetOdometryCommand(Drivetrain drivetrain, PathPlannerState initialState) {
+  public TrajectoryResetOdometryCommand(Drivetrain drivetrain, PathPlannerState initialState) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
 
