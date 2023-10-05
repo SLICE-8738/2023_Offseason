@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.auto.AutoSelector;
 import frc.robot.commands.GoToState;
+import frc.robot.commands.LambdaCommand;
 import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
 import frc.robot.commands.Elevator.ElevatorManualOverrideCommand;
@@ -48,6 +49,11 @@ public class RobotContainer {
   private static GenericHID operatorController = Button.operatorController;
 
   // The robot's subsystems and commands are defined here...
+
+  // ==========================
+  // Subsystems
+  // ==========================
+
   public final Drivetrain m_drivetrain = new Drivetrain();
   public final Intake m_intake = new Intake();
   public final Arm m_arm = new Arm();
@@ -56,19 +62,16 @@ public class RobotContainer {
   public final Limelight m_limelight = new Limelight();
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain, m_elevator, m_arm, m_intake);
-
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_intake,
-      m_autoSelector);
+  public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain, m_elevator, m_arm);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_elevator, m_arm, m_intake, m_autoSelector);
 
   // ==========================
   // Commands
   // ==========================
 
   // Drivetrain
-  public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true,
-      true, m_elevator);
-  public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController,
-      false, true, m_elevator);
+  public final SwerveDriveCommand m_swerveDriveOpenLoop = new SwerveDriveCommand(m_drivetrain, driverController, true, true, m_elevator);
+  public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true, m_elevator);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
   public final SlowMode m_slowModeLow = new SlowMode(m_drivetrain, 0.25);
@@ -102,12 +105,13 @@ public class RobotContainer {
 
   /* Intake Command Sequences */
   // Cubes
-  public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = new IntakeCommandsSequence(m_intake, m_arm,
-      m_elevator, StowState.Cube, Constants.kRobotStates.cubeDoubleSubstation);
-  public final IntakeCommandsSequence m_cubeSingleSubstation = new IntakeCommandsSequence(m_intake, m_arm, m_elevator,
-      StowState.Cube, Constants.kRobotStates.cubeSingleSubstation);
-  public final IntakeCommandsSequence m_cubeGround = new IntakeCommandsSequence(m_intake, m_arm, m_elevator,
-      StowState.Cube, Constants.kRobotStates.cubeGround);
+  public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeDoubleSubstation);
+  public final IntakeCommandsSequence m_cubeSingleSubstation = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeSingleSubstation);
+  public final IntakeCommandsSequence m_cubeGround = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);
+    
   // Conditional Commands for the Cube. This conditional command executes a
   // command based on whether the robot is facing the double substation or not
   // public final ConditionalCommand m_cubeSubstationsConditionalCommand =
@@ -115,16 +119,17 @@ public class RobotContainer {
   // m_cubeSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
   // Cones
-  public final IntakeCommandsSequence m_tippedConeDoubleSubstation = new IntakeCommandsSequence(m_intake, m_arm,
-      m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeDoubleSubstation);
-  public final IntakeCommandsSequence m_tippedConeGround = new IntakeCommandsSequence(m_intake, m_arm, m_elevator,
-      StowState.Cone, Constants.kRobotStates.tippedConeGround);
-  public final IntakeCommandsSequence m_uprightConeDoubleSubstation = new IntakeCommandsSequence(m_intake, m_arm,
-      m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeDoubleSubstation);
-  public final IntakeCommandsSequence m_uprightConeGround = new IntakeCommandsSequence(m_intake, m_arm, m_elevator,
-      StowState.Cone, Constants.kRobotStates.uprightConeGround);
-  public final IntakeCommandsSequence m_coneSingleSubstation = new IntakeCommandsSequence(m_intake, m_arm, m_elevator,
-      StowState.Cone, Constants.kRobotStates.coneSingleSubstation);
+  public final IntakeCommandsSequence m_tippedConeDoubleSubstation = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeDoubleSubstation);
+  public final IntakeCommandsSequence m_tippedConeGround = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeGround);
+  public final IntakeCommandsSequence m_uprightConeDoubleSubstation = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeDoubleSubstation);
+  public final IntakeCommandsSequence m_uprightConeGround = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
+  public final IntakeCommandsSequence m_coneSingleSubstation = new IntakeCommandsSequence(
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.coneSingleSubstation);
+
   // Conditional Commands for the Cone. These conditonal commands are for
   // determining which substation the robot is at, and whether the cone is tipped
   // or upright.
@@ -138,6 +143,9 @@ public class RobotContainer {
       () -> m_drivetrain.reverseFieldOrientedHeading());
 
   public final InstantCommand m_forceFullSpeed = new InstantCommand(() -> m_drivetrain.speedPercent = 1);
+
+  /* Trajectory Sequences */
+  public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -169,6 +177,7 @@ public class RobotContainer {
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
     // Button.slowModeLow.whileTrue(m_slowModeLow);
     Button.slowModeHigh.whileTrue(m_slowModeHigh);
+    Button.forceFullSpeed.onTrue(m_forceFullSpeed);
     Button.resetModuleAngles.onTrue(m_resetModuleAngles);
     Button.reverseFieldOrientedHeading.onTrue(m_reverseResetHeading);
 
@@ -193,9 +202,10 @@ public class RobotContainer {
     // Stow
     Button.stow.onTrue(m_stow);
 
-    Button.setToStart.onTrue(m_setToStart);
+    // Node Alignment and Positioning
+    Button.nodeAlignAndPosition.whileTrue(m_nodeAlignAndPosition);
 
-    Button.forceFullSpeed.onTrue(m_forceFullSpeed);
+    Button.setToStart.onTrue(m_setToStart);
 
   }
 

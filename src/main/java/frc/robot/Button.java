@@ -18,7 +18,7 @@ public final class Button {
     public static GenericHID driverController = new GenericHID(Constants.kController.DRIVER_CONTROLLER_PORT);
     public static GenericHID operatorController = new GenericHID(Constants.kController.OPERATOR_CONTROLLER_PORT);
 
-    // Drivetrain Command Buttons
+    // Drivetrain Buttons
     public static Trigger resetFieldOrientedHeading = new JoystickButton(driverController, 4); // Driver Triangle Button
     public static Trigger reverseFieldOrientedHeading = new JoystickButton(driverController, 1); // Driver Square Button
     public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 6); // Driver Right Bumper
@@ -55,8 +55,10 @@ public final class Button {
 
     public static Trigger setToStart = new JoystickButton(operatorController, 3); // Operator B Button
 
+    // Trajectory Buttons
+    public static Trigger nodeAlignAndPosition = new JoystickButton(driverController, 3); // Driver Circle Button
+
     // Unassigned Driver Controller Buttons
-    public static Trigger driverButton3 = new JoystickButton(driverController, 3); // Driver Circle Button
     public static Trigger driverButton5 = new JoystickButton(driverController, 5); // Driver Left Bumper
     public static Trigger driverButton9 = new JoystickButton(driverController, 9); // Driver Share Button
     public static Trigger driverButton10 = new JoystickButton(driverController, 10); // Driver Options Button
@@ -66,15 +68,11 @@ public final class Button {
 
     // Unassigned Operator Controller Buttons
     public static Trigger operatorControllerButton5 = new JoystickButton(operatorController, 5); // Operator Left Bumper
-    public static Trigger operatorControllerButton6 = new JoystickButton(operatorController, 6); // Operator Right
-                                                                                                 // Bumper
+    public static Trigger operatorControllerButton6 = new JoystickButton(operatorController, 6); // Operator Right Bumper
     public static Trigger operatorControllerButton9 = new JoystickButton(operatorController, 9); // Operator Back Button
-    public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); // Operator Start
-                                                                                                   // Button
-    public static Trigger operatorControllerButton11 = new JoystickButton(operatorController, 11); // Operator Left
-                                                                                                   // Stick Push
-    public static Trigger operatorControllerButton12 = new JoystickButton(operatorController, 12); // Operator Right
-                                                                                                   // Stick Push
+    public static Trigger operatorControllerButton10 = new JoystickButton(operatorController, 10); // Operator Start Button
+    public static Trigger operatorControllerButton11 = new JoystickButton(operatorController, 11); // Operator Left Stick Push
+    public static Trigger operatorControllerButton12 = new JoystickButton(operatorController, 12); // Operator Right Stick Push
 
     // Unassigned Operator Joystick Buttons
     public static Trigger operatorJoystickButton8 = new JoystickButton(operatorJoystick, 8); // Operator Bottom 8

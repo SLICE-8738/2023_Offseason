@@ -199,7 +199,7 @@ public final class Constants {
   public static final class kAutonomous {
     // THIS MAXIMUM LINEAR VELOCITY AND ACCELERATION ARE PLACEHOLDERS FOR NOW
     public static final double kMaxVelocityMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 2;
     public static final double kMaxAngularVelocityRadiansPerSecond = Math.PI;
     public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI;
 
