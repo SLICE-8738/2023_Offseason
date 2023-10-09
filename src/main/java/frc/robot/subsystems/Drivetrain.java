@@ -104,18 +104,17 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
-    SmartDashboard.putNumber("X Position", getPose().getX());
-
-    SmartDashboard.putNumber("Left Front Position", leftModuleFront.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Left Back Position", leftModuleBack.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Right Front Position", rightModuleFront.getPosition().distanceMeters);
-    SmartDashboard.putNumber("Right Back Position", rightModuleBack.getPosition().distanceMeters);
-
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+
+    leftModuleFront.setSimulationPosition();
+    leftModuleBack.setSimulationPosition();
+    rightModuleFront.setSimulationPosition();
+    rightModuleBack.setSimulationPosition();
+
   }
 
   /**

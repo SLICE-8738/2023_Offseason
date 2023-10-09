@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
 
     m_robotContainer.m_autoSelector.updateAutoSelector();
+    m_robotContainer.m_nodeSelector.updateNodePosition();
 
   }
 
@@ -105,7 +106,11 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+    m_robotContainer.m_nodeSelector.updateSequenceCreator();
+
+  }
 
   @Override
   public void testInit() {

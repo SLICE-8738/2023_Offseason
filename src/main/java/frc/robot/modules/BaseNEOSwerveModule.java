@@ -40,6 +40,8 @@ public class BaseNEOSwerveModule {
       new SimpleMotorFeedforward(
           Constants.kDrivetrain.DRIVE_KS, Constants.kDrivetrain.DRIVE_KV, Constants.kDrivetrain.DRIVE_KA);
 
+  private double simDistance = 0;
+
   public BaseNEOSwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
     this.moduleNumber = moduleNumber;
     angleOffset = moduleConstants.angleOffset;
@@ -207,5 +209,11 @@ public class BaseNEOSwerveModule {
 
   public double getDriveMotorOutputCurrent() {
     return driveMotor.getOutputCurrent();
+  }
+
+  public void setSimulationPosition() {
+    simDistance += driveEncoder.getVelocity() * 0.02;
+    driveEncoder.setPosition(simDistance);
+    integratedAngleEncoder.setPosition(lastAngle.getDegrees());
   }
 }
