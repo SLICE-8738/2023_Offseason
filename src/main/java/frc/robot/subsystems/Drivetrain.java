@@ -88,7 +88,7 @@ public class Drivetrain extends SubsystemBase {
         Constants.kDrivetrain.kSwerveKinematics,
         getRotation2d(),
         getPositions(),
-        new Pose2d(8.28, 4, Rotation2d.fromDegrees(180)));
+        new Pose2d(8.28, 4, Rotation2d.fromDegrees(0)));
 
     fieldOrientedOffset = new Rotation2d();
 

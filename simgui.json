@@ -15,6 +15,11 @@
         "header": {
           "open": true
         }
+      },
+      "navX-Sensor[0]": {
+        "header": {
+          "open": true
+        }
       }
     },
     "RoboRIO": {
@@ -60,6 +65,11 @@
         "window": {
           "visible": true
         }
+      },
+      "/Shuffleboard/Driver Tab/Alliance": {
+        "window": {
+          "visible": true
+        }
       }
     }
   },
@@ -67,6 +77,9 @@
     "transitory": {
       "Shuffleboard": {
         "Driver Tab": {
+          "Alliance": {
+            "open": true
+          },
           "Node Selection": {
             "open": true
           },

@@ -220,16 +220,7 @@ public class NodeSelector {
 
         boolean onBlueAlliance;
 
-        if(allianceSelector.getSelected() == Alliance.BLUE) {
-
-            onBlueAlliance = true;
-
-        }
-        else {
-
-            onBlueAlliance = false;
-
-        }
+        onBlueAlliance = allianceSelector.getSelected() == Alliance.BLUE;
 
         int selectedNodeIndex = nodeButtons.indexOf(storedSelectedButton);
 
@@ -263,12 +254,12 @@ public class NodeSelector {
         if(((selectedNodeIndex == 0 || selectedNodeIndex == 1 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 ||
             selectedNodeIndex == 18 || selectedNodeIndex == 19) &&
-            (initialPosition.getY() < 1.05 || 
+            (onBlueAlliance? initialPosition.getY() < 1.05 : initialPosition.getY() > 4.44 || 
             (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81))) ||
             ((selectedNodeIndex == 7 || selectedNodeIndex == 8 ||
             selectedNodeIndex == 16 || selectedNodeIndex == 17 ||
             selectedNodeIndex == 25 || selectedNodeIndex == 26) && 
-            (initialPosition.getY() > 4.44 ||
+            (onBlueAlliance? initialPosition.getY() > 4.44 : initialPosition.getY() < 1.05 ||
             (initialPosition.getX() < 2.75 || initialPosition.getX() > 13.81))))
             {
             //interiorWaypoints.add(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2));
@@ -282,13 +273,18 @@ public class NodeSelector {
                 ) {
                 //interiorWaypoints.add(new Translation2d(initialPosition.getX(), 0.8));
                 //interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8));
-                secondPoint = new PathPoint(new Translation2d(onBlueAlliance? initialPosition.getX() - 1 : initialPosition.getX() + 1, 0.8), trajectoryHeading, finalPosition.getRotation());
-                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, 0.8), trajectoryHeading, finalPosition.getRotation()));
+                secondPoint = new PathPoint(
+                    new Translation2d
+                    (onBlueAlliance? initialPosition.getX() - (0.375 * Math.abs(onBlueAlliance? 4.62 - initialPosition.getY() : 0.8 - initialPosition.getY())) : initialPosition.getX() + (0.375 * Math.abs(onBlueAlliance? 4.62 - initialPosition.getY() : 0.8 - initialPosition.getY())), 
+                    onBlueAlliance? 0.8 : 4.62), 
+                    trajectoryHeading, 
+                    finalPosition.getRotation());
+                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, onBlueAlliance? 0.8 : 4.62), trajectoryHeading, finalPosition.getRotation()));
             } else {
                 //interiorWaypoints.add(new Translation2d(initialPosition.getX(), 4.62));
                 //interiorWaypoints.add(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62));
-                secondPoint = new PathPoint(new Translation2d(onBlueAlliance? initialPosition.getX() - 1 : initialPosition.getX() + 1, 4.62), trajectoryHeading, finalPosition.getRotation());
-                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, 4.62), trajectoryHeading, finalPosition.getRotation()));
+                secondPoint = new PathPoint(new Translation2d(onBlueAlliance? initialPosition.getX() - 1.2 : initialPosition.getX() + 1.2, onBlueAlliance? 4.62 : 0.8), trajectoryHeading, finalPosition.getRotation());
+                remainingPoints.add(new PathPoint(new Translation2d(onBlueAlliance? 2.65 : 13.91, onBlueAlliance? 4.62 : 0.8), trajectoryHeading, finalPosition.getRotation()));
             }
 
         }
