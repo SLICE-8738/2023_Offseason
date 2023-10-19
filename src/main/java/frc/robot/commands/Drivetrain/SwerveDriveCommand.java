@@ -6,8 +6,8 @@ package frc.robot.commands.Drivetrain;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Elevator;
 import frc.robot.PolarJoystickFilter;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class SwerveDriveCommand extends CommandBase {
   /** Creates a new SwerveDriveCommand. */
   private final Drivetrain m_drivetrain;
-  private final Elevator m_elevator;
 
   private final GenericHID m_driverController;
   private final PolarJoystickFilter translationFilter, rotationFilter;
@@ -26,12 +25,11 @@ public class SwerveDriveCommand extends CommandBase {
   private final boolean m_isFieldRelative;
 
   public SwerveDriveCommand(Drivetrain drivetrain, GenericHID driverController, boolean isOpenLoop,
-      boolean isFieldRelative, Elevator elevator) {
+      boolean isFieldRelative) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
 
     m_drivetrain = drivetrain;
-    m_elevator = elevator;
 
     m_driverController = driverController;
 
@@ -62,10 +60,6 @@ public class SwerveDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    // Slow down the robot when the elevator is up
-    double elevatorPercentage = m_elevator.getElevatorHeight() / Constants.kElevator.MAX_ELEVATOR_HEIGHT;
-    double drivePercent = elevatorPercentage < 0.5 ? 1 : (1 - elevatorPercentage) * 1.5 + 0.25;
 
     double[] translation = translationFilter.filter(m_driverController.getRawAxis(1), m_driverController.getRawAxis(0));
 
