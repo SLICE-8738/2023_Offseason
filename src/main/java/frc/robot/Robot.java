@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    m_robotContainer.m_nodeSelector.updateSequenceCreator();
+    m_robotContainer.m_nodeSelector.updateNodePosition();
 
   }
 
