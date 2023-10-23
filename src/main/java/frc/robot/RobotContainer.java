@@ -62,7 +62,7 @@ public class RobotContainer {
   public final Limelight m_limelight = new Limelight();
 
   //public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrainm_elevator, m_arm, m_intake);
-  //public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain, m_elevator, m_arm);
+  public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain/*, m_elevator, m_arm*/);
   public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain/*, m_elevator, m_arm, m_intake, m_autoSelector*/);
 
   // ==========================
