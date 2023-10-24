@@ -28,7 +28,7 @@ public class Field2dTrajectoryFollowerSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     SetField2dCommand setField2dCommand = new SetField2dCommand(autoPath.trajectory, drive);
-    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, true);
+    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, false);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(
@@ -44,7 +44,7 @@ public class Field2dTrajectoryFollowerSequence extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     TrajectoryResetOdometryCommand resetOdometryCommand = new TrajectoryResetOdometryCommand(drive, initialState);
     SetField2dCommand setField2dCommand = new SetField2dCommand(autoPath.trajectory, drive);
-    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, true);
+    PPSwerveControllerCommand swerveControllerCommand = TrajectoryCommands.generatePPSwerveControllerCommand(drive, autoPath.trajectory, false);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(

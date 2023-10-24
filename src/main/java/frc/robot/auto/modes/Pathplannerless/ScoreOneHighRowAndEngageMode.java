@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 //import frc.robot.Constants;
 //import frc.robot.commands.GoToState;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Arm;
+//import frc.robot.subsystems.Elevator;
+//import frc.robot.subsystems.Intake;
+//import frc.robot.subsystems.Arm;
 //import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
 import frc.robot.commands.Drivetrain.ChargeStation.ChargeStationBalanceCommand;
@@ -23,7 +23,7 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreOneHighRowAndEngageMode extends SequentialCommandGroup {
   /** Creates a new ScoreOneConeHighRowMode. */
-  public ScoreOneHighRowAndEngageMode(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake) {
+  public ScoreOneHighRowAndEngageMode(Drivetrain drivetrain/*, Elevator elevator, Arm arm, Intake intake*/) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 

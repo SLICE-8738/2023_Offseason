@@ -19,10 +19,7 @@ import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndEngageMode;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
 import frc.robot.auto.paths.TestPath;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
 
 import java.util.Optional;
 
@@ -74,16 +71,10 @@ public class AutoSelector {
     public double initialAutoPoseRotationOffset = 0;
 
     private final Drivetrain m_drivetrain;
-    private final Elevator m_elevator;
-    private final Arm m_arm;
-    private final Intake m_intake;
 
-    public AutoSelector(Drivetrain drivetrain, Elevator elevator, Arm arm, Intake intake) {
+    public AutoSelector(Drivetrain drivetrain) {
 
         m_drivetrain = drivetrain;
-        m_elevator = elevator;
-        m_arm = arm;
-        m_intake = intake;
 
         startingPositionChooser = new SendableChooser<StartingPosition>();
 
@@ -143,24 +134,19 @@ public class AutoSelector {
         switch (mode) {
 
             case SCORE_ONE_HIGH_ROW_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowMode(m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreOneHighRowMode(m_drivetrain));
             case SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, m_elevator, m_arm, m_intake,
-                        () -> storedStartingPosition.name().startsWith("BLUE")));
+                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
             case SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain));
             case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(
-                        new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain));
             case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(
-                        new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain, m_elevator, m_arm, m_intake));
+                return Optional.of(new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain));
             case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, m_elevator, m_arm, m_intake,
-                        () -> storedStartingPosition.name().startsWith("BLUE")));
+                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
             case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, m_elevator, m_arm,
-                        m_intake, () -> storedStartingPosition.name().startsWith("BLUE")));
+                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
             case TEST_TRAJECTORY_MODE_PATHPLANNER:
                 return Optional.of(new TestTrajectoryMode(m_drivetrain));
             default:
