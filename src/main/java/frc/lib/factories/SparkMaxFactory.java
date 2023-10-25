@@ -89,7 +89,7 @@ public class SparkMaxFactory {
         0.0,
         20,
         1500,
-        200);
+        300);
 
     private static final Configuration kDefaultPriorityConfiguration = new Configuration(
         IdleMode.kBrake,
@@ -99,8 +99,8 @@ public class SparkMaxFactory {
         0.0,
         0.0,
         30,
-        200,
-        500
+        400,
+        300
         );
 
     /**

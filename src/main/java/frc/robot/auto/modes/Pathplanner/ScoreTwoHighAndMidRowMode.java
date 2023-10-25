@@ -50,12 +50,12 @@ public class ScoreTwoHighAndMidRowMode extends SequentialCommandGroup {
     Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToGrid);
 
     addCommands(
-        //toMid,
-        //scoreHighAndStow,
-        trajectory1
-    // pickUpGamePiece
-    // trajectory2,
-    // scoreMidAndStow
+      //toMid,
+      //scoreHighAndStow,
+      trajectory1
+      // pickUpGamePiece
+      // trajectory2,
+      // scoreMidAndStow
     );
 
   }

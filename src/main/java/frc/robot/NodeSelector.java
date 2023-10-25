@@ -63,7 +63,7 @@ public class NodeSelector {
         driverTab = Shuffleboard.getTab("Driver Tab");
 
         nodeSelectorLayout = driverTab.getLayout("Node Selection", BuiltInLayouts.kGrid).
-        withPosition(1, 2).
+        withPosition(2, 2).
         withSize(7, 2).
         withProperties(Map.of("Number of columns", 9, "Number of rows", 3));
     
@@ -98,7 +98,7 @@ public class NodeSelector {
         allianceSelector.setDefaultOption("Blue Alliance", Alliance.Blue);
         allianceSelector.addOption("Red Alliance", Alliance.Red);
 
-        driverTab.add("Alliance", allianceSelector).withPosition(3, 1).withSize(3, 1);
+        driverTab.add("Alliance", allianceSelector).withPosition(4, 1).withSize(3, 1);
 
         nodeButtons.get(0).setBoolean(true);
 

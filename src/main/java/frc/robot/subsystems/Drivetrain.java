@@ -104,6 +104,11 @@ public class Drivetrain extends SubsystemBase {
 
     m_field2d.setRobotPose(getPose());
 
+    SmartDashboard.putNumber("Left Front Distance", getPositions()[0].distanceMeters);
+    SmartDashboard.putNumber("Left Back Distance", getPositions()[1].distanceMeters);
+    SmartDashboard.putNumber("Right Front Distance", getPositions()[2].distanceMeters);
+    SmartDashboard.putNumber("Right Back Distance", getPositions()[3].distanceMeters);
+
   }
 
   @Override
