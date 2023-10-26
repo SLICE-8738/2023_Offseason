@@ -99,7 +99,7 @@ public class SparkMaxFactory {
         0.0,
         0.0,
         30,
-        400,
+        300,
         300
         );
 
