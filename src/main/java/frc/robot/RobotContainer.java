@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.auto.AutoSelector;
 //import frc.robot.commands.GoToState;
-//import frc.robot.commands.LambdaCommand;
+import frc.robot.commands.LambdaCommand;
 //import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
 //import frc.robot.commands.Elevator.ElevatorManualOverrideCommand;
@@ -143,7 +143,7 @@ public class RobotContainer {
       .andThen(new InstantCommand(() -> m_elevator.setToStart()));
 
   /* Trajectory Sequences */
-  //public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
+  public final LambdaCommand m_nodeAlignAndPosition = new LambdaCommand(m_nodeSelector::getNodeSequence);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -198,12 +198,12 @@ public class RobotContainer {
     Button.coneDoubleSubstationIntake.onTrue(m_coneDoubleSubstationConditionalCommand);
 
     // Stow
-    Button.stow.onTrue(m_stow);
+    Button.stow.onTrue(m_stow);*/
 
     // Node Alignment and Positioning
     Button.nodeAlignAndPosition.whileTrue(m_nodeAlignAndPosition);
 
-    Button.setToStart.onTrue(m_setToStart);*/
+    //Button.setToStart.onTrue(m_setToStart);
 
   }
 

@@ -259,8 +259,6 @@ public class NodeSelector {
                 //remainingPointControlLengths = new double[] {0.5, 0.5};
             }
 
-            remainingPositions.add(finalPosition);
-
         }
 
         Transform2d firstDifference = secondPosition.minus(initialPosition);
@@ -281,7 +279,7 @@ public class NodeSelector {
             remainingDifferences.size() == 0? secondPosition.getRotation() : new Rotation2d(remainingDifferences.get(0).getX(), remainingDifferences.get(0).getY()), 
             secondPosition.getRotation());
 
-        for(int i = 0; i < remainingPoints.size(); i ++) {
+        for(int i = 0; i < remainingPositions.size(); i ++) {
 
             remainingPoints.add(new PathPoint(
                         remainingPositions.get(i).getTranslation(), 
@@ -289,6 +287,8 @@ public class NodeSelector {
                         remainingPositions.get(i).getRotation()));
 
         }
+
+        remainingPoints.add(new PathPoint(finalPosition.getTranslation(), finalPosition.getRotation(), finalPosition.getRotation()));
 
         remainingPointsFinal = remainingPoints.toArray(remainingPointsFinal);
 
