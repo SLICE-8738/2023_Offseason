@@ -24,8 +24,8 @@ public final class Button {
     public static Trigger setDrivePercentOutput = new JoystickButton(driverController, 6); // Driver Right Bumper
     public static Trigger slowModeLow = new JoystickButton(driverController, 7); // Driver Left Trigger
     public static Trigger slowModeHigh = new JoystickButton(driverController, 8); // Driver Right Trigger
-    public static Trigger resetModuleAngles = new JoystickButton(driverController, 2); // Driver X Button
     public static Trigger forceFullSpeed = new JoystickButton(driverController, 13); // Driver Playstation Button
+    public static Trigger setInitialPosition = new JoystickButton(driverController, 2); // Driver X Button
 
     // Stow
     public static Trigger stow = new JoystickButton(operatorJoystick, 1); // Operator Top 1

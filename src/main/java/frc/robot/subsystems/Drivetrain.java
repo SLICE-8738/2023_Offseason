@@ -459,22 +459,22 @@ public class Drivetrain extends SubsystemBase {
     switch (startingPosition) {
 
       case BLUE_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(1.83, 4.39, Rotation2d.fromDegrees(180)));
+        resetOdometry(new Pose2d(1.92, 4.42, Rotation2d.fromDegrees(180)));
         break;
       case BLUE_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(1.83, 2.71, Rotation2d.fromDegrees(180)));
+        resetOdometry(new Pose2d(1.92, 2.74, Rotation2d.fromDegrees(180)));
         break;
       case BLUE_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(1.83, 1.07, Rotation2d.fromDegrees(180)));
+        resetOdometry(new Pose2d(1.92, 1.07, Rotation2d.fromDegrees(180)));
         break;
       case RED_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(14.69, 1.07, Rotation2d.fromDegrees(0)));
+        resetOdometry(new Pose2d(14.61, 1.07, Rotation2d.fromDegrees(0)));
         break;
       case RED_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(14.69, 2.71, Rotation2d.fromDegrees(0)));
+        resetOdometry(new Pose2d(14.61, 2.74, Rotation2d.fromDegrees(0)));
         break;
       case RED_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(14.69, 4.39, Rotation2d.fromDegrees(0)));
+        resetOdometry(new Pose2d(14.61, 4.42, Rotation2d.fromDegrees(0)));
         break;
       default:
         break;

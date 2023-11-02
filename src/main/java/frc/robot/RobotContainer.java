@@ -74,12 +74,11 @@ public class RobotContainer {
   public final SwerveDriveCommand m_swerveDriveClosedLoop = new SwerveDriveCommand(m_drivetrain, driverController, false, true);
   public final SetPercentOutputCommand m_setDrivePercentOutput = new SetPercentOutputCommand(m_drivetrain, 0.1, 0);
   public final ResetFieldOrientedHeading m_resetFieldOrientedHeading = new ResetFieldOrientedHeading(m_drivetrain);
+  public final InstantCommand m_reverseResetHeading = new InstantCommand(() -> m_drivetrain.reverseFieldOrientedHeading());
   public final SlowMode m_slowModeLow = new SlowMode(m_drivetrain, 0.25);
   public final SlowMode m_slowModeHigh = new SlowMode(m_drivetrain, 0.3);
-  public final ResetModuleAnglesCommand m_resetModuleAngles = new ResetModuleAnglesCommand(m_drivetrain);
   public final InstantCommand m_forceFullSpeed = new InstantCommand(() -> m_drivetrain.speedPercent = 1);
-  public final InstantCommand m_reverseResetHeading = new InstantCommand(
-      () -> m_drivetrain.reverseFieldOrientedHeading());
+  public final SetInitialPositionCommand m_setInitialPosition = new SetInitialPositionCommand(m_drivetrain);
 
   // Intake
   /*public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake);
@@ -173,11 +172,11 @@ public class RobotContainer {
     // Sets drivetrain drive motors at a fixed percent output while pressed
     Button.setDrivePercentOutput.whileTrue(m_setDrivePercentOutput);
     Button.resetFieldOrientedHeading.onTrue(m_resetFieldOrientedHeading);
+    Button.reverseFieldOrientedHeading.onTrue(m_reverseResetHeading);
     // Button.slowModeLow.whileTrue(m_slowModeLow);
     Button.slowModeHigh.whileTrue(m_slowModeHigh);
     Button.forceFullSpeed.onTrue(m_forceFullSpeed);
-    Button.resetModuleAngles.onTrue(m_resetModuleAngles);
-    Button.reverseFieldOrientedHeading.onTrue(m_reverseResetHeading);
+    Button.setInitialPosition.onTrue(m_setInitialPosition);
 
     // Manual Control
     /*Button.outtake.whileTrue(m_OutTakeCommand);
