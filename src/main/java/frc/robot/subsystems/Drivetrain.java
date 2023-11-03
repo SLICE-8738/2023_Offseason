@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.*;
-import frc.robot.auto.AutoSelector;
-import frc.robot.auto.AutoSelector.StartingPosition;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -454,32 +452,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setInitialPosition() {
 
-    StartingPosition startingPosition = AutoSelector.getStoredStartingPosition();
-
-    switch (startingPosition) {
-
-      case BLUE_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(1.92, 4.42, Rotation2d.fromDegrees(180)));
-        break;
-      case BLUE_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(1.92, 2.74, Rotation2d.fromDegrees(180)));
-        break;
-      case BLUE_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(1.92, 1.07, Rotation2d.fromDegrees(180)));
-        break;
-      case RED_COMMUNITY_LEFT:
-        resetOdometry(new Pose2d(14.61, 1.07, Rotation2d.fromDegrees(0)));
-        break;
-      case RED_COMMUNITY_MIDDLE:
-        resetOdometry(new Pose2d(14.61, 2.74, Rotation2d.fromDegrees(0)));
-        break;
-      case RED_COMMUNITY_RIGHT:
-        resetOdometry(new Pose2d(14.61, 4.42, Rotation2d.fromDegrees(0)));
-        break;
-      default:
-        break;
-
-    }
+    resetOdometry(NodeSelector.getNodePosition());
 
   }
 
