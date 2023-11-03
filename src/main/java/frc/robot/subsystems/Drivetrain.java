@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+//import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
@@ -27,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
   // rightModuleFront, rightModuleBack;
   private final BaseNEOSwerveModule leftModuleFront, leftModuleBack, rightModuleFront, rightModuleBack;
 
-  private final SwerveDriveOdometry m_swerveDrivetrainOdometry;
+  private final SwerveDrivePoseEstimator m_swerveDrivetrainOdometry;
 
   private final AHRS navXGyro;
 
@@ -82,11 +84,22 @@ public class Drivetrain extends SubsystemBase {
     // Creates and pushes Field2d to SmartDashboard.
     SmartDashboard.putData(m_field2d);
 
-    m_swerveDrivetrainOdometry = new SwerveDriveOdometry(
+    /*m_swerveDrivetrainOdometry = new SwerveDriveOdometry(
         Constants.kDrivetrain.kSwerveKinematics,
         getRotation2d(),
         getPositions(),
-        new Pose2d(8.28, 4, Rotation2d.fromDegrees(0)));
+        new Pose2d(8.28, 4, Rotation2d.fromDegrees(0)));*/
+
+    m_swerveDrivetrainOdometry = new SwerveDrivePoseEstimator(
+      Constants.kDrivetrain.kSwerveKinematics, 
+      getRotation2d(), 
+      getPositions(), 
+      new Pose2d(8.28, 4, Rotation2d.fromDegrees(0)),
+      VecBuilder.fill(
+        0.5, 
+        0.5, 
+        0.5),
+      VecBuilder.fill(0.9, 0.9, 0.9));
 
     fieldOrientedOffset = new Rotation2d();
 
@@ -344,7 +357,7 @@ public class Drivetrain extends SubsystemBase {
    * @return The current estimated pose of the robot.
    */
   public Pose2d getPose() {
-    return m_swerveDrivetrainOdometry.getPoseMeters();
+    return m_swerveDrivetrainOdometry.getEstimatedPosition();
   }
 
   /**
