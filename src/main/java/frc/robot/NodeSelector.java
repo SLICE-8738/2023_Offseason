@@ -217,6 +217,12 @@ public class NodeSelector {
             {
             //interiorWaypoints.add(new Translation2d((initialPosition.getX() + finalPosition.getX()) / 2, (initialPosition.getY() + finalPosition.getY()) / 2));
             secondPosition = finalPosition;
+        } else if(
+            (initialPosition.getX() < 5.44 && initialPosition.getX() > 2.75) || 
+            (initialPosition.getX() > 11.12 && initialPosition.getX() < 13.81)) 
+            {
+            secondPosition = new Pose2d(onBlueAlliance? 2.45 : 14.11, initialPosition.getY(), finalPosition.getRotation());
+            remainingPositions.add(finalPosition);
         } else {
 
             if(
