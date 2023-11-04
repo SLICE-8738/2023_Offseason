@@ -8,6 +8,7 @@ import frc.robot.*;
 import frc.robot.modules.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,6 +43,8 @@ public class Drivetrain extends SubsystemBase {
   private Rotation2d fieldOrientedOffset;
 
   public double speedPercent;
+
+  private Rotation2d angle = new Rotation2d();
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -289,6 +292,8 @@ public class Drivetrain extends SubsystemBase {
     rightModuleFront.setDesiredState(states[2], isOpenLoop);
     rightModuleBack.setDesiredState(states[3], isOpenLoop);
 
+    angle = angle.plus(transform.getRotation().times(0.02));
+
   }
 
   /**
@@ -491,7 +496,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public Rotation2d getRotation2d() {
 
-    return Rotation2d.fromDegrees(getHeading());
+    return RobotBase.isReal()? Rotation2d.fromDegrees(getHeading()) : angle;
 
   }
 
