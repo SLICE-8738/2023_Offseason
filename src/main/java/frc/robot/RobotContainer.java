@@ -5,28 +5,28 @@
 package frc.robot;
 
 import frc.robot.auto.AutoSelector;
-//import frc.robot.commands.GoToState;
+import frc.robot.commands.GoToState;
 import frc.robot.commands.LambdaCommand;
-//import frc.robot.commands.Arm.ManualArm;
+import frc.robot.commands.Arm.ManualArm;
 import frc.robot.commands.Drivetrain.*;
-//import frc.robot.commands.Elevator.ElevatorManualOverrideCommand;
-//import frc.robot.commands.Elevator.ManualElevator;
-//import frc.robot.commands.Intake.IntakeCommand;
-//import frc.robot.commands.Intake.OutTakeCommand;
+import frc.robot.commands.Elevator.ElevatorManualOverrideCommand;
+import frc.robot.commands.Elevator.ManualElevator;
+import frc.robot.commands.Intake.IntakeCommand;
+import frc.robot.commands.Intake.OutTakeCommand;
 import frc.robot.commands.LEDs.CustomRainbowLEDs;
 import frc.robot.commands.LEDs.FlashColorCommand;
 import frc.robot.commands.LEDs.RainbowLEDs;
 import frc.robot.commands.LEDs.VariableModeLEDs;
-//import frc.robot.commands.StateSequences.IntakeCommandsSequence;
-//import frc.robot.commands.StateSequences.ScoreHighSequence;
-//import frc.robot.commands.StowCommands.Stow;
+import frc.robot.commands.StateSequences.IntakeCommandsSequence;
+import frc.robot.commands.StateSequences.ScoreHighSequence;
+import frc.robot.commands.StowCommands.Stow;
 import frc.robot.subsystems.*;
-//import frc.robot.subsystems.Arm.StowState;
+import frc.robot.subsystems.Arm.StowState;
 
 import edu.wpi.first.wpilibj2.command.Command;
-//import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-//import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.GenericHID;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -55,15 +55,15 @@ public class RobotContainer {
   // ==========================
 
   public final Drivetrain m_drivetrain = new Drivetrain();
-  /*public final Intake m_intake = new Intake();
+  public final Intake m_intake = new Intake();
   public final Arm m_arm = new Arm();
-  public final Elevator m_elevator = new Elevator();*/
+  public final Elevator m_elevator = new Elevator();
   public final LEDs m_leds = new LEDs();
   public final Limelight m_limelight = new Limelight();
 
-  public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain);
-  public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain/*, m_elevator, m_arm*/);
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_autoSelector);
+  public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain, m_arm, m_elevator, m_intake);
+  public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain, m_arm, m_elevator);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_arm, m_elevator, m_intake, m_autoSelector);
 
   // ==========================
   // Commands
@@ -81,7 +81,7 @@ public class RobotContainer {
   public final SetInitialPositionCommand m_setInitialPosition = new SetInitialPositionCommand(m_drivetrain);
 
   // Intake
-  /*public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake);
+  public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake);
   public final OutTakeCommand m_OutTakeCommand = new OutTakeCommand(m_intake);
 
   // Elevator
@@ -89,7 +89,7 @@ public class RobotContainer {
   public final ElevatorManualOverrideCommand m_elevatorManualOverride = new ElevatorManualOverrideCommand(m_elevator);
 
   // Arm
-  public final ManualArm m_manualArm = new ManualArm(m_arm, operatorController);*/
+  public final ManualArm m_manualArm = new ManualArm(m_arm, operatorController);
 
   // LEDs
   public final CustomRainbowLEDs m_cubeLights = new CustomRainbowLEDs(m_leds, 140);
@@ -100,19 +100,19 @@ public class RobotContainer {
   public final VariableModeLEDs m_idleLEDs = new VariableModeLEDs(m_leds);
 
   // States
-  /*public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
+  public final Stow m_stow = new Stow(m_elevator, m_arm, m_intake);
   public final ScoreHighSequence m_scoreHigh = new ScoreHighSequence(m_elevator, m_arm);
   public final GoToState m_scoreMid = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
-  public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);*/
+  public final GoToState m_scoreLow = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
 
   /* Intake Command Sequences */
   // Cubes
-  /*public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = new IntakeCommandsSequence(
+  public final IntakeCommandsSequence m_cubeDoubleSubstationSequence = new IntakeCommandsSequence(
     m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeDoubleSubstation);
   public final IntakeCommandsSequence m_cubeSingleSubstation = new IntakeCommandsSequence(
     m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeSingleSubstation);
   public final IntakeCommandsSequence m_cubeGround = new IntakeCommandsSequence(
-    m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);*/
+    m_intake, m_arm, m_elevator, StowState.Cube, Constants.kRobotStates.cubeGround);
     
   // Conditional Commands for the Cube. This conditional command executes a
   // command based on whether the robot is facing the double substation or not
@@ -121,7 +121,7 @@ public class RobotContainer {
   // m_cubeSingleSubstation , () -> m_drivetrain.facingDoubleSub());
 
   // Cones
-  /*public final IntakeCommandsSequence m_tippedConeDoubleSubstation = new IntakeCommandsSequence(
+  public final IntakeCommandsSequence m_tippedConeDoubleSubstation = new IntakeCommandsSequence(
     m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeDoubleSubstation);
   public final IntakeCommandsSequence m_tippedConeGround = new IntakeCommandsSequence(
     m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.tippedConeGround);
@@ -130,12 +130,12 @@ public class RobotContainer {
   public final IntakeCommandsSequence m_uprightConeGround = new IntakeCommandsSequence(
     m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
   public final IntakeCommandsSequence m_coneSingleSubstation = new IntakeCommandsSequence(
-    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.coneSingleSubstation);*/
+    m_intake, m_arm, m_elevator, StowState.Cone, Constants.kRobotStates.coneSingleSubstation);
 
   // Conditional Commands for the Cone. These conditonal commands are for
   // determining which substation the robot is at, and whether the cone is tipped
   // or upright.
-  /*public final ConditionalCommand m_coneDoubleSubstationConditionalCommand = new ConditionalCommand(
+  public final ConditionalCommand m_coneDoubleSubstationConditionalCommand = new ConditionalCommand(
       m_uprightConeDoubleSubstation, m_tippedConeDoubleSubstation, () -> Constants.kRobotStates.coneUpright);
 
   public final SequentialCommandGroup m_setToStart = new InstantCommand(() -> m_arm.setToStart())
@@ -153,8 +153,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_drivetrain.setDefaultCommand(m_swerveDriveClosedLoop);
-    //m_elevator.setDefaultCommand(m_manualElevator);
-    //m_arm.setDefaultCommand(m_manualArm);
+    m_elevator.setDefaultCommand(m_manualElevator);
+    m_arm.setDefaultCommand(m_manualArm);
     m_leds.setDefaultCommand(m_idleLEDs);
 
   }
@@ -179,7 +179,7 @@ public class RobotContainer {
     Button.setInitialPosition.onTrue(m_setInitialPosition);
 
     // Manual Control
-    /*Button.outtake.whileTrue(m_OutTakeCommand);
+    Button.outtake.whileTrue(m_OutTakeCommand);
     Button.intake.whileTrue(m_IntakeCommand);
     Button.elevatorManualOverride.onTrue(m_elevatorManualOverride);
 
@@ -197,12 +197,12 @@ public class RobotContainer {
     Button.coneDoubleSubstationIntake.onTrue(m_coneDoubleSubstationConditionalCommand);
 
     // Stow
-    Button.stow.onTrue(m_stow);*/
+    Button.stow.onTrue(m_stow);
 
     // Node Alignment and Positioning
     Button.nodeAlignAndPosition.whileTrue(m_nodeAlignAndPosition);
 
-    //Button.setToStart.onTrue(m_setToStart);
+    Button.setToStart.onTrue(m_setToStart);
 
   }
 

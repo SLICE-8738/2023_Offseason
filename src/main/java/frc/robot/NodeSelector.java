@@ -23,15 +23,15 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-//import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-//import frc.robot.commands.GoToState;
+import frc.robot.commands.GoToState;
 import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
-//import frc.robot.commands.StateSequences.ScoreHighSequence;
-//import frc.robot.subsystems.Arm;
+import frc.robot.commands.StateSequences.ScoreHighSequence;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
-//import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Elevator;
 
 /**
  * This class creates automatic node alignment and positioning sequences using the node selector
@@ -51,19 +51,19 @@ public class NodeSelector {
     private static Pose2d nodePosition;
 
     private final Drivetrain m_drivetrain;
-    //private final Elevator m_elevator;
-    //private final Arm m_arm;
+    private final Elevator m_elevator;
+    private final Arm m_arm;
 
-    public NodeSelector(Drivetrain drivetrain/*, Elevator elevator, Arm arm*/) {
+    public NodeSelector(Drivetrain drivetrain, Arm arm, Elevator elevator) {
 
         m_drivetrain = drivetrain;
-        //m_elevator = elevator;
-        //m_arm = arm;
+        m_elevator = elevator;
+        m_arm = arm;
         
         driverTab = Shuffleboard.getTab("Driver Tab");
 
         nodeSelectorLayout = driverTab.getLayout("Node Selection", BuiltInLayouts.kGrid).
-        withPosition(2, 2).
+        withPosition(2, 3).
         withSize(7, 2).
         withProperties(Map.of("Number of columns", 9, "Number of rows", 3));
     
@@ -195,15 +195,15 @@ public class NodeSelector {
 
         Pose2d finalPosition = nodePosition;
 
-        //Command positionSequence;
+        Command positionSequence;
 
-        /*if(selectedNodeIndex < 9) {
+        if(selectedNodeIndex < 9) {
             positionSequence = new ScoreHighSequence(m_elevator, m_arm);
         } else if(selectedNodeIndex < 18) {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
         } else {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
-        }*/
+        }
 
         if(((selectedNodeIndex == 0 || selectedNodeIndex == 1 ||
             selectedNodeIndex == 9 || selectedNodeIndex == 10 ||

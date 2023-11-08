@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
@@ -29,8 +30,8 @@ public class Intake extends SubsystemBase {
     driverTab = Shuffleboard.getTab("Driver Tab");
 
     driverTab.addBoolean("Game Piece Secured", () -> gamePieceSecured).
-    withPosition(4, 3).
-    withSize(2, 1);
+    withPosition(5, 2).
+    withSize(1, 1);
   }
 
   /** Makes motor spin to pick up cone */

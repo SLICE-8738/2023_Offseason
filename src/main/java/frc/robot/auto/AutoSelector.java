@@ -19,7 +19,10 @@ import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndEngageMode;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
 import frc.robot.auto.paths.TestPath;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 
 import java.util.Optional;
 
@@ -71,10 +74,16 @@ public class AutoSelector {
     public double initialAutoPoseRotationOffset = 0;
 
     private final Drivetrain m_drivetrain;
+    private final Arm m_arm;
+    private final Elevator m_elevator;
+    private final Intake m_intake;
 
-    public AutoSelector(Drivetrain drivetrain) {
+    public AutoSelector(Drivetrain drivetrain, Arm arm, Elevator elevator, Intake intake) {
 
         m_drivetrain = drivetrain;
+        m_arm = arm;
+        m_elevator = elevator;
+        m_intake = intake;
 
         startingPositionChooser = new SendableChooser<StartingPosition>();
 
