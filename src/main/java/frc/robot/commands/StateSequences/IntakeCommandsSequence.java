@@ -7,7 +7,7 @@ package frc.robot.commands.StateSequences;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import frc.robot.Constants;
 import frc.robot.RobotState;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.Intake.IntakeCommand;
@@ -38,7 +38,12 @@ public class IntakeCommandsSequence extends SequentialCommandGroup {
      * The robot then goes to the desired state and runs intakeCommand
      */
     if(stowState == StowState.Cone) {
-      addCommands(new InstantCommand(() -> this.setCone()) , goToState, intakeCommand, outSlight);
+      if(robotState != Constants.kRobotStates.coneSingleSubstation) {
+        addCommands(new InstantCommand(() -> this.setCone()), goToState, intakeCommand, outSlight);
+      }
+      else {
+        addCommands(new InstantCommand(() -> this.setCone()), goToState);
+      }
     }
     else if(stowState == StowState.Cube) {
       addCommands(new InstantCommand(() -> this.setCube()) , goToState, intakeCommand, outSlight);

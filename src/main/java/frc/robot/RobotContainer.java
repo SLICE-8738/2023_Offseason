@@ -189,12 +189,12 @@ public class RobotContainer {
     Button.scoreLow.onTrue(m_scoreLow);
 
     // Intake Stow
-    Button.cubeGroundIntake.onTrue(m_cubeGround);
-    Button.coneSingleSubstationIntake.onTrue(m_coneSingleSubstation);
+    Button.tippedConeGroundIntake.onTrue(m_tippedConeGround);
     Button.uprightConeGroundIntake.onTrue(m_uprightConeGround);
 
     Button.cubeDoubleSubstationIntake.onTrue(m_cubeDoubleSubstationSequence);
     Button.coneDoubleSubstationIntake.onTrue(m_coneDoubleSubstationConditionalCommand);
+    Button.coneSingleSubstationIntake.onTrue(m_coneSingleSubstation);
 
     // Stow
     Button.stow.onTrue(m_stow);
