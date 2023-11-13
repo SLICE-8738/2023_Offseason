@@ -261,7 +261,7 @@ public final class Constants {
   public static final class kIntake {
     public static final int MOTOR_ID = 4;
 
-    public static final double CONE_THRESHOLD = 12; // TODO: get the threshold value
+    public static final double CONE_THRESHOLD = 120; // TODO: get the threshold value
   }
 
   public static final class kElevator {
