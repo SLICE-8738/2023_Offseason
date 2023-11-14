@@ -59,7 +59,7 @@ public final class Constants {
     public static final RobotState cubeGround = new RobotState(0, 86.78, -97.31); // Found
 
     public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
-    public static final RobotState tippedConeGround = new RobotState(0.23, 125.07, -85.28); // Found
+    public static final RobotState tippedConeGround = new RobotState(0.41, 149.14, -102.94); // Found
     public static final RobotState uprightConeDoubleSubstation = new RobotState(3.7, 18.21, 55.41);
     public static final RobotState uprightConeGround = new RobotState(0, 78.4, -17.18); // Found
     public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -59.17);
