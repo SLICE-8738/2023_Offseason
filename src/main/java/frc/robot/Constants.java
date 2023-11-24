@@ -61,10 +61,10 @@ public final class Constants {
     public static final RobotState cubeGround = new RobotState(0, 86.78, -97.31); // Found
 
     public static final RobotState tippedConeDoubleSubstation = new RobotState(0, 0, 0);
-    public static final RobotState tippedConeGround = new RobotState(0.64, 131.85, -97.85); // Found
+    public static final RobotState tippedConeGround = new RobotState(0.41, 149.14, -102.94); // Found
     public static final RobotState uprightConeDoubleSubstation = new RobotState(3.7, 18.21, 55.41);
     public static final RobotState uprightConeGround = new RobotState(0, 78.4, -17.18); // Found
-    public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -69.17);
+    public static final RobotState coneSingleSubstation = new RobotState(0.73, 14.85, -59.17);
 
     // Determines whether to use upright or tipped cone for double substation cone
     // intake
@@ -231,7 +231,7 @@ public final class Constants {
     // public static final double ARM_DISTANCE_PER_ROTATION = ARM_SPROCKET_RATIO *
     // 360.0;
 
-    public static final double WRIST_GEAR_RATIO = 1.0 / 15.0;
+    public static final double WRIST_GEAR_RATIO = 1.0 / 20.0;
     public static final double WRIST_SPROCKET_RATIO = 18.0 / 38.0;
     public static final double WRIST_POSITIONAL_CONVERSION_FACTOR = WRIST_GEAR_RATIO * WRIST_SPROCKET_RATIO * 360.0;
     public static final double WRIST_VELOCITY_CONVERSION_FACTOR = WRIST_POSITIONAL_CONVERSION_FACTOR / 60.0;
@@ -264,7 +264,7 @@ public final class Constants {
   public static final class kIntake {
     public static final int MOTOR_ID = 4;
 
-    public static final double CONE_THRESHOLD = 12; // TODO: get the threshold value
+    public static final double CONE_THRESHOLD = 120; // TODO: get the threshold value
   }
 
   public static final class kElevator {

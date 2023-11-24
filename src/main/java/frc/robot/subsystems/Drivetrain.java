@@ -290,13 +290,19 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModuleState[] states = Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(
         isFieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                transform.getX() * speedPercent,
-                transform.getY() * speedPercent,
-                transform.getRotation().getRadians() * speedPercent,
-                rotationWithOffset)
-            : new ChassisSpeeds(transform.getX() * speedPercent, transform.getY() * speedPercent,
-                transform.getRotation().getRadians() * speedPercent));
+            ? ChassisSpeeds.discretize(
+                ChassisSpeeds.fromFieldRelativeSpeeds(
+                  transform.getX() * speedPercent,
+                  transform.getY() * speedPercent,
+                  transform.getRotation().getRadians() * speedPercent,
+                  rotationWithOffset),
+                0.02)
+            : ChassisSpeeds.discretize(
+                new ChassisSpeeds(
+                  transform.getX() * speedPercent, 
+                  transform.getY() * speedPercent,
+                  transform.getRotation().getRadians() * speedPercent),
+                0.02));
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 

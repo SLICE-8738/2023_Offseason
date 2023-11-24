@@ -18,15 +18,15 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-//import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-//import frc.robot.commands.GoToState;
+import frc.robot.commands.GoToState;
 import frc.robot.commands.Drivetrain.sequences.PathFinderSequence;
-//import frc.robot.commands.StateSequences.ScoreHighSequence;
-//import frc.robot.subsystems.Arm;
+import frc.robot.commands.StateSequences.ScoreHighSequence;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
-//import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Elevator;
 
 /**
  * This class creates automatic node alignment and positioning sequences using the node selector
@@ -46,14 +46,14 @@ public class NodeSelector {
     private static Pose2d nodePosition;
 
     private final Drivetrain m_drivetrain;
-    //private final Elevator m_elevator;
-    //private final Arm m_arm;
+    private final Arm m_arm;
+    private final Elevator m_elevator;
 
-    public NodeSelector(Drivetrain drivetrain/*, Elevator elevator, Arm arm*/) {
+    public NodeSelector(Drivetrain drivetrain, Arm arm, Elevator elevator) {
 
         m_drivetrain = drivetrain;
-        //m_elevator = elevator;
-        //m_arm = arm;
+        m_elevator = elevator;
+        m_arm = arm;
         
         driverTab = Shuffleboard.getTab("Driver Tab");
 
@@ -165,9 +165,9 @@ public class NodeSelector {
 
     public SequentialCommandGroup getNodeSequence() {
 
-        /*int selectedNodeIndex = nodeButtons.indexOf(storedSelectedButton);
+        int selectedNodeIndex = nodeButtons.indexOf(storedSelectedButton);
 
-        SequentialCommandGroup positionSequence;
+        Command positionSequence;
 
         if(selectedNodeIndex < 9) {
             positionSequence = new ScoreHighSequence(m_elevator, m_arm);
@@ -175,7 +175,7 @@ public class NodeSelector {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
         } else {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
-        }*/
+        }
 
         return new SequentialCommandGroup(
             new PathFinderSequence(m_drivetrain, nodePosition)/*,
