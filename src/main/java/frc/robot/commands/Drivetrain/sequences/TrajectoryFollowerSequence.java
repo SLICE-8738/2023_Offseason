@@ -24,7 +24,7 @@ public class TrajectoryFollowerSequence extends SequentialCommandGroup {
   public TrajectoryFollowerSequence(Drivetrain drive, AutoPath autoPath) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    FollowPathHolonomic swerveControllerCommand = TrajectoryCommands.generateFollowPathHolonomicCommand(drive, autoPath.path, false);
+    FollowPathHolonomic swerveControllerCommand = TrajectoryCommands.generateFollowPathHolonomicCommand(drive, autoPath.path);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(
@@ -38,7 +38,7 @@ public class TrajectoryFollowerSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     ResetOdometryCommand resetOdometryCommand = new ResetOdometryCommand(drive, initialPose);
-    FollowPathHolonomic swerveControllerCommand = TrajectoryCommands.generateFollowPathHolonomicCommand(drive, autoPath.path, false);
+    FollowPathHolonomic swerveControllerCommand = TrajectoryCommands.generateFollowPathHolonomicCommand(drive, autoPath.path);
     InstantCommand stopDriveCommand = new InstantCommand(drive::stopDrive, drive);
 
     addCommands(

@@ -44,10 +44,10 @@ public class ScoreTwoHighAndMidRowAndEngageMode extends SequentialCommandGroup {
     GridToGamePiecePath gridToGamePiece = new GridToGamePiecePath(startPosition);
 
     //IntakeCommandsSequence groundConeIntake = new IntakeCommandsSequence(intake, arm, elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround);
-    AutonomousDistanceDriveCommand driveForward = new AutonomousDistanceDriveCommand(drive, new Translation2d(1, 0), new Translation2d(0.25, 0), onBlueAlliance, true);
+    AutonomousDistanceDriveCommand driveForward = new AutonomousDistanceDriveCommand(drive, new Translation2d(1, 0), new Translation2d(0.25, 0));
     //Stow stow = new Stow(elevator, arm, intake);
-
     //SequentialCommandGroup pickUpGamePiece = new SequentialCommandGroup(new ParallelRaceGroup(groundConeIntake, driveForward.beforeStarting(new WaitCommand(1))), stow);
+
     GamePieceToGridPath gamePieceToGrid = new GamePieceToGridPath(startPosition);
     //OuttakeAndStowCommandsSequence scoreMidAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore);
     GridToChargeStationPath gridToChargeStation = new GridToChargeStationPath(startPosition);

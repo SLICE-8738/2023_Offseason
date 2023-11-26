@@ -77,7 +77,7 @@ public class TrajectoryCommands {
 
     }
 
-    public static FollowPathHolonomic generateFollowPathHolonomicCommand(Drivetrain drive, PathPlannerPath path, boolean useAllianceColor) {
+    public static FollowPathHolonomic generateFollowPathHolonomicCommand(Drivetrain drive, PathPlannerPath path) {
 
         return new FollowPathHolonomic(
             path,

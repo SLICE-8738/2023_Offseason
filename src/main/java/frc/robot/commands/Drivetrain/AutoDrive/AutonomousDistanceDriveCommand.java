@@ -8,8 +8,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.*;
 import frc.robot.commands.Drivetrain.SetInitialPositionCommand;
 
-import java.util.function.BooleanSupplier;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -39,10 +37,6 @@ public class AutonomousDistanceDriveCommand extends Command {
 
   private double xError, yError;
 
-  private final BooleanSupplier onBlueAlliance;
-  private final boolean useOnBlueAlliance;
-  private boolean onBlueAllianceFinal;
-
   private final Timer timer;
 
   /**
@@ -59,20 +53,10 @@ public class AutonomousDistanceDriveCommand extends Command {
    *                          meters
    *                          along the X and Y axes of the field
    *                          for the robot to travel.
-   * @param onBlueAlliance    A boolean supplier that returns whether the robot is
-   *                          running autonomous on the blue alliance side
-   *                          of the field.
-   * @param useOnBlueAlliance Whether the onBlueAlliance boolean supplier should
-   *                          be used to
-   *                          invert the given speeds and distances if a red
-   *                          alliance starting
-   *                          position is selected.
    */
-  public AutonomousDistanceDriveCommand(Drivetrain drivetrain, Translation2d speeds, Translation2d distances,
-      BooleanSupplier onBlueAlliance, boolean useOnBlueAlliance) {
+  public AutonomousDistanceDriveCommand(Drivetrain drivetrain, Translation2d speeds, Translation2d distances) {
+
     m_drivetrain = drivetrain;
-    this.onBlueAlliance = onBlueAlliance;
-    this.useOnBlueAlliance = useOnBlueAlliance;
 
     xSpeed = speeds.getX();
     ySpeed = speeds.getY();
@@ -84,6 +68,7 @@ public class AutonomousDistanceDriveCommand extends Command {
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
+
   }
 
   // Called when the command is initially scheduled.
@@ -92,21 +77,6 @@ public class AutonomousDistanceDriveCommand extends Command {
 
     timer.reset();
     timer.start();
-
-    onBlueAllianceFinal = onBlueAlliance.getAsBoolean();
-
-    System.out.println("Auto Distance Drive: On Blue Alliance: " + onBlueAllianceFinal);
-
-    if (useOnBlueAlliance) {
-
-      if (onBlueAllianceFinal) {
-
-        xSpeed *= -1;
-        xDistance *= -1;
-
-      }
-
-    }
 
     Pose2d initialPosition = m_drivetrain.getPose();
     targetTranslation = new Translation2d(initialPosition.getX() + xDistance, initialPosition.getY() + yDistance);
@@ -134,7 +104,7 @@ public class AutonomousDistanceDriveCommand extends Command {
     }
 
     // Sets the x speed and y speed of the robot
-    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(xSpeed, ySpeed), new Rotation2d()), false, true);
+    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(xSpeed, ySpeed), new Rotation2d()), false, false);
 
   }
 
@@ -142,7 +112,7 @@ public class AutonomousDistanceDriveCommand extends Command {
   @Override
   public void end(boolean interrupted) {
 
-    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(), new Rotation2d()), false, true);
+    m_drivetrain.swerveDrive(new Transform2d(new Translation2d(), new Rotation2d()), false, false);
 
   }
 
@@ -156,4 +126,5 @@ public class AutonomousDistanceDriveCommand extends Command {
             && timer.hasElapsed(ySpeed == 0 ? 0 : (yDistance / ySpeed) + 1));
 
   }
+
 }

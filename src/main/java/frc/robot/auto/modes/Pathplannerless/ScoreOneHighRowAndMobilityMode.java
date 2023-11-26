@@ -32,8 +32,7 @@ public class ScoreOneHighRowAndMobilityMode extends SequentialCommandGroup {
     SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
     //GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
     //OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);
-    AutonomousDistanceDriveCommand mobility = new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(2, 0),
-        new Translation2d(6, 0), onBlueAlliance, false);
+    AutonomousDistanceDriveCommand mobility = new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(2, 0), new Translation2d(6, 0));
 
     addCommands(
         setInitialPosition,
