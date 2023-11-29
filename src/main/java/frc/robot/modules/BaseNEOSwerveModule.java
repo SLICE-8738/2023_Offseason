@@ -1,6 +1,8 @@
 package frc.robot.modules;
 
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -31,7 +33,7 @@ public class BaseNEOSwerveModule {
 
   private RelativeEncoder driveEncoder;
   private RelativeEncoder integratedAngleEncoder;
-  private CANCoder angleEncoder;
+  private CANcoder angleEncoder;
 
   private final SparkMaxPIDController driveController;
   private final SparkMaxPIDController angleController;
@@ -47,7 +49,7 @@ public class BaseNEOSwerveModule {
     angleOffset = moduleConstants.angleOffset;
 
     /* Angle Encoder Config */
-    angleEncoder = new CANCoder(moduleConstants.cancoderID);
+    angleEncoder = new CANcoder(moduleConstants.cancoderID);
     configAngleEncoder();
 
     /* Angle Motor Config */
@@ -89,9 +91,10 @@ public class BaseNEOSwerveModule {
   }
 
   private void configAngleEncoder() {
-    angleEncoder.configFactoryDefault();
-    CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
-    angleEncoder.configAllSettings(new CTREConfigs().swerveCanCoderConfig);
+    //angleEncoder.configFactoryDefault();
+    //CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
+    //angleEncoder.configAllSettings(new CTREConfigs().swerveCanCoderConfig);
+    angleEncoder.getConfigurator().apply(new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1));
   }
 
   private void configAngleMotor() {
@@ -192,7 +195,7 @@ public class BaseNEOSwerveModule {
   }
 
   public Rotation2d getCanCoder() {
-    return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
+    return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition().getValueAsDouble() * 360);
   }
 
   public SwerveModuleState getState() {
