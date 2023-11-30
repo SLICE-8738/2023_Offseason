@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -133,8 +134,7 @@ public final class Constants {
     public static final boolean ANGLE_INVERT = true;
 
     /* Angle Encoder Invert */
-    public static final boolean CANCODER_INVERT = false;
-
+    public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
     // Charge Station Board and Balance Speeds (-1 - 1)
     // public static final double CHARGE_STATION_BALANCE_SPEED = 0.3;
     // public static final double BOARD_CHARGE_SPEED = -0.55;

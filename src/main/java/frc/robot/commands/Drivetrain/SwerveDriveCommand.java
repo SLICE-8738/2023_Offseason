@@ -53,7 +53,7 @@ public class SwerveDriveCommand extends Command {
   @Override
   public void initialize() {
 
-    // m_drivetrain.resetModulesToAbsolute();
+    m_drivetrain.setPercentOutput(0, 0);
 
   }
 

@@ -1,8 +1,7 @@
 package frc.robot.modules;
 
-import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+
 import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -18,8 +17,6 @@ import frc.lib.config.CTREConfigs;
 import frc.lib.config.SwerveModuleConstants;
 import frc.lib.factories.SparkMaxFactory;
 import frc.lib.math.OnboardModuleState;
-import frc.lib.util.CANCoderUtil;
-import frc.lib.util.CANCoderUtil.CCUsage;
 import frc.robot.Constants;
 
 public class BaseNEOSwerveModule {
@@ -85,16 +82,18 @@ public class BaseNEOSwerveModule {
 
   }
 
+  private Rotation2d waitForCANcoder(){
+    /* wait for up to 250ms for a new CANcoder position */
+    return Rotation2d.fromRotations(angleEncoder.getAbsolutePosition().waitForUpdate(250).getValue());
+  }
+
   public void resetToAbsolute() {
-    double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
+    double absolutePosition = waitForCANcoder().getDegrees() - angleOffset.getDegrees();
     integratedAngleEncoder.setPosition(absolutePosition);
   }
 
   private void configAngleEncoder() {
-    //angleEncoder.configFactoryDefault();
-    //CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
-    //angleEncoder.configAllSettings(new CTREConfigs().swerveCanCoderConfig);
-    angleEncoder.getConfigurator().apply(new MagnetSensorConfigs().withAbsoluteSensorRange(AbsoluteSensorRangeValue.Unsigned_0To1));
+    angleEncoder.getConfigurator().apply(new CTREConfigs().swerveCANcoderConfig);
   }
 
   private void configAngleMotor() {
@@ -194,8 +193,8 @@ public class BaseNEOSwerveModule {
     return Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
   }
 
-  public Rotation2d getCanCoder() {
-    return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition().getValueAsDouble() * 360);
+  public Rotation2d getCANcoder() {
+    return Rotation2d.fromRotations(angleEncoder.getAbsolutePosition().getValue());
   }
 
   public SwerveModuleState getState() {

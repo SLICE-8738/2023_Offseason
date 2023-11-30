@@ -296,13 +296,13 @@ public class Drivetrain extends SubsystemBase {
                   transform.getY() * speedPercent,
                   transform.getRotation().getRadians() * speedPercent,
                   rotationWithOffset),
-                0.02)
+                0.2)
             : ChassisSpeeds.discretize(
                 new ChassisSpeeds(
                   transform.getX() * speedPercent, 
                   transform.getY() * speedPercent,
                   transform.getRotation().getRadians() * speedPercent),
-                0.02));
+                0.2));
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
@@ -468,7 +468,7 @@ public class Drivetrain extends SubsystemBase {
 
     for(BaseNEOSwerveModule mod : swerveMods) {
 
-      angles[mod.moduleNumber] = mod.getCanCoder().getDegrees();
+      angles[mod.moduleNumber] = mod.getCANcoder().getDegrees();
 
     }
 
