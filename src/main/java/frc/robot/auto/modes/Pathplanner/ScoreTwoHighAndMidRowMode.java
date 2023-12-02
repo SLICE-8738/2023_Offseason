@@ -14,7 +14,7 @@ import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GridToGamePiecePath;
 import frc.robot.auto.paths.GamePieceToGridPath;
 //import frc.robot.commands.GoToState;
-import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.Drivetrain.sequences.TrajectoryFollowerSequence;
 //import frc.robot.commands.StateSequences.IntakeCommandsSequence;
 //import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 //import frc.robot.commands.StowCommands.Stow;
@@ -46,8 +46,8 @@ public class ScoreTwoHighAndMidRowMode extends SequentialCommandGroup {
     GamePieceToGridPath gamePieceToGrid = new GamePieceToGridPath(startPosition);
     //OuttakeAndStowCommandsSequence scoreMidAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore);
 
-    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getTrajectory().getInitialTargetHolonomicPose());
-    Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToGrid);
+    TrajectoryFollowerSequence trajectory1 = new TrajectoryFollowerSequence(drive, gridToGamePiece);
+    TrajectoryFollowerSequence trajectory2 = new TrajectoryFollowerSequence(drive, gamePieceToGrid);
 
     addCommands(
       //toMid,

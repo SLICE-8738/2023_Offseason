@@ -1,0 +1,45 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",
+      "/Shuffleboard/Auto Tab/Starting Position": "String Chooser",
+      "/Shuffleboard/Debug Tab/Field": "Field2d",
+      "/Shuffleboard/Driver Tab/Alliance": "String Chooser",
+      "/Shuffleboard/Teleop Tab/LED Mode": "String Chooser",
+      "/SmartDashboard/Field": "Field2d"
+    },
+    "windows": {
+      "/Shuffleboard/Debug Tab/Field": {
+        "Trajectory": {
+          "arrows": false,
+          "style": "Track"
+        },
+        "height": 8.013679504394531,
+        "image": "C:\\Users\\tlhar\\.vscode\\VS Projects\\2023 Off-Season Code\\August-9th-everyone-frfr Branch Local\\2023_Offseason\\.Glass\\2023-field.png",
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/Driver Tab/Alliance": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "Driver Tab": {
+          "Node Selection": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    }
+  }
+}

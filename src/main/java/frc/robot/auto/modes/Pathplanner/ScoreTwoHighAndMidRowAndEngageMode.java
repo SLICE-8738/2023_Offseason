@@ -19,7 +19,7 @@ import frc.robot.auto.paths.GamePieceToGridPath;
 import frc.robot.commands.Drivetrain.AutoDrive.AutonomousDistanceDriveCommand;
 import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
 import frc.robot.commands.Drivetrain.ChargeStation.ChargeStationBalanceCommand;
-import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.Drivetrain.sequences.TrajectoryFollowerSequence;
 //import frc.robot.commands.StateSequences.IntakeCommandsSequence;
 //import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 //import frc.robot.commands.StowCommands.Stow;
@@ -54,9 +54,9 @@ public class ScoreTwoHighAndMidRowAndEngageMode extends SequentialCommandGroup {
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drive);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drive);
 
-    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getTrajectory().getInitialTargetHolonomicPose());
-    Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToGrid);
-    Field2dTrajectoryFollowerSequence trajectory3 = new Field2dTrajectoryFollowerSequence(drive, gridToChargeStation);
+    TrajectoryFollowerSequence trajectory1 = new TrajectoryFollowerSequence(drive, gridToGamePiece);
+    TrajectoryFollowerSequence trajectory2 = new TrajectoryFollowerSequence(drive, gamePieceToGrid);
+    TrajectoryFollowerSequence trajectory3 = new TrajectoryFollowerSequence(drive, gridToChargeStation);
 
     addCommands(
       //toMid,

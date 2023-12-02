@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 //import frc.robot.Constants;
 import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
-import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.Drivetrain.sequences.TrajectoryFollowerSequence;
 //import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 //import frc.robot.commands.GoToState;
 import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
@@ -34,7 +34,7 @@ public class ScoreOneHighRowMobilityAndEngageMode extends SequentialCommandGroup
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drive);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drive);
 
-    Field2dTrajectoryFollowerSequence trajectory = new Field2dTrajectoryFollowerSequence(drive, gridOutOfCommunityToChargeStation, gridOutOfCommunityToChargeStation.getTrajectory().getInitialTargetHolonomicPose());
+    TrajectoryFollowerSequence trajectory = new TrajectoryFollowerSequence(drive, gridOutOfCommunityToChargeStation);
 
     addCommands(
       //toMid,

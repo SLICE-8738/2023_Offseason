@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auto.AutoSelector;
 import frc.robot.auto.paths.GamePieceToChargeStationPath;
 import frc.robot.auto.paths.GridToGamePiecePath;
-import frc.robot.commands.Drivetrain.sequences.Field2dTrajectoryFollowerSequence;
+import frc.robot.commands.Drivetrain.sequences.TrajectoryFollowerSequence;
 //import frc.robot.commands.StateSequences.IntakeAndStowCommandsSequence;
 //import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 //import frc.robot.commands.GoToState;
@@ -39,8 +39,8 @@ public class ScoreOneHighRowPickUpAndEngageMode extends SequentialCommandGroup {
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drive);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drive);
 
-    Field2dTrajectoryFollowerSequence trajectory1 = new Field2dTrajectoryFollowerSequence(drive, gridToGamePiece, gridToGamePiece.getTrajectory().getInitialTargetHolonomicPose());
-    Field2dTrajectoryFollowerSequence trajectory2 = new Field2dTrajectoryFollowerSequence(drive, gamePieceToChargeStation);
+    TrajectoryFollowerSequence trajectory1 = new TrajectoryFollowerSequence(drive, gridToGamePiece);
+    TrajectoryFollowerSequence trajectory2 = new TrajectoryFollowerSequence(drive, gamePieceToChargeStation);
 
     addCommands(
       //toMid,

@@ -4,8 +4,12 @@
 
 package frc.robot.commands.Drivetrain;
 
+import java.util.function.Supplier;
+
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.PathPlannerTrajectory;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.Drivetrain;
@@ -14,14 +18,14 @@ public class SetField2dCommand extends Command {
 
   private final Drivetrain m_drivetrain;
 
-  private final PathPlannerTrajectory m_trajectory;
+  private final Supplier<PathPlannerPath> m_pathSupplier;
 
  /** Creates a new SetField2dCommand. */
-  public SetField2dCommand(PathPlannerTrajectory trajectory, Drivetrain drivetrain) {
+  public SetField2dCommand(Supplier<PathPlannerPath> pathSupplier, Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
 
-    m_trajectory = trajectory;
+    m_pathSupplier = pathSupplier;
     m_drivetrain = drivetrain;
 
   }
@@ -30,7 +34,7 @@ public class SetField2dCommand extends Command {
   @Override
   public void initialize() {
 
-    m_drivetrain.setField2d(m_trajectory);
+    m_drivetrain.setField2d(new PathPlannerTrajectory(m_pathSupplier.get(), new ChassisSpeeds()));
     
   }
 
