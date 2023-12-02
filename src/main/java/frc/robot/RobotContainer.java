@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.auto.AutoSelector;
+//import frc.robot.auto.AutoSelector;
 import frc.robot.commands.GoToState;
 import frc.robot.commands.LambdaCommand;
 import frc.robot.commands.Arm.ManualArm;
@@ -61,9 +61,9 @@ public class RobotContainer {
   public final LEDs m_leds = new LEDs();
   public final Limelight m_limelight = new Limelight();
 
-  public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain, m_arm, m_elevator, m_intake);
+  //public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain, m_arm, m_elevator, m_intake);
   public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain, m_arm, m_elevator);
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_arm, m_elevator, m_intake, m_autoSelector);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain, m_arm, m_elevator, m_intake/*, m_autoSelector*/);
 
   // ==========================
   // Commands
@@ -212,7 +212,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_autoSelector.getAutoMode();
+    //return m_autoSelector.getAutoMode();
+    return null;
   }
 
 }

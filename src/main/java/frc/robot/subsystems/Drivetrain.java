@@ -22,13 +22,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import com.pathplanner.lib.path.PathPlannerTrajectory;
-import com.pathplanner.lib.path.PathPlannerTrajectory.State;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 public class Drivetrain extends SubsystemBase {
@@ -322,31 +319,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sends the poses of a desired trajectory to the Field2d object.
+   * Sends a given list of poses to the Field2d trajectory object.
    * 
-   * @param trajectory The desired trajectory to send to the Field2d object.
+   * @param poses The desired poses to send to the Field2d trajectory object.
    */
   public void setField2d(List<Pose2d> poses) {
 
     // Pushes the trajectory to Field2d.
     m_field2d.getObject("Trajectory").setPoses(poses);
-
-  }
-
-  public void setField2d(PathPlannerTrajectory trajectory) {
-
-    State[] states = new State[0];
-    ArrayList<Pose2d> poses = new ArrayList<Pose2d>();
-
-    states = trajectory.getStates().toArray(states);
-
-    for(State state : states) {
-
-      poses.add(state.getTargetHolonomicPose());
-
-    }
-    
-    setField2d(poses);
 
   }
 

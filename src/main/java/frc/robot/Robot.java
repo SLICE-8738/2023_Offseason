@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    m_robotContainer.m_autoSelector.updateAutoSelector();
+    //m_robotContainer.m_autoSelector.updateAutoSelector();
 
   }
 
@@ -54,8 +54,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-    m_robotContainer.m_autoSelector.reset();
-    m_robotContainer.m_autoSelector.updateAutoSelector();
+    //m_robotContainer.m_autoSelector.reset();
+    //m_robotContainer.m_autoSelector.updateAutoSelector();
 
     m_robotContainer.m_drivetrain.setDriveIdleMode(true);
     m_robotContainer.m_drivetrain.setAngleIdleMode(true);
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    m_robotContainer.m_autoSelector.updateAutoSelector();
+    //m_robotContainer.m_autoSelector.updateAutoSelector();
     m_robotContainer.m_nodeSelector.updateNodePosition();
 
   }

@@ -39,6 +39,12 @@
           "open": true
         },
         "open": true
+      },
+      "SmartDashboard": {
+        "double[]##v_/SmartDashboard/Filtered Translation": {
+          "open": true
+        },
+        "open": true
       }
     }
   }

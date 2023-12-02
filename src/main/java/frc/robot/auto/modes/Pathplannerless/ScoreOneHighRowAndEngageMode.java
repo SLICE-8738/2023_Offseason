@@ -29,7 +29,7 @@ public class ScoreOneHighRowAndEngageMode extends SequentialCommandGroup {
 
     //SetInitialPositionCommand setInitialPosition = new SetInitialPositionCommand(drivetrain);
     /*GoToState toMid = new GoToState(elevator, arm, Constants.kRobotStates.midScore);
-    OuttakeAndStowCommandsSequence scoreAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);*/
+    OuttakeAndStowCommandsSequence scoreHighAndStow = new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore);*/
     BoardChargeStationCommand boardChargeStation = new BoardChargeStationCommand(drivetrain);
     ChargeStationBalanceCommand balance = new ChargeStationBalanceCommand(drivetrain);
 

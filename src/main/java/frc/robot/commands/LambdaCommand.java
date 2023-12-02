@@ -7,7 +7,6 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * Schedules the given command when this command is initialized and cancels it when ended. 
@@ -23,7 +22,7 @@ public class LambdaCommand extends Command {
    * Creates a new LambdaCommand that schedules the current value of the given command
    * supplier when initialized and cancels it when ended.
    *
-   * @param toScheduleSupplier the supplier of the command to schedule
+   * @param toScheduleSupplier The supplier of the command to schedule
    */
   public LambdaCommand(Supplier<Command> commandSupplier) {
     m_commandSupplier = commandSupplier;

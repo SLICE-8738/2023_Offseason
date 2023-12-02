@@ -5,26 +5,30 @@
 package frc.robot.auto;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-import frc.robot.auto.modes.Pathplanner.ScoreOneHighRowMobilityAndEngageMode;
-import frc.robot.auto.modes.Pathplanner.ScoreOneHighRowPickUpAndEngageMode;
-import frc.robot.auto.modes.Pathplanner.ScoreTwoHighAndMidRowMode;
-import frc.robot.auto.modes.Pathplanner.TestTrajectoryMode;
-import frc.robot.auto.modes.Pathplanner.ScoreTwoHighAndMidRowAndEngageMode;
-import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowMode;
-import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndMobilityMode;
-import frc.robot.auto.modes.Pathplannerless.ScoreOneHighRowAndEngageMode;
-import frc.robot.auto.paths.GridOutOfCommunityToChargeStationPath;
-import frc.robot.auto.paths.GridToGamePiecePath;
-import frc.robot.auto.paths.TestPath;
+import frc.robot.Constants;
+import frc.robot.commands.GoToState;
+import frc.robot.commands.Drivetrain.AutoDrive.AutonomousDistanceDriveCommand;
+import frc.robot.commands.Drivetrain.ChargeStation.BoardChargeStationCommand;
+import frc.robot.commands.Drivetrain.ChargeStation.ChargeStationBalanceCommand;
+import frc.robot.commands.StateSequences.IntakeAndStowCommandsSequence;
+import frc.robot.commands.StateSequences.OuttakeAndStowCommandsSequence;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Arm.StowState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
 import java.util.Optional;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 /**
  * This class primarily manages the creation and updating of the autonomous mode
@@ -48,14 +52,14 @@ public class AutoSelector {
 
     public enum DesiredMode {
 
-        SCORE_ONE_HIGH_ROW_PATHPLANNERLESS,
-        SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS,
-        SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS,
-        SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER,
-        SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER,
-        SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER,
-        SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER,
-        TEST_TRAJECTORY_MODE_PATHPLANNER
+        SCORE_ONE_HIGH_ROW,
+        SCORE_ONE_HIGH_ROW_AND_MOBILITY,
+        SCORE_ONE_HIGH_ROW_AND_ENGAGE,
+        SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE,
+        SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE,
+        SCORE_TWO_HIGH_AND_MID_ROW,
+        SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE,
+        TEST_TRAJECTORY_MODE
 
     }
 
@@ -65,7 +69,8 @@ public class AutoSelector {
     public SendableChooser<StartingPosition> startingPositionChooser;
     public SendableChooser<DesiredMode> modeChooser;
 
-    private Optional<SequentialCommandGroup> autoMode = Optional.empty();
+    private Optional<PathPlannerAuto> autoMode = Optional.empty();
+    private String autoName;
 
     private Pose2d initialAutoPose;
 
@@ -97,23 +102,44 @@ public class AutoSelector {
 
         modeChooser = new SendableChooser<DesiredMode>();
 
-        modeChooser.setDefaultOption("Any - Score One High Row ", DesiredMode.SCORE_ONE_HIGH_ROW_PATHPLANNERLESS);
+        modeChooser.setDefaultOption("Any - Score One High Row ", DesiredMode.SCORE_ONE_HIGH_ROW);
 
-        modeChooser.addOption("Any - Score One High Row And Mobility ",
-                DesiredMode.SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS);
-        modeChooser.addOption("Middle - Score One High Row And Engage ",
-                DesiredMode.SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS);
+        modeChooser.addOption("Score One High Row And Mobility ",
+                DesiredMode.SCORE_ONE_HIGH_ROW_AND_MOBILITY);
+        modeChooser.addOption("Score One High Row And Engage ",
+                DesiredMode.SCORE_ONE_HIGH_ROW_AND_ENGAGE);
 
-        modeChooser.addOption("(Pathplanner) Score One High Row Mobility And Engage",
-                DesiredMode.SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score One High Row Pick Up Piece And Engage",
-                DesiredMode.SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row",
-                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Score Two High and Mid Row And Engage",
-                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER);
-        modeChooser.addOption("(Pathplanner) Test Trajectory Mode", 
-                DesiredMode.TEST_TRAJECTORY_MODE_PATHPLANNER);
+        modeChooser.addOption("Score One High Row Mobility And Engage",
+                DesiredMode.SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE);
+        modeChooser.addOption("Score One High Row Pick Up Piece And Engage",
+                DesiredMode.SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE);
+        modeChooser.addOption("Score Two High and Mid Row",
+                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW);
+        modeChooser.addOption("Score Two High and Mid Row And Engage",
+                DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE);
+        modeChooser.addOption("Test Trajectory Mode", 
+                DesiredMode.TEST_TRAJECTORY_MODE);
+
+        AutoBuilder.configureHolonomic(
+            m_drivetrain::getPose,
+            m_drivetrain::resetOdometry,
+            m_drivetrain::getChassisSpeeds,
+            m_drivetrain::setChassisSpeeds,
+            new HolonomicPathFollowerConfig(
+                new PIDConstants(Constants.kAutonomous.kPTranslation),
+                new PIDConstants(Constants.kAutonomous.kPRotation),
+                Constants.kAutonomous.kMaxVelocityMetersPerSecond,
+                Constants.kDrivetrain.DRIVE_BASE_RADIUS,
+                new ReplanningConfig(false, false)),
+            m_drivetrain);
+
+        NamedCommands.registerCommand("To Mid", new GoToState(elevator, arm, Constants.kRobotStates.midScore));
+        NamedCommands.registerCommand("Score High And Stow",  new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore));
+        NamedCommands.registerCommand("Score Mid And Stow", new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore));
+        NamedCommands.registerCommand("Intake Cone And Stow", new IntakeAndStowCommandsSequence(intake, arm, elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround));
+        NamedCommands.registerCommand("Mobility", new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(2, 0), new Translation2d(6, 0)));
+        NamedCommands.registerCommand("Board Charge Station", new BoardChargeStationCommand(drivetrain));
+        NamedCommands.registerCommand("Balance", new ChargeStationBalanceCommand(drivetrain));
 
     }
 
@@ -129,7 +155,7 @@ public class AutoSelector {
 
             autoMode = getAutoModeForParams(startingPosition, desiredMode);
 
-            updateInitialAutoPoseOffset(startingPosition, desiredMode);
+            updateInitialAutoPoseOffset();
 
         }
 
@@ -138,70 +164,49 @@ public class AutoSelector {
 
     }
 
-    private Optional<SequentialCommandGroup> getAutoModeForParams(StartingPosition position, DesiredMode mode) {
+    private Optional<PathPlannerAuto> getAutoModeForParams(StartingPosition position, DesiredMode mode) {
 
         switch (mode) {
 
-            case SCORE_ONE_HIGH_ROW_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowMode(m_drivetrain));
-            case SCORE_ONE_HIGH_ROW_AND_MOBILITY_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndMobilityMode(m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
-            case SCORE_ONE_HIGH_ROW_AND_ENGAGE_PATHPLANNERLESS:
-                return Optional.of(new ScoreOneHighRowAndEngageMode(m_drivetrain));
-            case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowMobilityAndEngageMode(position, m_drivetrain));
-            case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreOneHighRowPickUpAndEngageMode(position, m_drivetrain));
-            case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowMode(position, m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
-            case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                return Optional.of(new ScoreTwoHighAndMidRowAndEngageMode(position, m_drivetrain, () -> storedStartingPosition.name().startsWith("BLUE")));
-            case TEST_TRAJECTORY_MODE_PATHPLANNER:
-                return Optional.of(new TestTrajectoryMode(m_drivetrain));
-            default:
+            case SCORE_ONE_HIGH_ROW:
+                autoName = "Score One High Row";
                 break;
+            case SCORE_ONE_HIGH_ROW_AND_MOBILITY:
+                autoName = "Score One High Row And Mobility";
+                break;
+            case SCORE_ONE_HIGH_ROW_AND_ENGAGE:
+                autoName = "Score One High Row And Engage";
+                break;
+            case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE:
+                autoName = "Score One High Row Mobility And Engage";
+                break;
+            case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE:
+                autoName = "Score One High Row Pick Up And Engage";
+                break;
+            case SCORE_TWO_HIGH_AND_MID_ROW:
+                autoName = "Score Two High And Mid Row";
+                break;
+            case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE:
+                autoName = "Score Two High And Mid Row And Engage";
+                break;
+            case TEST_TRAJECTORY_MODE:
+                autoName = "Test Trajectory";
+                break;
+            default:
+                System.err.println("No valid auto mode found for " + mode);
+                return Optional.empty();
 
         }
 
-        System.err.println("No valid auto mode found for " + mode);
-        return Optional.empty();
+        return Optional.of(new PathPlannerAuto(autoName));
 
     }
 
-    public void updateInitialAutoPoseOffset(StartingPosition startingPosition, DesiredMode desiredMode) {
+    public void updateInitialAutoPoseOffset() {
 
         Pose2d botPose = m_drivetrain.getPose();
 
-        if (desiredMode.name().endsWith("PATHPLANNER")) {
-
-            switch (desiredMode) {
-
-                case SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridOutOfCommunityToChargeStationPath(startingPosition).getTrajectory().getInitialTargetHolonomicPose();
-                    break;
-                case SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getTrajectory().getInitialTargetHolonomicPose();
-                    break;
-                case SCORE_TWO_HIGH_AND_MID_ROW_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getTrajectory().getInitialTargetHolonomicPose();
-                    break;
-                case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE_PATHPLANNER:
-                    initialAutoPose = new GridToGamePiecePath(startingPosition).getTrajectory().getInitialTargetHolonomicPose();
-                    break;
-                case TEST_TRAJECTORY_MODE_PATHPLANNER:
-                    initialAutoPose = new TestPath().getTrajectory().getInitialTargetHolonomicPose();
-                default:
-                    System.err.println("No valid initial auto pose found for " + desiredMode);
-                    break;
-
-            }
-
-        } else {
-
-            System.out.println("No initial pose is available for Pathplannerless modes");
-            initialAutoPose = botPose;
-
-        }
+        initialAutoPose = PathPlannerAuto.getStaringPoseFromAutoFile(autoName);
 
         if (botPose != null && initialAutoPose != null) {
 
@@ -222,7 +227,7 @@ public class AutoSelector {
 
     }
 
-    public SequentialCommandGroup getAutoMode() {
+    public PathPlannerAuto getAutoMode() {
 
         return autoMode.get();
 
