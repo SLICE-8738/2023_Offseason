@@ -24,7 +24,8 @@ public class Intake extends SubsystemBase {
   //constructor 
   public Intake() {
     //Constructs Intake Motor
-    IntakeMotor = SparkMaxFactory.createDefaultVelocitySparkMax(Constants.kIntake.MOTOR_ID); 
+    IntakeMotor = SparkMaxFactory.createDefaultVelocitySparkMax(Constants.kIntake.MOTOR_ID);
+    IntakeMotor.setInverted(true); 
 
     driverTab = Shuffleboard.getTab("Driver Tab");
 

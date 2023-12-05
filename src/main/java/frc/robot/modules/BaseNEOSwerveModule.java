@@ -1,7 +1,7 @@
 package frc.robot.modules;
 
-
 import com.ctre.phoenix6.hardware.CANcoder;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
