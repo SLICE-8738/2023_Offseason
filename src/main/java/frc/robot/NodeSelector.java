@@ -58,7 +58,7 @@ public class NodeSelector {
         driverTab = Shuffleboard.getTab("Driver Tab");
 
         nodeSelectorLayout = driverTab.getLayout("Node Selection", BuiltInLayouts.kGrid).
-        withPosition(2, 2).
+        withPosition(2, 3).
         withSize(7, 2).
         withProperties(Map.of("Number of columns", 9, "Number of rows", 3));
     

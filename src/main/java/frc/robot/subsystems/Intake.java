@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
     driverTab = Shuffleboard.getTab("Driver Tab");
 
     driverTab.addBoolean("Game Piece Secured", () -> gamePieceSecured).
-    withPosition(4, 3).
+    withPosition(4, 2).
     withSize(2, 1);
   }
 
