@@ -298,13 +298,13 @@ public class Drivetrain extends SubsystemBase {
                   transform.getY() * speedPercent,
                   transform.getRotation().getRadians() * speedPercent,
                   rotationWithOffset),
-                0.2)
+                0.02)
             : ChassisSpeeds.discretize(
                 new ChassisSpeeds(
                   transform.getX() * speedPercent, 
                   transform.getY() * speedPercent,
                   transform.getRotation().getRadians() * speedPercent),
-                0.2));
+                0.02));
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
@@ -625,7 +625,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setChassisSpeeds(ChassisSpeeds speeds) {
 
-    setModuleStates(Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(ChassisSpeeds.discretize(speeds, 0.2)));
+    setModuleStates(Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(ChassisSpeeds.discretize(speeds, 0.02)));
 
   }
 

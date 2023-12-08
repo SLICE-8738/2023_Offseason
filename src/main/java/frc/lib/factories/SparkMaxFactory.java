@@ -3,6 +3,9 @@ package frc.lib.factories;
 import com.revrobotics.REVLibError;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import java.util.ArrayList;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 
@@ -11,6 +14,8 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 
 public class SparkMaxFactory {
+
+    public static ArrayList<CANSparkMax> sparkMaxes = new ArrayList<CANSparkMax>();
     
     public static class Configuration {
 
@@ -100,7 +105,7 @@ public class SparkMaxFactory {
         0.0,
         30,
         300,
-        100
+        45
         );
 
     /**
@@ -180,7 +185,23 @@ public class SparkMaxFactory {
 
         handleREVLibError(id, sparkMax.setSmartCurrentLimit(config.CURRENT_LIMIT), "current limit");
 
+        sparkMaxes.add(sparkMax);
+
         return sparkMax;
+
+    }
+
+    /** Burns the configurations of all motors constructed in the class to flash. */
+    public static void flashAll() {
+
+        CANSparkMax[] finalSparkMaxes = new CANSparkMax[0];
+        finalSparkMaxes = sparkMaxes.toArray(finalSparkMaxes);
+
+        for(CANSparkMax sparkMax : finalSparkMaxes) {
+
+            sparkMax.burnFlash();
+            
+        }
 
     }
 

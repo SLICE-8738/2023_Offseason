@@ -102,7 +102,6 @@ public class BaseNEOSwerveModule {
     angleController.setI(Constants.kDrivetrain.ANGLE_KI);
     angleController.setD(Constants.kDrivetrain.ANGLE_KD);
     angleController.setFF(Constants.kDrivetrain.ANGLE_KFF);
-    angleMotor.burnFlash();
     resetToAbsolute();
   }
 
@@ -113,7 +112,6 @@ public class BaseNEOSwerveModule {
     driveController.setI(Constants.kDrivetrain.DRIVE_KI);
     driveController.setD(Constants.kDrivetrain.DRIVE_KD);
     driveController.setFF(Constants.kDrivetrain.DRIVE_KFF);
-    driveMotor.burnFlash();
     driveEncoder.setPosition(0.0);
   }
 
@@ -202,7 +200,7 @@ public class BaseNEOSwerveModule {
   }
 
   public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
+    return new SwerveModulePosition(driveEncoder.getVelocity(), getAngle());
   }
 
   public SwerveModuleState getTargetState() {
