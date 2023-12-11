@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import com.pathplanner.lib.path.PathConstraints;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -99,6 +102,15 @@ public final class Constants {
     /* Swerve Voltage Compensation */
     public static final double MAX_VOLTAGE = 12.0;
 
+    /* Swerve Current Limiting */
+    public static final int DRIVE_CURRENT_LIMIT = 35;
+    public static final int DRIVE_CURRENT_THRESHOLD = 60;
+    public static final double DRIVE_CURRENT_THRESHOLD_TIME = 0.1;
+    public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
+
+    public static final double OPEN_LOOP_RAMP = 0.25;
+    public static final double CLOSED_LOOP_RAMP = 0.0;
+
     /* Angle Motor PID Values */
     public static final double ANGLE_KP = 0.01;
     public static final double ANGLE_KI = 0.0;
@@ -131,8 +143,11 @@ public final class Constants {
     public static final double MAX_ANGULAR_VELOCITY = 7; // radians per second
 
     /* Motor Inverts */
-    public static final boolean DRIVE_INVERT = true;
+    public static final InvertedValue DRIVE_INVERT = InvertedValue.CounterClockwise_Positive;
     public static final boolean ANGLE_INVERT = true;
+
+    /* Neutral Modes */
+    public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
 
     /* Angle Encoder Invert */
     public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
