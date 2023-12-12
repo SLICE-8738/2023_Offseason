@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.*;
-import frc.robot.modules.*;
+import frc.robot.SwerveModule;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -32,7 +32,7 @@ public class Drivetrain extends SubsystemBase {
 
   // private final SparkMaxSwerveModule leftModuleFront, leftModuleBack,
   // rightModuleFront, rightModuleBack;
-  private final BaseNEOSwerveModule[] swerveMods;
+  private final SwerveModule[] swerveMods;
 
   private final SwerveDriveOdometry m_swerveDrivetrainOdometry;
 
@@ -73,11 +73,11 @@ public class Drivetrain extends SubsystemBase {
      * Constants.kDrivetrain.Mod3.ANGLE_OFFSET.getRadians());
      */
 
-    swerveMods = new BaseNEOSwerveModule[] {
-      new BaseNEOSwerveModule(0, Constants.kDrivetrain.Mod0.CONSTANTS),
-      new BaseNEOSwerveModule(1, Constants.kDrivetrain.Mod1.CONSTANTS),
-      new BaseNEOSwerveModule(2, Constants.kDrivetrain.Mod2.CONSTANTS),
-      new BaseNEOSwerveModule(3, Constants.kDrivetrain.Mod3.CONSTANTS)
+    swerveMods = new SwerveModule[] {
+      new SwerveModule(0, Constants.kDrivetrain.Mod0.CONSTANTS),
+      new SwerveModule(1, Constants.kDrivetrain.Mod1.CONSTANTS),
+      new SwerveModule(2, Constants.kDrivetrain.Mod2.CONSTANTS),
+      new SwerveModule(3, Constants.kDrivetrain.Mod3.CONSTANTS)
     };
 
     navXGyro = new AHRS(Constants.kDrivetrain.NAVX_PORT);
@@ -137,7 +137,7 @@ public class Drivetrain extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setSimulationPosition();
 
@@ -155,7 +155,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setDriveIdleMode(boolean enableBrakeMode) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setDriveIdleMode(enableBrakeMode);
 
@@ -173,7 +173,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setAngleIdleMode(boolean enableBrakeMode) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setAngleIdleMode(enableBrakeMode);
 
@@ -192,7 +192,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setDrivePIDF(double kP, double kI, double kD, double kF) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setDrivePIDF(kP, kI, kD, kF);
 
@@ -211,7 +211,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setAnglePIDF(double kP, double kI, double kD, double kF) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setAnglePIDF(kP, kI, kD, kF);
 
@@ -228,7 +228,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setMaxDriveOutput(double max) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setMaxDriveOutput(max);
 
@@ -245,7 +245,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setMaxAngleOutput(double max) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setMaxAngleOutput(max);
 
@@ -308,7 +308,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setDesiredState(states[mod.moduleNumber], isOpenLoop);
 
@@ -396,7 +396,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       positions[mod.moduleNumber] = mod.getPosition();
 
@@ -415,7 +415,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModuleState[] states = new SwerveModuleState[4];
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       states[mod.moduleNumber] = mod.getState();
 
@@ -436,7 +436,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModuleState[] targetStates = new SwerveModuleState[4];
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       targetStates[mod.moduleNumber] = mod.getTargetState();
 
@@ -457,7 +457,7 @@ public class Drivetrain extends SubsystemBase {
 
     double[] angles = new double[4];
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       angles[mod.moduleNumber] = mod.getCANcoder().getDegrees();
 
@@ -475,7 +475,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void resetModulesToAbsolute() {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.resetToAbsolute();
 
@@ -602,7 +602,7 @@ public class Drivetrain extends SubsystemBase {
     double forwardVelocity = 0;
     double sidewaysVelocity = 0;
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       forwardVelocity += mod.getState().speedMetersPerSecond * mod.getState().angle.getSin();
       sidewaysVelocity += mod.getState().speedMetersPerSecond * mod.getState().angle.getCos();
@@ -641,7 +641,7 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setDesiredState(states[mod.moduleNumber], false);
 
@@ -661,7 +661,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setPercentOutput(double drivePercentOutput, double anglePercentOutput) {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setPercentOutput(drivePercentOutput, anglePercentOutput);
 
@@ -675,7 +675,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void stopDrive() {
 
-    for(BaseNEOSwerveModule mod : swerveMods) {
+    for(SwerveModule mod : swerveMods) {
 
       mod.setDesiredState(new SwerveModuleState(), false);
 
