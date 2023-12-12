@@ -46,14 +46,14 @@ public class NodeSelector {
     private static Pose2d nodePosition;
 
     private final Drivetrain m_drivetrain;
-    private final Arm m_arm;
-    private final Elevator m_elevator;
+    //private final Arm m_arm;
+    //private final Elevator m_elevator;
 
-    public NodeSelector(Drivetrain drivetrain, Arm arm, Elevator elevator) {
+    public NodeSelector(Drivetrain drivetrain/*, Arm arm, Elevator elevator*/) {
 
         m_drivetrain = drivetrain;
-        m_elevator = elevator;
-        m_arm = arm;
+        //m_arm = arm;
+        //m_elevator = elevator;
         
         driverTab = Shuffleboard.getTab("Driver Tab");
 
@@ -165,17 +165,17 @@ public class NodeSelector {
 
     public SequentialCommandGroup getNodeSequence() {
 
-        int selectedNodeIndex = nodeButtons.indexOf(storedSelectedButton);
+        //int selectedNodeIndex = nodeButtons.indexOf(storedSelectedButton);
 
-        Command positionSequence;
+        //Command positionSequence;
 
-        if(selectedNodeIndex < 9) {
+        /*if(selectedNodeIndex < 9) {
             positionSequence = new ScoreHighSequence(m_elevator, m_arm);
         } else if(selectedNodeIndex < 18) {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.midScore);
         } else {
             positionSequence = new GoToState(m_elevator, m_arm, Constants.kRobotStates.lowScore);
-        }
+        }*/
 
         return new SequentialCommandGroup(
             new PathFinderSequence(m_drivetrain, nodePosition)/*,

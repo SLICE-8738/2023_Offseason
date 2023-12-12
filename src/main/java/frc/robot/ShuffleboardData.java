@@ -22,7 +22,7 @@ public class ShuffleboardData {
 
     private final ShuffleboardTab driverTab, debugTab, modulesTab, autoTab, elevatorArmTab;
 
-    public ShuffleboardData(Drivetrain drivetrain, Arm arm, Elevator elevator, Intake intake/*, AutoSelector autoSelector*/) {
+    public ShuffleboardData(Drivetrain drivetrain/*, Arm arm, Elevator elevator, Intake intake, AutoSelector autoSelector*/) {
 
         driverTab = Shuffleboard.getTab("Driver Tab");
         debugTab = Shuffleboard.getTab("Debug Tab");
@@ -32,7 +32,7 @@ public class ShuffleboardData {
 
         new DrivetrainData(drivetrain);
         //new AutoData(autoSelector);
-        new ElevatorArmData(elevator, arm, intake);
+        //new ElevatorArmData(elevator, arm, intake);
 
     }
 

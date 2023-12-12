@@ -84,8 +84,8 @@ public final class Constants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(22);
     public static final double WHEEL_BASE = Units.inchesToMeters(27);
     public static final double DRIVE_BASE_RADIUS = Math.hypot(WHEEL_BASE / 2, TRACK_WIDTH / 2);
-    public static final double WHEEL_DIAMETER = Units.inchesToMeters(4.0);
-    public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
+    //public static final double WHEEL_DIAMETER = Units.inchesToMeters(4.0);
+    public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(12.3125);
 
     public static final double DRIVE_GEAR_RATIO = (6.75 / 1.0); // 6.75:1
     public static final double ANGLE_GEAR_RATIO = ((150.0 / 7.0) / 1.0); // (150/7):1
@@ -136,6 +136,7 @@ public final class Constants {
 
     /* Angle Encoder Invert */
     public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
+    
     // Charge Station Board and Balance Speeds (-1 - 1)
     // public static final double CHARGE_STATION_BALANCE_SPEED = 0.3;
     // public static final double BOARD_CHARGE_SPEED = -0.55;
