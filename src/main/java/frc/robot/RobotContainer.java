@@ -79,6 +79,7 @@ public class RobotContainer {
   public final SlowMode m_slowModeHigh = new SlowMode(m_drivetrain, 0.3);
   public final InstantCommand m_forceFullSpeed = new InstantCommand(() -> m_drivetrain.speedPercent = 1);
   public final SetInitialPositionCommand m_setInitialPosition = new SetInitialPositionCommand(m_drivetrain);
+  public final ModuleTestCommand m_moduleTest = new ModuleTestCommand(m_drivetrain, driverController, 0);
 
   // Intake
   public final IntakeCommand m_IntakeCommand = new IntakeCommand(m_intake);
@@ -177,6 +178,7 @@ public class RobotContainer {
     Button.slowModeHigh.whileTrue(m_slowModeHigh);
     Button.forceFullSpeed.onTrue(m_forceFullSpeed);
     Button.setInitialPosition.onTrue(m_setInitialPosition);
+    Button.moduleTest.toggleOnTrue(m_moduleTest);
 
     // Manual Control
     Button.outtake.whileTrue(m_OutTakeCommand);

@@ -5,14 +5,13 @@
 package frc.robot.subsystems;
 
 import frc.robot.*;
-import frc.robot.SwerveModule;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.math.VecBuilder;
+//import edu.wpi.first.math.VecBuilder;
 //import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -49,6 +48,8 @@ public class Drivetrain extends SubsystemBase {
   public double speedPercent;
 
   private Rotation2d angle = new Rotation2d();
+
+  public final SendableChooser<SwerveModule> testModuleChooser = new SendableChooser<SwerveModule>();
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -116,6 +117,12 @@ public class Drivetrain extends SubsystemBase {
 
     PathPlannerLogging.setLogActivePathCallback(this::setField2d);
 
+    testModuleChooser.setDefaultOption("Left Front", swerveMods[0]);
+
+    testModuleChooser.addOption("Left Back", swerveMods[1]);
+    testModuleChooser.addOption("Right Front", swerveMods[2]);
+    testModuleChooser.addOption("Right Back", swerveMods[3]);
+
   }
 
   @Override
@@ -182,78 +189,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets all drive motors to specified proportional, integral, derivative, and
-   * feedforward gains.
-   * 
-   * @param kP The desired proportional gain for all drive motors to be set to.
-   * @param kI The desired integral gain for all drive motors to be set to.
-   * @param kD The desired derivative gain for all drive motors to be set to.
-   * @param kF The desired feedforward gain for all drive motors to be set to.
-   */
-  public void setDrivePIDF(double kP, double kI, double kD, double kF) {
-
-    for(SwerveModule mod : swerveMods) {
-
-      mod.setDrivePIDF(kP, kI, kD, kF);
-
-    }
-
-  }
-
-  /**
-   * Sets all angle motors to specified proportional, integral, derivative, and
-   * feedforward gains.
-   * 
-   * @param kP The desired proportional gain for all angle motors to be set to.
-   * @param kI The desired integral gain for all angle motors to be set to.
-   * @param kD The desired derivative gain for all angle motors to be set to.
-   * @param kF The desired feedforward gain for all drive motors to be set to.
-   */
-  public void setAnglePIDF(double kP, double kI, double kD, double kF) {
-
-    for(SwerveModule mod : swerveMods) {
-
-      mod.setAnglePIDF(kP, kI, kD, kF);
-
-    }
-
-  }
-
-  /**
-   * Sets the maxiumum and reverse power of all native drive PIDF controllers to a
-   * specified value.
-   * 
-   * @param max The desired maximum forward and reverse power to set all native
-   *            drive PIDF controllers to.
-   */
-  public void setMaxDriveOutput(double max) {
-
-    for(SwerveModule mod : swerveMods) {
-
-      mod.setMaxDriveOutput(max);
-
-    }
-
-  }
-
-  /**
-   * Sets the maxiumum and reverse power of all native angle PID controllers to a
-   * specified value.
-   * 
-   * @param max The desired maximum forward and reverse power to set all native
-   *            angle PID controllers to.
-   */
-  public void setMaxAngleOutput(double max) {
-
-    for(SwerveModule mod : swerveMods) {
-
-      mod.setMaxAngleOutput(max);
-
-    }
-
-  }
-
-  /**
    * Drives the robot at either given field-relative X, Y, and rotational
    * velocities or given
    * robot-relative forward, sideways, and rotational velocities.
@@ -282,31 +217,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void swerveDrive(Transform2d transform, boolean isOpenLoop, boolean isFieldRelative) {
 
-    Rotation2d rotationWithOffset = getRotation2d().minus(fieldOrientedOffset);
-    if (rotationWithOffset.getDegrees() > 360) {
-      rotationWithOffset.minus(Rotation2d.fromDegrees(360));
-    }
-    if (rotationWithOffset.getDegrees() < 0) {
-      rotationWithOffset.plus(Rotation2d.fromDegrees(360));
-    }
-
-    SwerveModuleState[] states = Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(
-        isFieldRelative
-            ? ChassisSpeeds.discretize(
-                ChassisSpeeds.fromFieldRelativeSpeeds(
-                  transform.getX() * speedPercent,
-                  transform.getY() * speedPercent,
-                  transform.getRotation().getRadians() * speedPercent,
-                  rotationWithOffset),
-                0.02)
-            : ChassisSpeeds.discretize(
-                new ChassisSpeeds(
-                  transform.getX() * speedPercent, 
-                  transform.getY() * speedPercent,
-                  transform.getRotation().getRadians() * speedPercent),
-                0.02));
-
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
+    SwerveModuleState[] states = toModuleStates(transform, isFieldRelative);
 
     for(SwerveModule mod : swerveMods) {
 
@@ -315,6 +226,26 @@ public class Drivetrain extends SubsystemBase {
     }
 
     angle = angle.plus(transform.getRotation().times(0.02));
+
+  }
+
+  /**
+   * Runs a single module with the corresponding motor IDs to the given module number, 
+   * using the state generated for the module selected on the Test Module sendable chooser.
+   * 
+   * @param transform A Transform2d object representing the desired
+   *                  field-relative velocities in meters/second that the
+   *                  robot would move at along the X and Y axes of the field, 
+   *                  as well as the desired velocity in radians/second that 
+   *                  the robot would rotate at.
+   * 
+   * @param idModuleNumber The module whose motor IDs should be run.
+   */
+  public void testSelectedModule(Transform2d transform, int idModuleNumber) {
+
+    SwerveModuleState[] states = toModuleStates(transform, true);
+
+    swerveMods[idModuleNumber].setDesiredState(states[testModuleChooser.getSelected().moduleNumber], false);
 
   }
 
@@ -587,6 +518,38 @@ public class Drivetrain extends SubsystemBase {
   public void resetHeading() {
 
     navXGyro.reset();
+
+  }
+
+  public SwerveModuleState[] toModuleStates(Transform2d transform, boolean isFieldRelative) {
+
+    Rotation2d rotationWithOffset = getRotation2d().minus(fieldOrientedOffset);
+    if (rotationWithOffset.getDegrees() > 360) {
+      rotationWithOffset.minus(Rotation2d.fromDegrees(360));
+    }
+    if (rotationWithOffset.getDegrees() < 0) {
+      rotationWithOffset.plus(Rotation2d.fromDegrees(360));
+    }
+
+    SwerveModuleState[] states = Constants.kDrivetrain.kSwerveKinematics.toSwerveModuleStates(
+        isFieldRelative
+            ? ChassisSpeeds.discretize(
+                ChassisSpeeds.fromFieldRelativeSpeeds(
+                  transform.getX() * speedPercent,
+                  transform.getY() * speedPercent,
+                  transform.getRotation().getRadians() * speedPercent,
+                  rotationWithOffset),
+                0.02)
+            : ChassisSpeeds.discretize(
+                new ChassisSpeeds(
+                  transform.getX() * speedPercent, 
+                  transform.getY() * speedPercent,
+                  transform.getRotation().getRadians() * speedPercent),
+                0.02));
+
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.kDrivetrain.MAX_LINEAR_VELOCITY);
+
+    return states;
 
   }
 

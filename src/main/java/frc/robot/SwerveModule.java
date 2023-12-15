@@ -1,10 +1,10 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -27,6 +27,7 @@ public class SwerveModule {
     public int moduleNumber;
     private Rotation2d angleOffset;
     private Rotation2d lastAngle;
+    private SwerveModuleState targetState = new SwerveModuleState();
 
     private CANSparkMax angleMotor;
     private TalonFX driveMotor;
@@ -42,6 +43,8 @@ public class SwerveModule {
     /* drive motor control requests */
     private final DutyCycleOut driveDutyCycle = new DutyCycleOut(0);
     private final VelocityVoltage driveVelocity = new VelocityVoltage(0);
+
+    private double simDistance = 0;
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
         this.moduleNumber = moduleNumber;
@@ -66,9 +69,18 @@ public class SwerveModule {
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
         /* This is a custom optimize function, since default WPILib optimize assumes continuous controller which CTRE and Rev onboard is not */
-        desiredState = OnboardModuleState.optimize(desiredState, getState().angle); 
+        desiredState = OnboardModuleState.optimize(desiredState, getState().angle);
+        
+        targetState = desiredState;
+
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);
+    }
+
+    public void setPercentOutput(double drivePercentOutput, double anglePercentOutput) {
+        driveDutyCycle.Output = drivePercentOutput;
+        driveMotor.setControl(driveDutyCycle);
+        angleMotor.set(anglePercentOutput);
     }
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
@@ -119,11 +131,10 @@ public class SwerveModule {
 
     private void configAngleMotor(){
         integratedAngleEncoder.setPositionConversionFactor(Constants.kDrivetrain.ANGLE_POSITION_CONVERSION_FACTOR_DEGREES);
-        setAnglePIDF(
-            Constants.kDrivetrain.ANGLE_KP, 
-            Constants.kDrivetrain.ANGLE_KI, 
-            Constants.kDrivetrain.ANGLE_KD, 
-            Constants.kDrivetrain.ANGLE_KFF);
+        angleController.setP(Constants.kDrivetrain.ANGLE_KP);
+        angleController.setI(Constants.kDrivetrain.ANGLE_KI);
+        angleController.setD(Constants.kDrivetrain.ANGLE_KD);
+        angleController.setFF(Constants.kDrivetrain.ANGLE_KFF);
         angleMotor.burnFlash();
         resetToAbsolute();
     }
@@ -133,51 +144,17 @@ public class SwerveModule {
         driveMotor.getConfigurator().setPosition(0);
     }
 
-    public void setAnglePIDF(double kP, double kI, double kD, double kF) {
-        angleController.setP(kP);
-        angleController.setI(kI);
-        angleController.setD(kD);
-        angleController.setFF(kF);
+    public void setDriveIdleMode(boolean setBrakeMode) {
+
+        driveMotor.setNeutralMode(setBrakeMode? NeutralModeValue.Brake : NeutralModeValue.Coast);
+
     }
 
-  public void setDrivePIDF(double kP, double kI, double kD, double kF) {
-        driveMotor.getConfigurator().apply(ctreConfigs.swerveDriveFXConfig.withSlot0(null));
-  }
+    public void setAngleIdleMode(boolean setBrakeMode) {
 
-  public void setDriveIdleMode(boolean setBrakeMode) {
+        angleMotor.setIdleMode(setBrakeMode? IdleMode.kBrake : IdleMode.kCoast);
 
-    if(setBrakeMode) {
-        driveMotor.setNeutralMode(NeutralMode.Brake);
     }
-    else {
-        driveMotor.setNeutralMode(NeutralMode.Coast);
-    }
-
-  }
-
-  public void setAngleIdleMode(boolean setBrakeMode) {
-
-    if(setBrakeMode) {
-        angleMotor.setIdleMode(IdleMode.kBrake);
-    }
-    else {
-        angleMotor.setIdleMode(IdleMode.kCoast);
-    }
-
-  }
-
-  public void setMaxDriveOutput(double max) {
-
-    driveMotor.configPeakOutputForward(max);
-    driveMotor.configPeakOutputReverse(-max);
-
-  }
-
-  public void setMaxAngleOutput(double max) {
-
-    angleController.setOutputRange(-max, max);
-
-  }
 
     public SwerveModuleState getState(){
         return new SwerveModuleState(
@@ -186,10 +163,20 @@ public class SwerveModule {
         ); 
     }
 
+    public SwerveModuleState getTargetState() {
+        return targetState;
+    }
+
     public SwerveModulePosition getPosition(){
         return new SwerveModulePosition(
             Conversions.talonToMeters(driveMotor.getPosition().getValue(), Constants.kDrivetrain.WHEEL_CIRCUMFERENCE, Constants.kDrivetrain.DRIVE_GEAR_RATIO), 
             getAngle()
         );
+    }
+
+    public void setSimulationPosition() {
+        simDistance += driveMotor.getVelocity().getValue() * 0.02;
+        driveMotor.setPosition(simDistance);
+        integratedAngleEncoder.setPosition(lastAngle.getDegrees());
     }
 }
