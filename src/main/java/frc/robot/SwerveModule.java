@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -22,6 +23,7 @@ import frc.lib.math.OnboardModuleState;
 import frc.lib.config.CTREConfigs;
 import frc.lib.config.SwerveModuleConstants;
 import frc.lib.factories.SparkMaxFactory;
+import frc.lib.factories.TalonFXFactory;
 
 public class SwerveModule {
     public int moduleNumber;
@@ -61,7 +63,7 @@ public class SwerveModule {
         configAngleMotor();
 
         /* Drive Motor Config */
-        driveMotor = new TalonFX(moduleConstants.driveMotorID);
+        driveMotor = TalonFXFactory.createDefaultTalon(moduleConstants.driveMotorID);
         configDriveMotor();
 
         lastAngle = getState().angle;
@@ -140,8 +142,13 @@ public class SwerveModule {
     }
 
     private void configDriveMotor(){
-        driveMotor.getConfigurator().apply(ctreConfigs.swerveDriveFXConfig);
+        driveMotor.getConfigurator().apply(new Slot0Configs().
+            withKP(Constants.kDrivetrain.DRIVE_KP).
+            withKI(Constants.kDrivetrain.DRIVE_KI).
+            withKD(Constants.kDrivetrain.DRIVE_KD));
         driveMotor.getConfigurator().setPosition(0);
+        driveMotor.getVelocity().setUpdateFrequency(TalonFXFactory.kDefaultConfiguration.VELOCITY_UPDATE_FREQUENCY_HZ);
+        driveMotor.getPosition().setUpdateFrequency(TalonFXFactory.kDefaultConfiguration.POSITION_UPDATE_FREQUENCY_HZ);
     }
 
     public void setDriveIdleMode(boolean setBrakeMode) {
@@ -176,7 +183,7 @@ public class SwerveModule {
 
     public void setSimulationPosition() {
         simDistance += driveMotor.getVelocity().getValue() * 0.02;
-        driveMotor.setPosition(simDistance);
+        driveMotor.setPosition(Conversions.metersToTalon(simDistance, Constants.kDrivetrain.WHEEL_CIRCUMFERENCE, Constants.kDrivetrain.DRIVE_GEAR_RATIO));
         integratedAngleEncoder.setPosition(lastAngle.getDegrees());
     }
 }
