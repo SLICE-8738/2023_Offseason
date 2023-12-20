@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
 
 public class SparkMaxFactory {
 
@@ -173,12 +172,9 @@ public class SparkMaxFactory {
     /** Burns the configurations of all motors constructed in the class to flash. */
     public static void flashAll() {
 
-        CANSparkMax[] finalSparkMaxes = new CANSparkMax[0];
-        finalSparkMaxes = sparkMaxes.toArray(finalSparkMaxes);
+        for(int i = 0; i < sparkMaxes.size(); i++) {
 
-        for(CANSparkMax sparkMax : finalSparkMaxes) {
-
-            sparkMax.burnFlash();
+            sparkMaxes.get(i).burnFlash();
             
         }
 
