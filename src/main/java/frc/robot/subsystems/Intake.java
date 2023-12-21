@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.config.REVConfigs;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
@@ -24,7 +25,7 @@ public class Intake extends SubsystemBase {
   //constructor 
   public Intake() {
     //Constructs Intake Motor
-    IntakeMotor = SparkMaxFactory.createDefaultVelocitySparkMax(Constants.kIntake.MOTOR_ID);
+    IntakeMotor = SparkMaxFactory.createSparkMax(Constants.kIntake.MOTOR_ID, REVConfigs.defaultVelocitySparkMaxConfig);
 
     driverTab = Shuffleboard.getTab("Driver Tab");
 

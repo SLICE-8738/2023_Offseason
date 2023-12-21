@@ -2,16 +2,18 @@ package frc.lib.config;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import frc.robot.Constants;
+
 public final class REVConfigs {
 
-    public class SparkMaxConfiguration {
+    public static class SparkMaxConfiguration {
 
         public IdleMode idleMode;
         public boolean inverted;
 
-        public int statusFrame0RateMs = 10;
-        public int statusFrame1RateMs;
-        public int statusFrame2RateMs;
+        public int statusFrame0PeriodMs = 10;
+        public int statusFrame1PeriodMs;
+        public int statusFrame2PeriodMs;
 
         public double openLoopRampRate;
         public double closedLoopRampRate;
@@ -39,11 +41,55 @@ public final class REVConfigs {
                 this.openLoopRampRate = openLoopRampRate;
                 this.closedLoopRampRate = closedLoopRampRate;
                 this.currentLimit = currentLimit;
-                this.statusFrame1RateMs = statusFrame1RateMs;
-                this.statusFrame2RateMs = statusFrame2RateMs;
+                this.statusFrame1PeriodMs = statusFrame1RateMs;
+                this.statusFrame2PeriodMs = statusFrame2RateMs;
 
         }
 
     }
+
+    public static final SparkMaxConfiguration defaultSparkMaxConfig = new SparkMaxConfiguration(
+        IdleMode.kBrake,
+        false,
+        false,
+        12,
+        0.0,
+        0.0,
+        30,
+        1000,
+        1000);
+
+    public static final SparkMaxConfiguration defaultVelocitySparkMaxConfig = new SparkMaxConfiguration(
+        IdleMode.kBrake,
+        false,
+        false,
+        12,
+        0.0,
+        0.0,
+        30,
+        200,
+        1000);
+
+    public static final SparkMaxConfiguration defaultPositionSparkMaxConfig = new SparkMaxConfiguration(
+        IdleMode.kBrake,
+        false,
+        false,
+        12,
+        0.0,
+        0.0,
+        20,
+        1500,
+        300);
+
+    public static final SparkMaxConfiguration angleSparkMaxConfig = new SparkMaxConfiguration(
+        Constants.kDrivetrain.ANGLE_NEUTRAL_MODE, 
+        Constants.kDrivetrain.ANGLE_INVERT, 
+        false, 
+        12, 
+        0.0, 
+        0.0, 
+        20, 
+        Constants.kDrivetrain.ANGLE_FRAME_1_PERIOD_MS, 
+        Constants.kDrivetrain.ANGLE_FRAME_2_PERIOD_MS);
 
 }

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.config.REVConfigs;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
@@ -26,8 +27,8 @@ public class Elevator extends SubsystemBase {
   private double targetPosition;
 
   public Elevator() {
-    motorLeft = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kElevator.LEFT_MOTOR_ID);
-    motorRight = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kElevator.RIGHT_MOTOR_ID);
+    motorLeft = SparkMaxFactory.createSparkMax(Constants.kElevator.LEFT_MOTOR_ID, REVConfigs.defaultPositionSparkMaxConfig);
+    motorRight = SparkMaxFactory.createSparkMax(Constants.kElevator.RIGHT_MOTOR_ID, REVConfigs.defaultPositionSparkMaxConfig);
 
     motorLeft.restoreFactoryDefaults();
     motorRight.restoreFactoryDefaults();

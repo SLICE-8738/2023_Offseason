@@ -84,6 +84,7 @@ public final class Constants {
                                                      // reason CCW- CW+ is the one that actually works so ignore this)
 
     /* Drivetrain Constants */
+    //TODO: Measure chassis and wheel dimensions
     public static final double TRACK_WIDTH = Units.inchesToMeters(22);
     public static final double WHEEL_BASE = Units.inchesToMeters(27);
     public static final double DRIVE_BASE_RADIUS = Math.hypot(WHEEL_BASE / 2, TRACK_WIDTH / 2);
@@ -111,6 +112,13 @@ public final class Constants {
     public static final double OPEN_LOOP_RAMP = 0.25;
     public static final double CLOSED_LOOP_RAMP = 0.0;
 
+    /* Status Frame Rates/Periods */
+    //TODO: Tune status frames
+    public static final int DRIVE_VELOCITY_FRAME_RATE_HZ = 22;
+    public static final int DRIVE_POSITION_FRAME_RATE_HZ = 5;
+    public static final int ANGLE_FRAME_1_PERIOD_MS = 1500;
+    public static final int ANGLE_FRAME_2_PERIOD_MS = 300;
+
     /* Angle Motor PID Values */
     public static final double ANGLE_KP = 0.01;
     public static final double ANGLE_KI = 0.0;
@@ -118,13 +126,13 @@ public final class Constants {
     public static final double ANGLE_KFF = 0.0;
 
     /* Drive Motor PID Values */
-    public static final double DRIVE_KP = 0.075;
+    public static final double DRIVE_KP = 0.12; //TODO: Tune drive motor PID gains
     public static final double DRIVE_KI = 0.0;
     public static final double DRIVE_KD = 0.0;
     public static final double DRIVE_KFF = 0.0;
 
     /* Drive Motor Characterization Values */
-    public static final double DRIVE_KS = 0.23065;
+    public static final double DRIVE_KS = 0.23065; //TODO: Possibly tune feedforward gains
     public static final double DRIVE_KV = 2.717;
     public static final double DRIVE_KA = 0.32115;
 
@@ -142,12 +150,13 @@ public final class Constants {
     public static final double MAX_LINEAR_VELOCITY = 4.5; // meters per second
     public static final double MAX_ANGULAR_VELOCITY = 7; // radians per second
 
+    /* Neutral Modes */
+    public static final IdleMode ANGLE_NEUTRAL_MODE = IdleMode.kCoast;
+    public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
+
     /* Motor Inverts */
     public static final InvertedValue DRIVE_INVERT = InvertedValue.CounterClockwise_Positive;
     public static final boolean ANGLE_INVERT = true;
-
-    /* Neutral Modes */
-    public static final NeutralModeValue DRIVE_NEUTRAL_MODE = NeutralModeValue.Brake;
 
     /* Angle Encoder Invert */
     public static final SensorDirectionValue CANCODER_INVERT = SensorDirectionValue.CounterClockwise_Positive;
@@ -175,6 +184,7 @@ public final class Constants {
 
     /* Module Specific Constants */
     /* Front Left Module - Module 0 */
+    //TODO: Find all module angle offsets and device IDs
     public static final class Mod0 {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 15;
@@ -237,7 +247,7 @@ public final class Constants {
     public static final int ARM_MOTOR_ID = 3;
     public static final int WRIST_MOTOR_ID = 10;
 
-    public static final double CUBE_THRESHOLD = 8; // TODO: get the threshold value
+    public static final double CUBE_THRESHOLD = 8;
 
     public static final double ARM_GEAR_RATIO = 1.0 / 36.0;
     public static final double ARM_SPROCKET_RATIO = 18.0 / 60.0;
@@ -280,7 +290,7 @@ public final class Constants {
   public static final class kIntake {
     public static final int MOTOR_ID = 4;
 
-    public static final double CONE_THRESHOLD = 120; // TODO: get the threshold value
+    public static final double CONE_THRESHOLD = 120;
   }
 
   public static final class kElevator {

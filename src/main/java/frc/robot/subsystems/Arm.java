@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.config.REVConfigs;
 import frc.lib.factories.SparkMaxFactory;
 import frc.robot.Constants;
 
@@ -42,8 +43,8 @@ public class Arm extends SubsystemBase {
   public Arm() {
     stowState = StowState.Nothing;
     //defining CANSparkMax Motors
-    armMotor = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kArm.ARM_MOTOR_ID);
-    wristMotor = SparkMaxFactory.createDefaultPositionSparkMax(Constants.kArm.WRIST_MOTOR_ID);
+    armMotor = SparkMaxFactory.createSparkMax(Constants.kArm.ARM_MOTOR_ID, REVConfigs.defaultPositionSparkMaxConfig);
+    wristMotor = SparkMaxFactory.createSparkMax(Constants.kArm.WRIST_MOTOR_ID, REVConfigs.defaultPositionSparkMaxConfig);
 
     //defining motor encoders
     armMotorEncoder = armMotor.getEncoder();
