@@ -59,7 +59,9 @@ public class AutoSelector {
         SCORE_ONE_HIGH_ROW_PICK_UP_AND_ENGAGE,
         SCORE_TWO_HIGH_AND_MID_ROW,
         SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE,
-        TEST_TRAJECTORY_MODE
+        BACKWARD_TEST_TRAJECTORY_MODE,
+        BACKWARD_AND_LEFT_TEST_TRAJECTORY_MODE,
+        FORWARD_AND_RIGHT_TEST_TRAJECTORY_MODE
 
     }
 
@@ -117,8 +119,12 @@ public class AutoSelector {
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW);
         modeChooser.addOption("Score Two High and Mid Row And Engage",
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE);
-        modeChooser.addOption("Test Trajectory Mode", 
-                DesiredMode.TEST_TRAJECTORY_MODE);
+        modeChooser.addOption("Backward Test Trajectory Mode", 
+                DesiredMode.BACKWARD_TEST_TRAJECTORY_MODE);
+        modeChooser.addOption("Backward Test Trajectory Mode", 
+                DesiredMode.BACKWARD_AND_LEFT_TEST_TRAJECTORY_MODE);
+        modeChooser.addOption("Backward Test Trajectory Mode", 
+                DesiredMode.FORWARD_AND_RIGHT_TEST_TRAJECTORY_MODE);
 
         AutoBuilder.configureHolonomic(
             m_drivetrain::getPose,
@@ -189,8 +195,14 @@ public class AutoSelector {
             case SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE:
                 autoName = "Score Two High And Mid Row And Engage";
                 break;
-            case TEST_TRAJECTORY_MODE:
-                autoName = "Test Trajectory";
+            case BACKWARD_TEST_TRAJECTORY_MODE:
+                autoName = "Backward Test Auto";
+                break;
+            case BACKWARD_AND_LEFT_TEST_TRAJECTORY_MODE:
+                autoName = "Backward and Left Test Auto";
+                break;
+            case FORWARD_AND_RIGHT_TEST_TRAJECTORY_MODE:
+                autoName = "Forward and Right Test Auto";
                 break;
             default:
                 System.err.println("No valid auto mode found for " + mode);
