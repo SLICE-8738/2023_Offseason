@@ -20,7 +20,7 @@ public class AutoPath {
 
     public PathPlannerTrajectory getTrajectory() {
 
-        return new PathPlannerTrajectory(path, new ChassisSpeeds());
+        return new PathPlannerTrajectory(path, new ChassisSpeeds(), path.getPreviewStartingHolonomicPose().getRotation());
 
     }
 

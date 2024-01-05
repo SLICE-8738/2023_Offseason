@@ -12,14 +12,14 @@ import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator2. */
   private CANSparkMax motorLeft, motorRight;
   private DigitalInput limitySwitchy1, limitySwitchy2;
-  private SparkMaxPIDController PIDLeft, PIDRight;
+  private SparkPIDController PIDLeft, PIDRight;
   private RelativeEncoder encoderLeft, encoderRight;
   private boolean lock = true;
 

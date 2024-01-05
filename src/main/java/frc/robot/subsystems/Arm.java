@@ -6,8 +6,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -29,7 +30,7 @@ public class Arm extends SubsystemBase {
   private RelativeEncoder armMotorEncoder, wristMotorEncoder;
   //private DutyCycleEncoder armThroughboreEncoder, wristThroughboreEncoder;
 
-  private SparkMaxPIDController armMotorController, wristMotorController;
+  private SparkPIDController armMotorController, wristMotorController;
   public static StowState stowState = StowState.Cone;
 
   private double targetElbowPosition, targetWristPosition;

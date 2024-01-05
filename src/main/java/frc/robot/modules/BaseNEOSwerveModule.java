@@ -3,10 +3,10 @@ package frc.robot.modules;
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -32,8 +32,8 @@ public class BaseNEOSwerveModule {
   private RelativeEncoder integratedAngleEncoder;
   private CANcoder angleEncoder;
 
-  private final SparkMaxPIDController driveController;
-  private final SparkMaxPIDController angleController;
+  private final SparkPIDController driveController;
+  private final SparkPIDController angleController;
 
   private final SimpleMotorFeedforward feedforward =
       new SimpleMotorFeedforward(
@@ -132,7 +132,7 @@ public class BaseNEOSwerveModule {
   public void setDriveIdleMode(boolean setBrakeMode) {
 
     if(setBrakeMode) {
-        driveMotor.setIdleMode(IdleMode.kBrake);
+        driveMotor.setIdleMode(IdleMode.kCoast);
     }
     else {
         driveMotor.setIdleMode(IdleMode.kCoast);
