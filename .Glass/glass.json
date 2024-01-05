@@ -1,1 +1,23 @@
-{}
+{
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "Modules Tab": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Debug Tab/Field": "Field2d",
+      "/Shuffleboard/Driver Tab/Alliance": "String Chooser",
+      "/Shuffleboard/Teleop Tab/LED Mode": "String Chooser",
+      "/SmartDashboard/Field": "Field2d"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT4)",
+    "serverTeam": "8738"
+  }
+}

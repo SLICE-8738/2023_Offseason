@@ -84,8 +84,8 @@ public final class Constants {
     public static final double TRACK_WIDTH = Units.inchesToMeters(22);
     public static final double WHEEL_BASE = Units.inchesToMeters(27);
     public static final double DRIVE_BASE_RADIUS = Math.hypot(WHEEL_BASE / 2, TRACK_WIDTH / 2);
-    //public static final double WHEEL_DIAMETER = Units.inchesToMeters(4.0);
-    public static final double WHEEL_CIRCUMFERENCE = Units.inchesToMeters(12.3125);
+    public static final double WHEEL_DIAMETER = 0.0935;
+    public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
     public static final double DRIVE_GEAR_RATIO = (6.75 / 1.0); // 6.75:1
     public static final double ANGLE_GEAR_RATIO = ((150.0 / 7.0) / 1.0); // (150/7):1
@@ -113,7 +113,7 @@ public final class Constants {
 
     /* Drive Motor Characterization Values */
     public static final double DRIVE_KS = 0.23065;
-    public static final double DRIVE_KV = 2.717;
+    public static final double DRIVE_KV = 2.417;
     public static final double DRIVE_KA = 0.32115;
 
     /* Drive Motor Conversion Factors */
@@ -131,7 +131,7 @@ public final class Constants {
     public static final double MAX_ANGULAR_VELOCITY = 7; // radians per second
 
     /* Motor Inverts */
-    public static final boolean DRIVE_INVERT = true;
+    public static final boolean DRIVE_INVERT = false;
     public static final boolean ANGLE_INVERT = true;
 
     /* Angle Encoder Invert */
@@ -164,8 +164,8 @@ public final class Constants {
     public static final class Mod0 {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 15;
-      public static final int CANCODER_ID = 21;
-      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(208.74);
+      public static final int CANCODER_ID = 20;
+      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(274.22);
       public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID,
           CANCODER_ID, ANGLE_OFFSET);
     }
@@ -174,8 +174,8 @@ public final class Constants {
     public static final class Mod1 {
       public static final int DRIVE_MOTOR_ID = 16;
       public static final int ANGLE_MOTOR_ID = 12;
-      public static final int CANCODER_ID = 20;
-      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(311.4);
+      public static final int CANCODER_ID = 23;
+      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(300.59);
       public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID,
           CANCODER_ID, ANGLE_OFFSET);
     }
@@ -184,8 +184,8 @@ public final class Constants {
     public static final class Mod2 {
       public static final int DRIVE_MOTOR_ID = 17;
       public static final int ANGLE_MOTOR_ID = 13;
-      public static final int CANCODER_ID = 22;
-      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(247.94);
+      public static final int CANCODER_ID = 21;
+      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(121.90);
       public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID,
           CANCODER_ID, ANGLE_OFFSET);
     }
@@ -194,8 +194,8 @@ public final class Constants {
     public static final class Mod3 {
       public static final int DRIVE_MOTOR_ID = 14;
       public static final int ANGLE_MOTOR_ID = 18;
-      public static final int CANCODER_ID = 23;
-      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(32.08);
+      public static final int CANCODER_ID = 22;
+      public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(39.99);
       public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID,
           CANCODER_ID, ANGLE_OFFSET);
     }
@@ -210,7 +210,7 @@ public final class Constants {
 
     public static final PathConstraints kPathConstraints = new PathConstraints(3.5, 2.5, Math.PI, Math.PI);
 
-    public static final double kPTranslation = 2.5;
+    public static final double kPTranslation = 1.25;
     public static final double kPRotation = 2.5;
 
     // Constraint for the motion profilied robot angle controller

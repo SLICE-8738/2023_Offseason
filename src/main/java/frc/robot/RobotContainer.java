@@ -63,7 +63,7 @@ public class RobotContainer {
 
   public final AutoSelector m_autoSelector = new AutoSelector(m_drivetrain/*, m_arm, m_elevator, m_intake*/);
   public final NodeSelector m_nodeSelector = new NodeSelector(m_drivetrain/*, m_arm, m_elevator*/);
-  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain/*, m_arm, m_elevator, m_intake, m_autoSelector*/);
+  public final ShuffleboardData m_shuffleboardData = new ShuffleboardData(m_drivetrain/*, m_arm, m_elevator, m_intake*/, m_autoSelector);
 
   // ==========================
   // Commands
@@ -212,8 +212,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return m_autoSelector.getAutoMode();
-    return null;
+    return m_autoSelector.getAutoMode();
   }
 
 }

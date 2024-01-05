@@ -104,13 +104,14 @@ public class AutoSelector {
 
         modeChooser = new SendableChooser<DesiredMode>();
 
-        modeChooser.setDefaultOption("Any - Score One High Row ", DesiredMode.SCORE_ONE_HIGH_ROW);
+        modeChooser.setDefaultOption("Backward Test Trajectory Mode", DesiredMode.BACKWARD_TEST_TRAJECTORY_MODE);
 
+        modeChooser.addOption("Any - Score One High Row ", 
+                DesiredMode.SCORE_ONE_HIGH_ROW);
         modeChooser.addOption("Score One High Row And Mobility ",
                 DesiredMode.SCORE_ONE_HIGH_ROW_AND_MOBILITY);
         modeChooser.addOption("Score One High Row And Engage ",
                 DesiredMode.SCORE_ONE_HIGH_ROW_AND_ENGAGE);
-
         modeChooser.addOption("Score One High Row Mobility And Engage",
                 DesiredMode.SCORE_ONE_HIGH_ROW_MOBILITY_AND_ENGAGE);
         modeChooser.addOption("Score One High Row Pick Up Piece And Engage",
@@ -119,11 +120,9 @@ public class AutoSelector {
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW);
         modeChooser.addOption("Score Two High and Mid Row And Engage",
                 DesiredMode.SCORE_TWO_HIGH_AND_MID_ROW_AND_ENGAGE);
-        modeChooser.addOption("Backward Test Trajectory Mode", 
-                DesiredMode.BACKWARD_TEST_TRAJECTORY_MODE);
-        modeChooser.addOption("Backward Test Trajectory Mode", 
+        modeChooser.addOption("Backward and Left Test Trajectory Mode", 
                 DesiredMode.BACKWARD_AND_LEFT_TEST_TRAJECTORY_MODE);
-        modeChooser.addOption("Backward Test Trajectory Mode", 
+        modeChooser.addOption("Forward and Right Test Trajectory Mode", 
                 DesiredMode.FORWARD_AND_RIGHT_TEST_TRAJECTORY_MODE);
 
         AutoBuilder.configureHolonomic(
