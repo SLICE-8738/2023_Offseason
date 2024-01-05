@@ -81,16 +81,16 @@ public class AutoSelector {
     public double initialAutoPoseRotationOffset = 0;
 
     private final Drivetrain m_drivetrain;
-    private final Arm m_arm;
+    /*private final Arm m_arm;
     private final Elevator m_elevator;
-    private final Intake m_intake;
+    private final Intake m_intake;*/
 
-    public AutoSelector(Drivetrain drivetrain, Arm arm, Elevator elevator, Intake intake) {
+    public AutoSelector(Drivetrain drivetrain/*, Arm arm, Elevator elevator, Intake intake*/) {
 
         m_drivetrain = drivetrain;
-        m_arm = arm;
+        /*m_arm = arm;
         m_elevator = elevator;
-        m_intake = intake;
+        m_intake = intake;*/
 
         startingPositionChooser = new SendableChooser<StartingPosition>();
 
@@ -139,10 +139,10 @@ public class AutoSelector {
                 new ReplanningConfig(false, false)),
             m_drivetrain);
 
-        NamedCommands.registerCommand("To Mid", new GoToState(elevator, arm, Constants.kRobotStates.midScore));
+        /*NamedCommands.registerCommand("To Mid", new GoToState(elevator, arm, Constants.kRobotStates.midScore));
         NamedCommands.registerCommand("Score High And Stow",  new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.highScore));
         NamedCommands.registerCommand("Score Mid And Stow", new OuttakeAndStowCommandsSequence(intake, arm, elevator, Constants.kRobotStates.midScore));
-        NamedCommands.registerCommand("Intake Cone And Stow", new IntakeAndStowCommandsSequence(intake, arm, elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround));
+        NamedCommands.registerCommand("Intake Cone And Stow", new IntakeAndStowCommandsSequence(intake, arm, elevator, StowState.Cone, Constants.kRobotStates.uprightConeGround));*/
         NamedCommands.registerCommand("Mobility", new AutonomousDistanceDriveCommand(drivetrain, new Translation2d(2, 0), new Translation2d(6, 0)));
         NamedCommands.registerCommand("Board Charge Station", new BoardChargeStationCommand(drivetrain));
         NamedCommands.registerCommand("Balance", new ChargeStationBalanceCommand(drivetrain));

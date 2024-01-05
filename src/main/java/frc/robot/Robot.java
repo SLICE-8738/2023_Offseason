@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     Timer.delay(0.2);
     SparkMaxFactory.flashAll();
 
-    //m_robotContainer.m_autoSelector.updateAutoSelector();
+    m_robotContainer.m_autoSelector.updateAutoSelector();
 
   }
 
@@ -60,8 +60,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-    //m_robotContainer.m_autoSelector.reset();
-    //m_robotContainer.m_autoSelector.updateAutoSelector();
+    m_robotContainer.m_autoSelector.reset();
+    m_robotContainer.m_autoSelector.updateAutoSelector();
 
     m_robotContainer.m_drivetrain.setDriveIdleMode(true);
     m_robotContainer.m_drivetrain.setAngleIdleMode(true);
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-    //m_robotContainer.m_autoSelector.updateAutoSelector();
+    m_robotContainer.m_autoSelector.updateAutoSelector();
     m_robotContainer.m_nodeSelector.updateNodePosition();
 
   }
