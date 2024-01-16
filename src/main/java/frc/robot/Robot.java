@@ -63,9 +63,6 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_autoSelector.reset();
     m_robotContainer.m_autoSelector.updateAutoSelector();
 
-    m_robotContainer.m_drivetrain.setDriveIdleMode(true);
-    m_robotContainer.m_drivetrain.setAngleIdleMode(true);
-
   }
 
   @Override
@@ -86,9 +83,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    m_robotContainer.m_drivetrain.setDriveIdleMode(true);
-    m_robotContainer.m_drivetrain.setAngleIdleMode(true);
-
   }
 
   /** This function is called periodically during autonomous. */
@@ -104,9 +98,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_robotContainer.m_drivetrain.setDriveIdleMode(false);
-    m_robotContainer.m_drivetrain.setAngleIdleMode(false);
 
   }
 

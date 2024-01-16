@@ -216,4 +216,8 @@ public class BaseNEOSwerveModule {
     driveEncoder.setPosition(simDistance);
     integratedAngleEncoder.setPosition(lastAngle.getDegrees());
   }
+
+  public IdleMode getDriveIdleMode() {
+    return driveMotor.getIdleMode();
+  }
 }

@@ -210,7 +210,7 @@ public final class Constants {
 
     public static final PathConstraints kPathConstraints = new PathConstraints(3.5, 2.5, Math.PI, Math.PI);
 
-    public static final double kPTranslation = 1.25;
+    public static final double kPTranslation = 1.0;
     public static final double kPRotation = 2.5;
 
     // Constraint for the motion profilied robot angle controller
