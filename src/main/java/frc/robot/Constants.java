@@ -210,8 +210,8 @@ public final class Constants {
 
     public static final PathConstraints kPathConstraints = new PathConstraints(3.5, 2.5, Math.PI, Math.PI);
 
-    public static final double kPTranslation = 1.0;
-    public static final double kPRotation = 2.5;
+    public static final double kPTranslation = 3.0;
+    public static final double kPRotation = 2.0;
 
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(

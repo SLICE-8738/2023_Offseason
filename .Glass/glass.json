@@ -10,6 +10,8 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Auto Tab/Auto Mode": "String Chooser",
+      "/Shuffleboard/Auto Tab/Starting Position": "String Chooser",
       "/Shuffleboard/Debug Tab/Field": "Field2d",
       "/Shuffleboard/Driver Tab/Alliance": "String Chooser",
       "/Shuffleboard/Teleop Tab/LED Mode": "String Chooser",
